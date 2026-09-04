@@ -14,4 +14,13 @@ struct AhaKey_StudioApp: App {
             ContentView()
         }
     }
+    
+    static func main() {
+        print("hello")
+        let client = UnixDomainClient(path: "/tmp/ahakey.sock")
+
+        client.send("Hello, world")
+
+        client.close()
+    }
 }
