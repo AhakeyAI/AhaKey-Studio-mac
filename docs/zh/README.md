@@ -11,10 +11,10 @@
 <br/>
 
 <!-- Release & CI -->
-<a href="https://github.com/AhakeyAI/desktop/releases"><img src="https://img.shields.io/github/v/release/AhakeyAI/desktop?include_prereleases&label=release&color=4F46E5" alt="Latest Release"></a>
-<a href="https://github.com/AhakeyAI/desktop/actions"><img src="https://img.shields.io/github/actions/workflow/status/AhakeyAI/desktop/release.yml?label=build" alt="Build"></a>
-<a href="https://github.com/AhakeyAI/desktop/commits/main"><img src="https://img.shields.io/github/last-commit/AhakeyAI/desktop?color=informational" alt="Last Commit"></a>
-<a href="https://github.com/AhakeyAI/desktop/stargazers"><img src="https://img.shields.io/github/stars/AhakeyAI/desktop?style=flat&color=yellow" alt="Stars"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/releases"><img src="https://img.shields.io/github/v/release/ZephyrKeXiner/AhaKey-Studio?include_prereleases&label=release&color=4F46E5" alt="Latest Release"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/actions"><img src="https://img.shields.io/github/actions/workflow/status/ZephyrKeXiner/AhaKey-Studio/release.yml?label=build" alt="Build"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/commits/main"><img src="https://img.shields.io/github/last-commit/ZephyrKeXiner/AhaKey-Studio?color=informational" alt="Last Commit"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/stargazers"><img src="https://img.shields.io/github/stars/ZephyrKeXiner/AhaKey-Studio?style=flat&color=yellow" alt="Stars"></a>
 
 <br/>
 
@@ -39,7 +39,7 @@ AhaKey Desktop 是 **AhaKey-X1（Vibecoding Keyboard）** 的配套桌面套件�
 | 文档 | 内容 |
 |---|---|
 | [项目概览](overview.md) | 功能介绍、各平台客户端、macOS 主要能力、构建命令和仓库结构 |
-| [安装说明](../installation.md) · [下载安装包](https://github.com/AhakeyAI/desktop/releases) | 源码构建步骤与已发布安装包 |
+| [安装说明](../installation.md) · [下载安装包](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) | 源码构建步骤与已发布安装包 |
 | [SDK 总览](sdk.md) · [TypeScript 指南](typescript-sdk.md) | 插件开发、API 参考和可运行示例 |
 | [架构说明](../architecture.md) · [BLE 协议](../ble-protocol.md) | 系统设计与键盘通信 |
 | [参与贡献](CONTRIBUTING.md) | 问题反馈、Pull Request 和验证方式 |
@@ -48,18 +48,18 @@ AhaKey Desktop 是 **AhaKey-X1（Vibecoding Keyboard）** 的配套桌面套件�
 
 ## <div align="center">⭐ Star 趋势</div>
 
-如果 AhaKey 对你的工作流有帮助，欢迎在 [GitHub 上点亮 Star](https://github.com/AhakeyAI/desktop)！下图展示项目的 Star 增长趋势。
+如果 AhaKey 对你的工作流有帮助，欢迎在 [GitHub 上点亮 Star](https://github.com/ZephyrKeXiner/AhaKey-Studio)！下图展示项目的 Star 增长趋势。
 
 <p align="center">
-  <a href="https://github.com/AhakeyAI/desktop/stargazers"><img src="https://img.shields.io/github/stars/AhakeyAI/desktop?style=social" alt="GitHub stars for AhakeyAI/desktop"></a>
+  <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/stargazers"><img src="https://img.shields.io/github/stars/ZephyrKeXiner/AhaKey-Studio?style=social" alt="GitHub stars for ZephyrKeXiner/AhaKey-Studio"></a>
 </p>
 
 <p align="center">
-  <a href="https://www.star-history.com/#AhakeyAI/desktop&amp;Date">
+  <a href="https://www.star-history.com/#ZephyrKeXiner/AhaKey-Studio&amp;Date">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date&amp;theme=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date">
-      <img width="700" src="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date" alt="AhakeyAI/desktop Star 增长趋势图">
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date&amp;theme=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date">
+      <img width="700" src="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date" alt="ZephyrKeXiner/AhaKey-Studio Star 增长趋势图">
     </picture>
   </a>
 </p>
@@ -68,10 +68,10 @@ AhaKey Desktop 是 **AhaKey-X1（Vibecoding Keyboard）** 的配套桌面套件�
 
 ## <div align="center">🤝 参与贡献</div>
 
-欢迎通过问题反馈、功能建议、文档、翻译或代码改进 AhaKey。请先阅读[贡献指南](CONTRIBUTING.md)，也可以通过 [GitHub Issues](https://github.com/AhakeyAI/desktop/issues) 提交反馈。感谢每一位贡献者！🙏
+欢迎通过问题反馈、功能建议、文档、翻译或代码改进 AhaKey。请先阅读[贡献指南](CONTRIBUTING.md)，也可以通过 [GitHub Issues](https://github.com/ZephyrKeXiner/AhaKey-Studio/issues) 提交反馈。感谢每一位贡献者！🙏
 
 <p align="center">
-  <a href="https://github.com/AhakeyAI/desktop/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=AhakeyAI/desktop" alt="AhaKey Desktop 项目贡献者">
+  <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ZephyrKeXiner/AhaKey-Studio" alt="AhaKey Desktop 项目贡献者">
   </a>
 </p>

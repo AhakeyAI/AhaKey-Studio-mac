@@ -11,10 +11,10 @@
 <br/>
 
 <!-- Release & CI -->
-<a href="https://github.com/AhakeyAI/desktop/releases"><img src="https://img.shields.io/github/v/release/AhakeyAI/desktop?include_prereleases&label=release&color=4F46E5" alt="Latest Release"></a>
-<a href="https://github.com/AhakeyAI/desktop/actions"><img src="https://img.shields.io/github/actions/workflow/status/AhakeyAI/desktop/release.yml?label=build" alt="Build"></a>
-<a href="https://github.com/AhakeyAI/desktop/commits/main"><img src="https://img.shields.io/github/last-commit/AhakeyAI/desktop?color=informational" alt="Last Commit"></a>
-<a href="https://github.com/AhakeyAI/desktop/stargazers"><img src="https://img.shields.io/github/stars/AhakeyAI/desktop?style=flat&color=yellow" alt="Stars"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/releases"><img src="https://img.shields.io/github/v/release/ZephyrKeXiner/AhaKey-Studio?include_prereleases&label=release&color=4F46E5" alt="Latest Release"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/actions"><img src="https://img.shields.io/github/actions/workflow/status/ZephyrKeXiner/AhaKey-Studio/release.yml?label=build" alt="Build"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/commits/main"><img src="https://img.shields.io/github/last-commit/ZephyrKeXiner/AhaKey-Studio?color=informational" alt="Last Commit"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/stargazers"><img src="https://img.shields.io/github/stars/ZephyrKeXiner/AhaKey-Studio?style=flat&color=yellow" alt="Stars"></a>
 
 <br/>
 
@@ -39,7 +39,7 @@ AhaKey Desktop is the companion suite for the **AhaKey-X1 (Vibecoding Keyboard)*
 | Resource | What you'll find |
 |---|---|
 | [Project overview](docs/overview.md) | Features, clients, macOS highlights, build commands, and repository layout |
-| [Installation](docs/installation.md) · [Downloads](https://github.com/AhakeyAI/desktop/releases) | Build instructions and published installers |
+| [Installation](docs/installation.md) · [Downloads](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) | Build instructions and published installers |
 | [SDK overview](sdks/README.md) · [TypeScript guide](sdks/typescript/README.md) | Plugin development, API reference, and runnable examples |
 | [Architecture](docs/architecture.md) · [BLE protocol](docs/ble-protocol.md) | System design and keyboard communication |
 | [Contributing](CONTRIBUTING.md) | Bug reports, pull requests, and validation |
@@ -48,18 +48,18 @@ AhaKey Desktop is the companion suite for the **AhaKey-X1 (Vibecoding Keyboard)*
 
 ## <div align="center">⭐ Star History</div>
 
-If AhaKey helps your workflow, give the project a [star on GitHub](https://github.com/AhakeyAI/desktop)! Follow our community's growth in the chart below.
+If AhaKey helps your workflow, give the project a [star on GitHub](https://github.com/ZephyrKeXiner/AhaKey-Studio)! Follow our community's growth in the chart below.
 
 <p align="center">
-  <a href="https://github.com/AhakeyAI/desktop/stargazers"><img src="https://img.shields.io/github/stars/AhakeyAI/desktop?style=social" alt="GitHub stars for AhakeyAI/desktop"></a>
+  <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/stargazers"><img src="https://img.shields.io/github/stars/ZephyrKeXiner/AhaKey-Studio?style=social" alt="GitHub stars for ZephyrKeXiner/AhaKey-Studio"></a>
 </p>
 
 <p align="center">
-  <a href="https://www.star-history.com/#AhakeyAI/desktop&amp;Date">
+  <a href="https://www.star-history.com/#ZephyrKeXiner/AhaKey-Studio&amp;Date">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date&amp;theme=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date">
-      <img width="700" src="https://api.star-history.com/svg?repos=AhakeyAI/desktop&amp;type=Date" alt="Star History chart for AhakeyAI/desktop">
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date&amp;theme=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date">
+      <img width="700" src="https://api.star-history.com/svg?repos=ZephyrKeXiner/AhaKey-Studio&amp;type=Date" alt="Star History chart for ZephyrKeXiner/AhaKey-Studio">
     </picture>
   </a>
 </p>
@@ -68,10 +68,10 @@ If AhaKey helps your workflow, give the project a [star on GitHub](https://githu
 
 ## <div align="center">🤝 Contributing</div>
 
-Help improve AhaKey through bug reports, feature ideas, documentation, translations, or code. Read the [Contributing Guide](CONTRIBUTING.md) to get started, and share feedback through [GitHub Issues](https://github.com/AhakeyAI/desktop/issues). Thanks to everyone who has contributed! 🙏
+Help improve AhaKey through bug reports, feature ideas, documentation, translations, or code. Read the [Contributing Guide](CONTRIBUTING.md) to get started, and share feedback through [GitHub Issues](https://github.com/ZephyrKeXiner/AhaKey-Studio/issues). Thanks to everyone who has contributed! 🙏
 
 <p align="center">
-  <a href="https://github.com/AhakeyAI/desktop/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=AhakeyAI/desktop" alt="AhaKey Desktop contributors">
+  <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ZephyrKeXiner/AhaKey-Studio" alt="AhaKey Desktop contributors">
   </a>
 </p>
