@@ -1,10 +1,35 @@
-# 开发检查
+# Contributing to AhaKey Desktop
 
-打开根目录 `AhaKey Studio.xcodeproj`。项目导航中的同步文件夹与磁盘一致，新增 Swift 文件放入对应 Target 的目录即可。业务代码按 `App`、`Features`、`Services` 组织，公共模块、示例、测试分别在 `Modules`、`Examples`、`Tests`。
+[English](CONTRIBUTING.md) · [简体中文](docs/zh/CONTRIBUTING.md)
 
-- 主应用与公共模块：`make test`，并构建相关 Scheme。
-- Socket 示例：`python3 scripts/test-unix-client.py`，当前本机已知的关闭连接问题见开发说明。
-- TypeScript SDK：在 `sdks/typescript/` 执行 `npm ci`、`npm run typecheck` 和 `npm test`。
-- 发布产物：`./scripts/package_app.sh` 构建本地签名的通用架构 App。
+Thank you for helping improve AhaKey Desktop! Bug reports, feature ideas, documentation, translations, and code contributions are all welcome.
 
-共享设置在 Xcode 的 PROJECT → Build Settings 中修改，避免在各 Target 中重复覆盖。配置直接保存在 `AhaKey Studio.xcodeproj/project.pbxproj`。添加固件资源时同时更新 SHA-256 清单与 `AhaKey Studio.xcodeproj/FirmwareInputs.xcfilelist`。不要提交构建产物、node_modules、签名证书或个人设置。详见 [Xcode 开发方式](docs/xcode-development.md)。
+## Report a bug or suggest a feature
+
+- Search [existing issues](https://github.com/AhakeyAI/desktop/issues) before opening a new one.
+- For bugs, include your operating system, app version, relevant keyboard firmware version, steps to reproduce, expected behavior, and actual behavior. Attach relevant logs or screenshots with credentials and personal information removed.
+- For features, describe the workflow you want to improve. Discuss substantial changes in an issue before starting implementation.
+
+## Submit a pull request
+
+1. Fork [AhakeyAI/desktop](https://github.com/AhakeyAI/desktop), clone your fork, and create a branch for your change.
+2. Read the [repository layout](docs/repo-layout.md), [architecture](docs/architecture.md), and [build instructions](docs/installation.md). For device changes, also read the [BLE protocol](docs/ble-protocol.md).
+3. Keep changes focused and follow the surrounding code's conventions. Update relevant documentation; keep [README.md](README.md) and [docs/zh/README.md](docs/zh/README.md) in sync.
+4. Run the relevant checks below. For hardware or UI changes, describe what you verified manually and identify anything you could not test.
+5. Open a [pull request](https://github.com/AhakeyAI/desktop/pulls) against the official repository. Explain the problem, the change, related issues, and validation results. Include screenshots for visible UI changes.
+
+Commit source and required assets only. Keep generated build output, installers, signing certificates, and credentials out of the repository.
+
+## Validate your changes
+
+Run commands from the directory shown, using the appropriate platform and toolchain. See the [CI workflow](.github/workflows/ci.yml) for the automated checks.
+
+| Area | Working directory | Checks |
+|---|---|---|
+| macOS app / agent | Repository root | `swift build`; `swift test` for changes covered by the macOS test suite |
+| TypeScript SDK | `sdks/typescript/` | `npm ci`, then `npm run typecheck` and `npm test` |
+| Windows Java client | `ahakeyconfig-win-java/` | `mvn -q package` |
+| Linux Java client | `ahakeyconfig-ubuntu-java/` | `mvn -q package` |
+| Documentation | Changed files | Check links, Markdown rendering, and bilingual consistency |
+
+For other components, follow the [build instructions](docs/installation.md) and describe your validation in the pull request. BLE and lever approval changes also need device testing, including behavior when the keyboard disconnects or its state cannot be read.

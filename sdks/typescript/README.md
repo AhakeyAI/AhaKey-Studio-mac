@@ -18,7 +18,7 @@ Write AhaKey plugins in TypeScript. The host starts your plugin as a child proce
 
 ## Quick start
 
-Requirements: Node.js 18+ and npm. The SDK is an ES module package. CI uses Node.js 20; the supplied Swift demos require macOS 13+ and Xcode 16+. A keyboard is only needed for real lever readings.
+Requirements: Node.js 18+ and npm. The SDK is an ES module package. CI uses Node.js 20; the supplied Swift demos require macOS 13+ and Swift 5.9+ with a compatible Xcode toolchain. A keyboard is only needed for real lever readings.
 
 From the repository root:
 
@@ -157,7 +157,7 @@ plugins/
 From the AhaKey repository root, replace the path below with the absolute path to the parent `plugins/` directory:
 
 ```bash
-AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" ./scripts/run-target.sh Plugin
+AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" swift run --package-path ahakeyconfig-mac Plugin
 ```
 
 The CLI discovers plugins, initializes them, waits about one second, and shuts them down. It does not call `greeter/greet`; use the [Swift host example](../README.md#swift-host-integration) to make that request. Starting `node dist/main.js` alone waits for JSON-RPC input and does not simulate a host.
@@ -336,4 +336,4 @@ These commands overwrite the simulation input. Real readings take precedence. Th
 | RPC timeout or unrecognized frame | Keep stdout free of logs, finish lifecycle hooks promptly, and confirm that the requested handler exists |
 | Process stays alive after shutdown | Clear timers, close watchers/sockets, and release other active Node.js resources in lifecycle cleanup |
 
-Set `AHAKEY_PLUGIN_DEBUG=1` on a Swift demo command to print the host's outgoing requests and incoming frames to stderr, for example `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`. For API details, consult the [SDK source](src/index.ts) and [Swift host implementation](../../Modules/AhaKeyPluginKit/PluginHost.swift).
+Set `AHAKEY_PLUGIN_DEBUG=1` on a Swift demo command to print the host's outgoing requests and incoming frames to stderr, for example `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`. For API details, consult the [SDK source](src/index.ts) and [Swift host implementation](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift).

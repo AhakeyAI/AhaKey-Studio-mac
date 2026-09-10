@@ -32,7 +32,7 @@ Built-in host capabilities are `host/getInfo`, `host/log`, and `host/getSwitchSt
 
 ## Try the examples
 
-Run from the repository root with Node.js 18+ and npm. The macOS demos also require macOS 13+ and Xcode 16+.
+Run from the repository root with Node.js 18+ and npm. The macOS demos also require macOS 13+ and Swift 5.9+ with a compatible Xcode toolchain.
 
 ```bash
 cd sdks/typescript
@@ -50,7 +50,7 @@ For a short load/initialize/shutdown check, use `npm run demo:cli`. See the [ful
 
 ## Swift host integration
 
-The Xcode project exposes `AhaKeyPluginKit` as a static library target. Add it to your host target's Target Dependencies and Link Binary With Libraries, then import it. The following function belongs in an async-capable macOS host that depends on that library:
+The repository's Swift packages expose `AhaKeyPluginKit` as a library product. Add it to your Swift target's dependencies and import it. The following function belongs in an async-capable macOS host that depends on that library:
 
 ```swift
 import AhaKeyPluginKit
@@ -81,11 +81,11 @@ Use the [greeter tutorial](typescript/README.md#create-your-own-plugin) to creat
 
 | Type | Role |
 |---|---|
-| [`PluginManifest`](../Modules/AhaKeyPluginKit/PluginManifest.swift) | Loads `plugin.json` and resolves the process command, arguments, environment, and working directory |
-| [`PluginManager`](../Modules/AhaKeyPluginKit/PluginManager.swift) | Discovers immediate child directories; loads, queries, and unloads plugins |
-| [`PluginHost`](../Modules/AhaKeyPluginKit/PluginHost.swift) | Registers the built-in host methods and checks the manifest's method permissions |
-| [`PluginClient`](../Modules/AhaKeyPluginKit/PluginClient.swift) | Starts the process; supports `call`, `notify`, request/notification handlers, and stderr forwarding |
-| [Lifecycle helpers](../Modules/AhaKeyPluginKit/PluginLifecycle.swift) | Implements `initialize`, `sendInitialized`, and `shutdown` on the host side |
+| [`PluginManifest`](../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginManifest.swift) | Loads `plugin.json` and resolves the process command, arguments, environment, and working directory |
+| [`PluginManager`](../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginManager.swift) | Discovers immediate child directories; loads, queries, and unloads plugins |
+| [`PluginHost`](../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift) | Registers the built-in host methods and checks the manifest's method permissions |
+| [`PluginClient`](../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginClient.swift) | Starts the process; supports `call`, `notify`, request/notification handlers, and stderr forwarding |
+| [Lifecycle helpers](../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginLifecycle.swift) | Implements `initialize`, `sendInitialized`, and `shutdown` on the host side |
 
 The default discovery root is `~/Library/Application Support/AhaKeyConfig/plugins/`. Set `AHAKEY_PLUGINS_DIR` or pass `pluginsRoot:` to use a development directory. Place each plugin in an immediate child directory; see the [manifest reference](typescript/README.md#manifest-and-discovery).
 
@@ -95,8 +95,8 @@ The default discovery root is `~/Library/Application Support/AhaKeyConfig/plugin
 
 - [TypeScript SDK implementation](typescript/src/index.ts)
 - [TypeScript SDK tests](typescript/test/sdk.test.mjs)
-- [Swift CLI example](../Examples/PluginCLI/Plugin.swift)
-- [Swift showcase](../Examples/PluginShowcase/PluginShowcaseApp.swift)
+- [Swift CLI example](../ahakeyconfig-mac/Sources/AhaKeyPlugin/Plugin.swift)
+- [Swift showcase](../ahakeyconfig-mac/Sources/AhaKeyPluginShowcase/PluginShowcaseApp.swift)
 - [CI workflow](../.github/workflows/ci.yml)
 
 When updating SDK behavior, update the English and Chinese guides together and run `npm run typecheck` and `npm test` from `sdks/typescript/`.

@@ -18,7 +18,7 @@
 
 ## 快速开始
 
-需要 Node.js 18+ 和 npm。SDK 使用 ES module 格式。CI 使用 Node.js 20；随仓库提供的 Swift 演示程序需要 macOS 13+、Xcode 16+。只有真实拨杆读数需要连接键盘。
+需要 Node.js 18+ 和 npm。SDK 使用 ES module 格式。CI 使用 Node.js 20；随仓库提供的 Swift 演示程序需要 macOS 13+、Swift 5.9+ 及兼容的 Xcode 工具链。只有真实拨杆读数需要连接键盘。
 
 从仓库根目录运行：
 
@@ -157,7 +157,7 @@ plugins/
 回到 AhaKey 仓库根目录，将下面的路径替换为父目录 `plugins/` 的绝对路径：
 
 ```bash
-AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" ./scripts/run-target.sh Plugin
+AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" swift run --package-path ahakeyconfig-mac Plugin
 ```
 
 命令行宿主发现并初始化插件，等待约一秒后将其关闭。它不会调用 `greeter/greet`；可使用 [Swift 宿主示例](sdk.md#swift-宿主集成)发送该请求。单独执行 `node dist/main.js` 只会等待 JSON-RPC 输入，不会模拟宿主。
@@ -336,4 +336,4 @@ cat "$HOME/.ahakey-flow-stats.json"
 | RPC 超时或无法识别消息 | 确保 stdout 没有日志，生命周期回调及时完成，并确认请求的处理器存在 |
 | 退出后进程仍在运行 | 在生命周期清理中停止定时器、关闭监听和 socket，并释放其他活跃的 Node.js 资源 |
 
-为 Swift 演示命令设置 `AHAKEY_PLUGIN_DEBUG=1`，可将宿主发出的请求和收到的消息打印到 stderr，例如 `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`。API 细节以 [SDK 源码](../../sdks/typescript/src/index.ts)和 [Swift 宿主实现](../../Modules/AhaKeyPluginKit/PluginHost.swift)为准。
+为 Swift 演示命令设置 `AHAKEY_PLUGIN_DEBUG=1`，可将宿主发出的请求和收到的消息打印到 stderr，例如 `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`。API 细节以 [SDK 源码](../../sdks/typescript/src/index.ts)和 [Swift 宿主实现](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift)为准。

@@ -12,7 +12,7 @@
 | 体验宿主信息、拨杆状态和自定义 RPC | [Hello 插件](../../sdks/typescript/examples/hello-plugin/src/main.ts) |
 | 学习轮询、本地持久化和退出清理 | [拨杆计数器](../../sdks/typescript/examples/lever-counter/src/main.ts) |
 | 在 Swift 应用中集成插件宿主 | [Swift 宿主集成](#swift-宿主集成) |
-| 为 SDK 做贡献 | [贡献指南](../../CONTRIBUTING.md) |
+| 为 SDK 做贡献 | [贡献指南](CONTRIBUTING.md) |
 
 ## 架构与当前支持范围
 
@@ -32,7 +32,7 @@ flowchart LR
 
 ## 运行示例
 
-从仓库根目录开始，需要 Node.js 18+ 和 npm。macOS 演示程序还需要 macOS 13+、Xcode 16+。
+从仓库根目录开始，需要 Node.js 18+ 和 npm。macOS 演示程序还需要 macOS 13+、Swift 5.9+ 及兼容的 Xcode 工具链。
 
 ```bash
 cd sdks/typescript
@@ -50,7 +50,7 @@ npm run demo
 
 ## Swift 宿主集成
 
-Xcode 工程提供 `AhaKeyPluginKit` 静态库 Target。将其加入宿主 Target 的 Target Dependencies 和 Link Binary With Libraries，然后导入。下面的函数用于依赖该库、支持异步调用的 macOS 宿主：
+仓库中的 Swift package 将 `AhaKeyPluginKit` 暴露为 library product。将其加入 Swift target 的依赖并导入。下面的函数用于依赖该库、支持异步调用的 macOS 宿主：
 
 ```swift
 import AhaKeyPluginKit
@@ -81,11 +81,11 @@ func runGreeter(pluginsRoot: URL) async throws {
 
 | 类型 | 职责 |
 |---|---|
-| [`PluginManifest`](../../Modules/AhaKeyPluginKit/PluginManifest.swift) | 加载 `plugin.json`，解析进程命令、参数、环境变量和工作目录 |
-| [`PluginManager`](../../Modules/AhaKeyPluginKit/PluginManager.swift) | 扫描直接子目录，加载、查询和卸载插件 |
-| [`PluginHost`](../../Modules/AhaKeyPluginKit/PluginHost.swift) | 注册内置宿主方法，并检查清单中的方法权限 |
-| [`PluginClient`](../../Modules/AhaKeyPluginKit/PluginClient.swift) | 启动进程，支持 `call`、`notify`、请求与通知处理器，以及 stderr 转发 |
-| [生命周期辅助方法](../../Modules/AhaKeyPluginKit/PluginLifecycle.swift) | 在宿主侧提供 `initialize`、`sendInitialized` 和 `shutdown` |
+| [`PluginManifest`](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginManifest.swift) | 加载 `plugin.json`，解析进程命令、参数、环境变量和工作目录 |
+| [`PluginManager`](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginManager.swift) | 扫描直接子目录，加载、查询和卸载插件 |
+| [`PluginHost`](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift) | 注册内置宿主方法，并检查清单中的方法权限 |
+| [`PluginClient`](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginClient.swift) | 启动进程，支持 `call`、`notify`、请求与通知处理器，以及 stderr 转发 |
+| [生命周期辅助方法](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginLifecycle.swift) | 在宿主侧提供 `initialize`、`sendInitialized` 和 `shutdown` |
 
 默认扫描目录为 `~/Library/Application Support/AhaKeyConfig/plugins/`。设置 `AHAKEY_PLUGINS_DIR` 或传入 `pluginsRoot:` 可使用开发目录。每个插件需放在一个直接子目录中，详见[清单说明](typescript-sdk.md#清单与插件发现)。
 
@@ -95,8 +95,8 @@ func runGreeter(pluginsRoot: URL) async throws {
 
 - [TypeScript SDK 实现](../../sdks/typescript/src/index.ts)
 - [TypeScript SDK 测试](../../sdks/typescript/test/sdk.test.mjs)
-- [Swift 命令行示例](../../Examples/PluginCLI/Plugin.swift)
-- [Swift 展示窗口](../../Examples/PluginShowcase/PluginShowcaseApp.swift)
+- [Swift 命令行示例](../../ahakeyconfig-mac/Sources/AhaKeyPlugin/Plugin.swift)
+- [Swift 展示窗口](../../ahakeyconfig-mac/Sources/AhaKeyPluginShowcase/PluginShowcaseApp.swift)
 - [CI 工作流](../../.github/workflows/ci.yml)
 
 修改 SDK 行为时，请同步更新中英文指南，并在 `sdks/typescript/` 运行 `npm run typecheck` 和 `npm test`。
