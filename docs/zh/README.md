@@ -2,7 +2,7 @@
 
 # ⌨️ AhaKey Desktop
 
-**AhaKey-X1（Vibecoding Keyboard）官方跨平台桌面端 · 键盘控制 + 拨杆审批 + 本机语音 Agent**
+**AhaKey-X1（Vibecoding Keyboard）macOS 桌面端 · 键盘控制 + 拨杆审批 + 本机语音 Agent**
 
 [**English**](../../README.md) &nbsp;·&nbsp; [**简体中文**](README.md)
 
@@ -12,19 +12,18 @@
 
 <!-- Release & CI -->
 <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/releases"><img src="https://img.shields.io/github/v/release/ZephyrKeXiner/AhaKey-Studio?include_prereleases&label=release&color=4F46E5" alt="Latest Release"></a>
-<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/actions"><img src="https://img.shields.io/github/actions/workflow/status/ZephyrKeXiner/AhaKey-Studio/release.yml?label=build" alt="Build"></a>
+<a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/ZephyrKeXiner/AhaKey-Studio/ci.yml?branch=main&label=build" alt="Build"></a>
 <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/commits/main"><img src="https://img.shields.io/github/last-commit/ZephyrKeXiner/AhaKey-Studio?color=informational" alt="Last Commit"></a>
 <a href="https://github.com/ZephyrKeXiner/AhaKey-Studio/stargazers"><img src="https://img.shields.io/github/stars/ZephyrKeXiner/AhaKey-Studio?style=flat&color=yellow" alt="Stars"></a>
 
 <br/>
 
 <!-- Platforms & Tech -->
-<img src="https://img.shields.io/badge/macOS-12%2B-000000?logo=apple&logoColor=white" alt="macOS 12+">
-<img src="https://img.shields.io/badge/Windows-10%2F11-0078D6?logo=windows&logoColor=white" alt="Windows 10/11">
-<img src="https://img.shields.io/badge/Linux-Ubuntu-E95420?logo=ubuntu&logoColor=white" alt="Ubuntu">
-<img src="https://img.shields.io/badge/Swift-5.9%2B-F05138?logo=swift&logoColor=white" alt="Swift 5.9+">
-<img src="https://img.shields.io/badge/Java-17%2B-007396?logo=openjdk&logoColor=white" alt="Java 17+">
-<img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
+<img src="https://img.shields.io/badge/macOS-13%2B-000000?logo=apple&logoColor=white" alt="macOS 13+">
+<img src="https://img.shields.io/badge/Swift-F05138?logo=swift&logoColor=white" alt="Swift">
+<img src="https://img.shields.io/badge/UI-SwiftUI-007AFF?logo=swift&logoColor=white" alt="SwiftUI">
+<img src="https://img.shields.io/badge/Xcode-App%20Target-147EFB?logo=xcode&logoColor=white" alt="Xcode App Target">
+<img src="https://img.shields.io/badge/Plugin%20SDK-TypeScript-3178C6?logo=typescript&logoColor=white" alt="TypeScript Plugin SDK">
 
 </div>
 
