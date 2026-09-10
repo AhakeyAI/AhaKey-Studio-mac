@@ -1,0 +1,47 @@
+name: CI
+on:
+  push:
+  pull_request:
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Xcode version
+        run: xcodebuild -version
+      - name: App and VibeBar tests
+        run: xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "AhaKey Studio" -destination 'platform=macOS' -derivedDataPath DerivedData CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual test
+      - name: Build demos and socket tools
+        run: |
+          for scheme in Plugin PluginShowcase VibeBarSmoke SocketServer Client; do
+            xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "$scheme" -destination 'platform=macOS' -derivedDataPath DerivedData CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual build
+          done
+      - name: Package universal Release app
+        run: ./scripts/package_app.sh
+      - name: Zip app
+        run: ditto -c -k --sequesterRsrc --keepParent "dist/AhaKey Studio.app" "dist/AhaKey-Studio-macOS.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AhaKey-Studio-macOS
+          path: dist/AhaKey-Studio-macOS.zip
+          if-no-files-found: error
+  typescript-sdk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sdks/typescript
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: sdks/typescript/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
