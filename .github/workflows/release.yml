@@ -2,117 +2,127 @@ name: Release macOS DMG
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build-and-release:
+  validate:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: validate
     runs-on: macos-15
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # git rev-list --count 需要完整历史
-
-      - name: Resolve version from tag
+      - name: Resolve app version
         id: version
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
-
-      - name: Check release secrets
-        env:
-          MACOS_CERTIFICATE_P12_BASE64: ${{ secrets.MACOS_CERTIFICATE_P12_BASE64 }}
-          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
         run: |
-          set -euo pipefail
-          missing=()
-          for name in \
-            MACOS_CERTIFICATE_P12_BASE64 \
-            MACOS_CERTIFICATE_PASSWORD \
-            APPLE_ID \
-            APPLE_TEAM_ID \
-            APPLE_APP_SPECIFIC_PASSWORD
-          do
-            if [[ -z "${!name:-}" ]]; then
-              missing+=("$name")
-            fi
-          done
-          if (( ${#missing[@]} > 0 )); then
-            echo "Missing GitHub Actions secrets: ${missing[*]}"
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v([0-9]+\.[0-9]+\.[0-9]+)(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo 'Expected a tag such as v0.2.1 or v0.2.1-beta.1' >&2
             exit 1
           fi
-
-      - name: Install Developer ID certificate
+          echo "version=${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+      - name: Install Developer ID certificate and notarization credentials
         env:
           MACOS_CERTIFICATE_P12_BASE64: ${{ secrets.MACOS_CERTIFICATE_P12_BASE64 }}
           MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
-        run: |
-          set -euo pipefail
-          certificate_path="$RUNNER_TEMP/developer-id-application.p12"
-          keychain_path="$RUNNER_TEMP/ahakey-signing.keychain-db"
-          keychain_password="$(uuidgen)"
-
-          printf '%s' "$MACOS_CERTIFICATE_P12_BASE64" | base64 --decode > "$certificate_path"
-          security create-keychain -p "$keychain_password" "$keychain_path"
-          security set-keychain-settings -lut 21600 "$keychain_path"
-          security unlock-keychain -p "$keychain_password" "$keychain_path"
-          security import "$certificate_path" \
-            -P "$MACOS_CERTIFICATE_PASSWORD" \
-            -A -t cert -f pkcs12 \
-            -k "$keychain_path"
-          security set-key-partition-list \
-            -S apple-tool:,apple:,codesign: \
-            -s -k "$keychain_password" \
-            "$keychain_path"
-          security list-keychains -d user -s "$keychain_path"
-          security default-keychain -d user -s "$keychain_path"
-
-          echo "MACOS_CI_KEYCHAIN=$keychain_path" >> "$GITHUB_ENV"
-          echo "NOTARY_KEYCHAIN=$keychain_path" >> "$GITHUB_ENV"
-          security find-identity -v -p codesigning "$keychain_path"
-
-      - name: Configure Apple notarization
-        env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
         run: |
-          set -euo pipefail
-          xcrun notarytool store-credentials "AhaKeyNotaryCI" \
-            --apple-id "$APPLE_ID" \
-            --team-id "$APPLE_TEAM_ID" \
-            --password "$APPLE_APP_SPECIFIC_PASSWORD" \
-            --keychain "$MACOS_CI_KEYCHAIN" \
-            --validate
-
-      - name: Build, sign, notarize, and package DMG
+          : "${MACOS_CERTIFICATE_P12_BASE64:?Add the Developer ID Application P12 secret}"
+          : "${MACOS_CERTIFICATE_PASSWORD:?Add the P12 password secret}"
+          : "${APPLE_ID:?Add the Apple ID secret}"
+          : "${APPLE_TEAM_ID:?Add the Apple Team ID secret}"
+          : "${APPLE_APP_SPECIFIC_PASSWORD:?Add the Apple app-specific password secret}"
+          SIGNING_KEYCHAIN="$RUNNER_TEMP/ahakey-signing.keychain-db"
+          echo "SIGNING_KEYCHAIN=$SIGNING_KEYCHAIN" >> "$GITHUB_ENV"
+          certificate="$RUNNER_TEMP/developer-id.p12"
+          printf '%s' "$MACOS_CERTIFICATE_P12_BASE64" | base64 --decode > "$certificate"
+          keychain_password="$(uuidgen)"
+          security create-keychain -p "$keychain_password" "$SIGNING_KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$SIGNING_KEYCHAIN"
+          security unlock-keychain -p "$keychain_password" "$SIGNING_KEYCHAIN"
+          security import "$certificate" -P "$MACOS_CERTIFICATE_PASSWORD" -t cert -f pkcs12 \
+            -k "$SIGNING_KEYCHAIN" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s \
+            -k "$keychain_password" "$SIGNING_KEYCHAIN"
+          security list-keychains -d user -s "$SIGNING_KEYCHAIN"
+          rm "$certificate"
+          xcrun notarytool store-credentials AhaKeyNotaryCI \
+            --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_APP_SPECIFIC_PASSWORD" --keychain "$SIGNING_KEYCHAIN"
+      - name: Archive signed universal app
         env:
-          DMG_BASENAME: AhaKey-Studio-macOS
           APP_VERSION: ${{ steps.version.outputs.version }}
           APP_BUILD: ${{ github.run_number }}
-          SIGNING_IDENTITY_HINT: P2VFVRZK7P
-          NOTARY_PROFILE: AhaKeyNotaryCI
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          chmod +x scripts/build.sh scripts/package_dmg.sh scripts/pack-release.sh
-          zsh scripts/pack-release.sh
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+          xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "AhaKey Studio" \
+            -configuration Release -destination 'generic/platform=macOS' \
+            -archivePath "$RUNNER_TEMP/AhaKey Studio.xcarchive" \
+            ARCHS='arm64 x86_64' ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY='Developer ID Application' \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" MARKETING_VERSION="$APP_VERSION" \
+            CURRENT_PROJECT_VERSION="$APP_BUILD" \
+            OTHER_CODE_SIGN_FLAGS='--options runtime --timestamp' archive
+          mkdir -p dist "$RUNNER_TEMP/dmg-root"
+          ditto "$RUNNER_TEMP/AhaKey Studio.xcarchive/Products/Applications/AhaKey Studio.app" \
+            "$RUNNER_TEMP/dmg-root/AhaKey Studio.app"
+          app="$RUNNER_TEMP/dmg-root/AhaKey Studio.app"
+          codesign --verify --deep --strict "$app"
+          lipo "$app/Contents/MacOS/AhaKeyConfig" -verify_arch arm64 x86_64
+          lipo "$app/Contents/MacOS/ahakeyconfig-agent" -verify_arch arm64 x86_64
+      - name: Create and sign DMG
+        run: |
+          ln -s /Applications "$RUNNER_TEMP/dmg-root/Applications"
+          hdiutil create -volname 'AhaKey Studio' -srcfolder "$RUNNER_TEMP/dmg-root" \
+            -format UDZO -fs HFS+ -ov dist/AhaKey-Studio-macOS.dmg
+          codesign --force --timestamp --sign 'Developer ID Application' \
+            --keychain "$SIGNING_KEYCHAIN" dist/AhaKey-Studio-macOS.dmg
+      - name: Notarize and validate DMG
+        run: |
+          xcrun notarytool submit dist/AhaKey-Studio-macOS.dmg \
+            --keychain-profile AhaKeyNotaryCI --keychain "$SIGNING_KEYCHAIN" \
+            --wait --timeout 30m --output-format json > dist/notarization.json
+          python3 -c 'import json; r=json.load(open("dist/notarization.json")); print("Notarization:", r["status"]); assert r["status"] == "Accepted", r'
+          xcrun stapler staple dist/AhaKey-Studio-macOS.dmg
+          xcrun stapler validate dist/AhaKey-Studio-macOS.dmg
+          hdiutil verify dist/AhaKey-Studio-macOS.dmg
+          spctl --assess --type open --context context:primary-signature --verbose dist/AhaKey-Studio-macOS.dmg
+          (cd dist && shasum -a 256 AhaKey-Studio-macOS.dmg > SHA256SUMS)
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          options=(--verify-tag --generate-notes --title "AhaKey Studio $GITHUB_REF_NAME")
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then options+=(--prerelease); fi
+          gh release create "$GITHUB_REF_NAME" dist/AhaKey-Studio-macOS.dmg dist/SHA256SUMS "${options[@]}"
+      - name: Upload notarization result
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: "AhaKey Studio ${{ github.ref_name }}"
-          draft: false
-          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
-          generate_release_notes: true
-          files: |
-            dist/AhaKey-Studio-macOS.dmg
-
-      - name: Remove temporary signing keychain
+          name: notarization-result
+          path: dist/notarization.json
+          if-no-files-found: ignore
+      - name: Remove signing material
         if: always()
         run: |
-          if [[ -n "${MACOS_CI_KEYCHAIN:-}" && -f "$MACOS_CI_KEYCHAIN" ]]; then
-            security delete-keychain "$MACOS_CI_KEYCHAIN" || true
+          if [[ -f "$RUNNER_TEMP/ahakey-signing.keychain-db" ]]; then
+            security delete-keychain "$RUNNER_TEMP/ahakey-signing.keychain-db"
           fi
+          rm -f "$RUNNER_TEMP/developer-id.p12"

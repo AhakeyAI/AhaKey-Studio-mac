@@ -1,71 +1,29 @@
-# Installation
+# 安装与开发
 
-本仓库是源码仓库，不直接提供安装包。
+当前仓库提供 macOS 13 及以上的 AhaKey Studio，Release 应用同时包含 Apple Silicon 和 Intel 架构。
 
-## 获取安装包
+## 安装
 
-- Windows 与 macOS 安装包统一通过 GitHub Releases 分发。
-- 仓库内不提交 `exe`、`msi`、`dmg` 等发布二进制。
+在 [GitHub Releases](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) 下载已发布的 `AhaKey-Studio-macOS.dmg`，打开后把应用拖到 Applications。若尚无 Release，需要维护者先完成一次签名、公证发布。
 
-## 当前源码构建入口
+GitHub Actions 的开发 ZIP 用于构建验证，未经公证，不作为正式安装包分发。源码仓库不保存生成的 `.app`、`.dmg` 或签名私钥。
 
-### Windows — Java 客户端
+## 在 Xcode 中开发
 
-- 目录：`ahakeyconfig-win-java/`
-- 技术栈：Java · JavaFX（Maven），入口 `com.example.ahakey.Main`
-- 构建：`mvn -q package`
-- 打包入口（PowerShell）：`build-exe.ps1` / `build-installer.ps1`
+1. 安装完整 Xcode；CI 固定使用 Xcode 16.4。
+2. 打开根目录的 `AhaKey Studio.xcodeproj`。
+3. 在 Signing & Capabilities 中选择自己的开发 Team。
+4. 选择 **AhaKey Studio → My Mac**，按 `⌘R` 运行，按 `⌘U` 测试。
+5. 示例通过 `Plugin`、`PluginShowcase`、`VibeBarSmoke`、`SocketServer` 或 `Client` Scheme 运行。主应用已内嵌后台 Agent。
 
-### Windows — Python 客户端（Capswriter 基线）
+测试部署目标为 macOS 13；较新的 Xcode 若自带最低版本为 macOS 14 的 XCTest，可能产生测试库版本警告。在 macOS 13 实机测试需要兼容的 Xcode 和测试库。
 
-- 目录：`ahakeyconfig-win-python/`
-- 开发启动：
-  - `pip install -r requirements.txt`
-  - `python main.py`
-- 打包入口（PyInstaller）：`KeyboardConfig.spec` / `KeyboardConfig_onedir.spec` / `KeyboardConfig-onefile.spec`
-- IDE hook 安装相关在 `hook/`（`hook_install*.spec`）
+本地开发不需要构建 Shell 脚本或 Makefile。构建设置、资源复制和签名均在 Xcode 工程中维护，详见 [Xcode 开发方式](xcode-development.md)。
 
-### Linux — Java 客户端
+## TypeScript SDK
 
-- 目录：`ahakeyconfig-ubuntu-java/`
-- 技术栈：Java · JavaFX（Maven），入口 `com.example.ahakey.Main`
-- 构建：`mvn -q package`
+在 `sdks/typescript` 中运行 `npm ci`、`npm run typecheck` 和 `npm test`。示例先执行 `npm run build`，再通过 Xcode Scheme 启动 Swift 宿主。详见 [SDK 指南](zh/typescript-sdk.md)。
 
-### BLE ↔ TCP 桥接
+## 自动构建与发布
 
-- 目录：`BLE_tcp_bridge/`
-- 技术栈：C#（.NET），供非原生客户端通过本地 TCP 与设备交互
-
-### macOS client
-
-- 目录：`ahakeyconfig-mac/`
-- 当前可判断的环境要求：
-  - macOS 12.0+
-  - Xcode 15+ 或等效 Swift toolchain
-  - Swift 5.9+
-  - Apple Silicon（arm64）
-- 当前开发 / 构建入口：
-  - 从仓库根目录：`swift build -c release --arch arm64 --product AhaKeyConfig`
-  - 或进入 macOS 工程目录：`cd ahakeyconfig-mac && swift build -c release --arch arm64 --product AhaKeyConfig`
-  - 完整 `.app` bundle：`cd ahakeyconfig-mac && zsh scripts/build.sh`
-- 当前正式打包入口：
-  - `cd ahakeyconfig-mac && zsh scripts/package_dmg.sh`
-  - `cd ahakeyconfig-mac && zsh scripts/pack-release.sh`
-- 说明：
-  - `.dmg` 等产物不进入仓库
-  - `AhaKeyKeyboardCanvasView` 等模拟键盘/建模 UI 位于 `ahakeyconfig-mac/Sources/Views/AhaKeyStudioView.swift`
-  - 根目录 `Package.swift` 已指向同一套 macOS 源码，避免从仓库根目录构建时遗漏 Studio UI
-
-## 当前未随仓库导入的内容
-
-- `Capswriter` 的预编译 DLL
-- 安装器装配目录
-- 发布后的 `exe` / `msi`
-- 云端后端服务
-- 发布后的 `.app` / `.dmg`
-- 本地签名证书、私钥、描述文件和其他敏感材料
-
-## Windows 打包脚本
-
-- Windows 安装包脚本在 `ahakeyconfig-win-java/`：`build-exe.ps1`、`build-exe.bat`、`build-installer.ps1`。
-- 构建产物不入库，正式安装包统一通过 GitHub Releases 分发。
+每次分支推送和 Pull Request 自动运行 CI；版本标签触发通过测试后签名、公证、发布 DMG 的流程。凭据配置和操作步骤见 [GitHub CI/CD](release-distribution.md)。

@@ -22,7 +22,7 @@
 - `Package.swift` — 平台工程清单(也被根清单引用)
 - `Sources/` — Swift 源码(客户端 + `Agent/` 后台守护进程)
 - `Resources/` — 运行所需资源
-- `scripts/` — 构建 / 签名 / DMG 打包脚本
+- `.github/workflows/` — CI / 签名 / 公证 / DMG 发布；`scripts/` — Python Socket 回归工具
 
 ## Java 客户端子目录(`ahakeyconfig-win-java/`、`ahakeyconfig-ubuntu-java/`)
 

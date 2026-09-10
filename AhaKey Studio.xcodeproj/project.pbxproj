@@ -152,7 +152,6 @@
 		117963F9C088F92069A35FC1 /* libAhaKeyPluginKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAhaKeyPluginKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		20759927570225010F0511D7 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		40FE2511553840E78323E240 /* AhaKey Studio/Resources/DefaultOLED */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "AhaKey Studio/Resources/DefaultOLED"; sourceTree = SOURCE_ROOT; };
-		60066E01AB3D8E07F2834DC8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile; sourceTree = "<group>"; };
 		73B263C26A918ECA2930C0E2 /* libVibeBar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVibeBar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		741FDD7C3C66014F456317B1 /* PluginShowcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PluginShowcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8538AE68B13230F86D1E4A8E /* AhaKey Studio/Resources/FirmwareFlasher/firmware/AhaKey-X1-firmware-eternal-dev-5a84c2a-1.4.6.hex */ = {isa = PBXFileReference; lastKnownFileType = text; path = "AhaKey Studio/Resources/FirmwareFlasher/firmware/AhaKey-X1-firmware-eternal-dev-5a84c2a-1.4.6.hex"; sourceTree = SOURCE_ROOT; };
@@ -369,7 +368,6 @@
 				B36C6BD4EE244ACA241FE30D /* docs */,
 				BDA1973BA7C72702D59266D3 /* README.md */,
 				20759927570225010F0511D7 /* CONTRIBUTING.md */,
-				60066E01AB3D8E07F2834DC8 /* Makefile */,
 				CFC625128D34B8744C677DD7 /* sdks */,
 				BB91275BDD3D1C01EF66421D /* Products */,
 				DC8745063051846800FA5D5A /* Recovered References */,
@@ -819,7 +817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "\"$SRCROOT/scripts/verify-firmware.sh\"\n";
+			shellScript = "set -euo pipefail\ncd \"$SRCROOT/AhaKey Studio/Resources/FirmwareFlasher\"\nshasum -a 256 -c SOURCE_SHA256SUMS\ntouch \"$SCRIPT_OUTPUT_FILE_0\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -14,7 +14,7 @@
 - `Sources/Agent/` — 后台守护进程 `ahakeyconfig-agent`:维持 BLE 连接,并按键盘物理拨杆状态回应各 IDE 的审批 hook(`ClaudeHookHandler` / `CursorHookHandler` / `CodexHookHandler` / `KimiHookHandler`,共享 `HookSupport`)。
 - `Sources/` — 设备配置、BLE 通信、OLED 资源、voice agent、工作台 UI。
 - `Resources/` — 运行所需资源。
-- `scripts/` — 构建、签名、DMG 打包脚本。
+- `.github/workflows/` — CI、签名、公证与 DMG 发布；`scripts/` 只保留 Python Socket 回归工具。
 
 ### Windows
 

@@ -1,5 +1,4 @@
 $(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/
-$(SRCROOT)/scripts/verify-firmware.sh
 $(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt
 $(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/SOURCE_SHA256SUMS
 $(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/THIRD_PARTY_NOTICES.md

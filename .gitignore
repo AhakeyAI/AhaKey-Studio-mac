@@ -3,6 +3,7 @@
 xcuserdata/
 *.xcuserstate
 DerivedData/
+*.xcresult/
 .build/
 .swiftpm/
 *.dSYM/
@@ -26,7 +27,6 @@ __pycache__/
 # Local configuration and signing material
 .env
 .env.*
-**/scripts/build.local.env
 *.p12
 *.pfx
 *.mobileprovision

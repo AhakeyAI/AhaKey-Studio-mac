@@ -18,7 +18,8 @@ Tools/Agent/             正式应用内嵌的后台 Agent
 Examples/                PluginCLI、PluginShowcase、VibeBarSmoke、SocketServer、SocketClient
 Tests/                   AhaKeyStudioTests、VibeBarTests
 AhaKey Studio.xcodeproj/  工程与构建设置、Info.plist、entitlements、构建输入清单
-scripts/                 构建、发布、资源准备与 Socket 回归脚本
+scripts/                 独立的 Python Socket 回归工具
+.github/workflows/       CI 与签名、公证、发布工作流
 sdks/                    TypeScript 插件 SDK、示例和测试
 docs/                    协议、开发与发布说明
 ```
@@ -55,31 +56,18 @@ Xcode 自动生成标准 Bundle 元数据；`AhaKey Studio.xcodeproj/Info.plist`
 
 申请麦克风和语音识别权限时使用系统 API。用户已拒绝时打开系统设置；App 不再调用 `sudo` / `tccutil` 重置权限，也不在运行时重签自身。Apple 将 `tccutil` 描述为开发时从 Terminal 调试授权提示的工具。[Apple：macOS 媒体授权](https://developer.apple.com/documentation/bundleresources/requesting-authorization-for-media-capture-on-macos)
 
-Help 与 DefaultOLED 作为文件夹资源保留层级。FirmwareFlasher 的 SHA-256 校验脚本在沙盒内运行，输入列在 `AhaKey Studio.xcodeproj/FirmwareInputs.xcfilelist`，只写入一个构建校验标记。文件复制和工具签名交给 Xcode 原生 Copy Files / Code Sign On Copy；Release 的签名参数也为这些预编译工具启用 runtime。修改或增加固件资源时同步更新校验清单、输入文件清单和对应 Copy Files 阶段。[Apple：构建脚本的输入和输出](https://developer.apple.com/documentation/xcode/running-custom-scripts-during-a-build)
+Help 与 DefaultOLED 作为文件夹资源保留层级。FirmwareFlasher 的 SHA-256 校验直接写在 Xcode 的 Verify Firmware Resources 构建阶段，在沙盒内运行，输入列在 `AhaKey Studio.xcodeproj/FirmwareInputs.xcfilelist`，只写入一个构建校验标记。文件复制和工具签名交给 Xcode 原生 Copy Files / Code Sign On Copy；Release 的签名参数也为这些预编译工具启用 runtime。修改或增加固件资源时同步更新校验清单、输入文件清单和对应 Copy Files 阶段。[Apple：构建脚本的输入和输出](https://developer.apple.com/documentation/xcode/running-custom-scripts-during-a-build)
 
 Agent 由 Copy Files 构建阶段嵌入 `Contents/MacOS/ahakeyconfig-agent`，使用 Code Sign On Copy。应用可执行文件名保持 `AhaKeyConfig`，便于兼容现有后台管理逻辑。
 
 公共配置设置 `COPY_PHASE_STRIP = NO`，避免在复制已签名的 Agent 和 Xcode 测试库时尝试剔除符号。它仅控制复制阶段，链接时的无用代码剔除和归档时产品自身的符号剔除仍由各自设置控制。[Apple：构建设置参考](https://developer.apple.com/documentation/xcode/build-settings-reference)
 
-## 命令行
+## 本地开发与自动发布
 
-```bash
-make debug
-make build
-make test
+在 Xcode 中选择 **AhaKey Studio → My Mac**，`⌘R` 运行、`⌘U` 测试、**Product → Archive** 归档。示例直接选择对应 Scheme；不再维护 Makefile 或本地构建、打包 Shell 脚本。
 
-# 无开发证书的本地验证
-SIGNING_IDENTITY=- make debug
+插件示例先在 `sdks/typescript` 执行 `npm ci` 和 `npm run build`，再选择 **PluginShowcase**（界面）或 **Plugin**（命令行）运行。两个共享 Scheme 已设置 `AHAKEY_PLUGINS_DIR = $(SRCROOT)/sdks/typescript/examples`。自定义插件路径或 Node.js 搜索路径在 **Edit Scheme → Run → Arguments → Environment Variables** 中调整。物理键盘读取可另行启动 **AhaKeyConfigAgent** Scheme；使用主应用前停止它，避免争用蓝牙连接。
 
-# 单独运行示例
-./scripts/run-target.sh PluginShowcase
-./scripts/run-target.sh VibeBarSmoke
-./scripts/run-target.sh SocketServer
-./scripts/run-target.sh Client
-```
-
-构建脚本从 Xcode 读取实际产品路径，将完整 App 复制到 `dist/`。版本、产品名、部署目标默认取自 Xcode 工程设置；`APP_VERSION`、`APP_BUILD`、`BUILD_ARCHS`、`MACOS_DEPLOYMENT_TARGET`、`APP_BUNDLE_NAME`、`APP_DISPLAY_NAME` 仅在显式设置时覆盖。可用 `SIGNING_IDENTITY` 指定证书，用 `OUTPUT_DIR` / `DERIVED_DATA_PATH` 改变产物位置。
-
-`Product → Archive` 生成 Xcode 归档；`scripts/pack-release.sh` 保留 Developer ID 签名与公证的发布流程。CI 编译示例、执行单元测试和 SDK 测试，再构建通用架构 App。
+[CI](../.github/workflows/ci.yml) 运行测试、编译示例并打包开发用 ZIP；[Release](../.github/workflows/release.yml) 在版本标签触发后复用 CI，再签名、公证并发布 DMG。两者使用 macOS 15 runner 与 Xcode 16.4。发布配置见 [GitHub CI/CD](release-distribution.md)。
 
 原有 `scripts/test-unix-client.py` 在本机关闭连接时存在 `Network.NWError 50` 导致退出码断言失败的情况，迁移前也可复现；因此它仍是单独运行的诊断脚本，不列入 CI 必跑步骤。
