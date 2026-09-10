@@ -1,0 +1,8 @@
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/
+$(SRCROOT)/scripts/verify-firmware.sh
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/SOURCE_SHA256SUMS
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/THIRD_PARTY_NOTICES.md
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/firmware/AhaKey-X1-firmware-eternal-dev-5a84c2a-1.4.6.hex
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/tools/arm64/wchisp
+$(SRCROOT)/AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp
