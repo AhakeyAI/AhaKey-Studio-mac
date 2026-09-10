@@ -27,10 +27,9 @@ cd sdks/typescript
 npm ci
 npm run typecheck
 npm test
-npm run demo
 ```
 
-`npm test` builds the SDK and both examples, then runs the Node.js tests. `npm run demo` builds them again and opens the macOS showcase, which displays plugin metadata, host information, lever state, and a greeting action. Both example plugins are discovered. The lever counter may write `~/.ahakey-flow-stats.json`; see [included examples](#included-examples).
+`npm test` builds the SDK and both examples and runs the tests. Then choose **PluginShowcase** in Xcode and press `⌘R` to view plugin metadata, lever state and greeting actions. The shared Scheme points to the bundled examples.
 
 The examples resolve `@ahakey/plugin-sdk` from the local package. For a separate project, use the local package workflow below.
 
@@ -154,15 +153,13 @@ plugins/
 
 ### 4. Load it with the development host
 
-From the AhaKey repository root, replace the path below with the absolute path to the parent `plugins/` directory:
+Use the absolute path to the parent `plugins/` directory when configuring the development host:
 
-```bash
-AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" swift run --package-path ahakeyconfig-mac Plugin
-```
+Open `AhaKey Studio.xcodeproj` and select **Plugin**. Under **Edit Scheme → Run → Arguments → Environment Variables**, set `AHAKEY_PLUGINS_DIR` to `/absolute/path/to/plugins`, then press `⌘R`. If Node.js is not found, configure `PATH` there or use its absolute path in the plugin manifest.
 
 The CLI discovers plugins, initializes them, waits about one second, and shuts them down. It does not call `greeter/greet`; use the [Swift host example](../README.md#swift-host-integration) to make that request. Starting `node dist/main.js` alone waits for JSON-RPC input and does not simulate a host.
 
-For a custom directory, use the direct Swift command above. `npm run demo` and `npm run demo:cli` explicitly set `AHAKEY_PLUGINS_DIR` to the SDK's bundled examples. Their showcase actions target `demo/getStatus` and `demo/greet`, so they do not automatically provide buttons for arbitrary custom methods.
+For a custom directory, edit `AHAKEY_PLUGINS_DIR` under **Edit Scheme → Run → Arguments → Environment Variables**. Shared Schemes default to bundled examples; showcase actions target `demo/getStatus` and `demo/greet`.
 
 ## Manifest and discovery
 
@@ -307,11 +304,8 @@ Run these commands from `sdks/typescript/`:
 | `npm run build` | Compile the SDK and both examples |
 | `npm run typecheck` | Build SDK declarations and typecheck the example sources |
 | `npm test` | Build everything and run the SDK's Node.js tests |
-| `npm run demo` | Build and launch the macOS showcase; its status refreshes every two seconds |
-| `npm run demo:agent` | Run the agent in the foreground for real BLE/lever readings |
-| `npm run demo:cli` | Build, load both examples, and run a short lifecycle check |
 
-For the physical keyboard, start `npm run demo:agent` in a second terminal, then `npm run demo` in the first. This development command does not install a LaunchAgent or modify IDE hooks. The agent needs the BLE connection; stop it with `Ctrl-C` before opening the full app for keyboard configuration.
+In Xcode, run **PluginShowcase** for the UI or **Plugin** for a lifecycle check. For physical keyboard readings, run **AhaKeyConfigAgent** separately; stop the development agent before using the full app to avoid competing for BLE.
 
 When no real lever reading is available, the counter can read a simulation file. With the showcase running, use another terminal to change it:
 
@@ -336,4 +330,4 @@ These commands overwrite the simulation input. Real readings take precedence. Th
 | RPC timeout or unrecognized frame | Keep stdout free of logs, finish lifecycle hooks promptly, and confirm that the requested handler exists |
 | Process stays alive after shutdown | Clear timers, close watchers/sockets, and release other active Node.js resources in lifecycle cleanup |
 
-Set `AHAKEY_PLUGIN_DEBUG=1` on a Swift demo command to print the host's outgoing requests and incoming frames to stderr, for example `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`. For API details, consult the [SDK source](src/index.ts) and [Swift host implementation](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift).
+Set `AHAKEY_PLUGIN_DEBUG=1` in the Scheme environment variables for host request and frame diagnostics. See the [SDK source](src/index.ts) and [Swift host](../../Modules/AhaKeyPluginKit/PluginHost.swift).

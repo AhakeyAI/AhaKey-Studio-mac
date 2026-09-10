@@ -27,10 +27,9 @@ cd sdks/typescript
 npm ci
 npm run typecheck
 npm test
-npm run demo
 ```
 
-`npm test` 会编译 SDK 和两个示例，然后运行 Node.js 测试。`npm run demo` 再次构建后打开 macOS 展示窗口，显示插件元信息、宿主信息、拨杆状态和问候操作。两个示例都会被发现和加载。拨杆计数器可能写入 `~/.ahakey-flow-stats.json`，详见[内置示例](#内置示例)。
+`npm test` 会构建 SDK、两个示例并运行测试。完成后在 Xcode 选择 **PluginShowcase** Scheme 并按 `⌘R` 查看插件信息、拨杆状态和问候操作。共享 Scheme 已配置内置示例目录。
 
 示例从本地 package 解析 `@ahakey/plugin-sdk`。如果要在独立项目中使用 SDK，请按照下面的本地安装包流程操作。
 
@@ -154,15 +153,13 @@ plugins/
 
 ### 4. 使用开发宿主加载
 
-回到 AhaKey 仓库根目录，将下面的路径替换为父目录 `plugins/` 的绝对路径：
+配置开发宿主时，使用父目录 `plugins/` 的绝对路径：
 
-```bash
-AHAKEY_PLUGINS_DIR="/absolute/path/to/plugins" swift run --package-path ahakeyconfig-mac Plugin
-```
+打开 `AhaKey Studio.xcodeproj`，选择 **Plugin** Scheme。在 **Edit Scheme → Run → Arguments → Environment Variables** 中把 `AHAKEY_PLUGINS_DIR` 改为 `/absolute/path/to/plugins`，再按 `⌘R`。若找不到 Node.js，在同处设置正确的 `PATH`，或将清单中的命令改成 Node.js 的绝对路径。
 
 命令行宿主发现并初始化插件，等待约一秒后将其关闭。它不会调用 `greeter/greet`；可使用 [Swift 宿主示例](sdk.md#swift-宿主集成)发送该请求。单独执行 `node dist/main.js` 只会等待 JSON-RPC 输入，不会模拟宿主。
 
-加载自定义目录时，请使用上面的直接 Swift 命令。`npm run demo` 和 `npm run demo:cli` 会显式将 `AHAKEY_PLUGINS_DIR` 设置为 SDK 的内置示例目录。展示窗口的操作针对 `demo/getStatus` 和 `demo/greet`，不会自动为任意自定义方法生成按钮。
+加载自定义目录时，在 **Edit Scheme → Run → Arguments → Environment Variables** 中修改 `AHAKEY_PLUGINS_DIR`。共享 Scheme 默认使用内置示例，展示窗口针对 `demo/getStatus` 和 `demo/greet` 提供操作。
 
 ## 清单与插件发现
 
@@ -307,11 +304,8 @@ servePlugin(definePlugin({
 | `npm run build` | 编译 SDK 和两个示例 |
 | `npm run typecheck` | 构建 SDK 类型声明，并检查示例源码类型 |
 | `npm test` | 构建全部内容并运行 SDK 的 Node.js 测试 |
-| `npm run demo` | 构建并启动 macOS 展示窗口，每两秒刷新状态 |
-| `npm run demo:agent` | 在前台运行 Agent，读取真实 BLE / 拨杆状态 |
-| `npm run demo:cli` | 构建并加载两个示例，执行简短的生命周期检查 |
 
-使用真实键盘时，先在第二个终端运行 `npm run demo:agent`，再在第一个终端运行 `npm run demo`。这个开发命令不会安装 LaunchAgent 或修改 IDE hook。Agent 需要占用 BLE 连接；打开完整应用配置键盘前，请先按 `Ctrl-C` 停止它。
+在 Xcode 选择 **PluginShowcase** 运行界面，或选择 **Plugin** 做加载与退出检查。读取真实键盘时另行运行 **AhaKeyConfigAgent** Scheme；使用完整应用前先停止开发 Agent，避免争用蓝牙连接。
 
 没有真实拨杆读数时，计数器可以读取模拟文件。保持展示窗口运行，在另一个终端修改文件：
 
@@ -336,4 +330,4 @@ cat "$HOME/.ahakey-flow-stats.json"
 | RPC 超时或无法识别消息 | 确保 stdout 没有日志，生命周期回调及时完成，并确认请求的处理器存在 |
 | 退出后进程仍在运行 | 在生命周期清理中停止定时器、关闭监听和 socket，并释放其他活跃的 Node.js 资源 |
 
-为 Swift 演示命令设置 `AHAKEY_PLUGIN_DEBUG=1`，可将宿主发出的请求和收到的消息打印到 stderr，例如 `AHAKEY_PLUGIN_DEBUG=1 npm run demo:cli`。API 细节以 [SDK 源码](../../sdks/typescript/src/index.ts)和 [Swift 宿主实现](../../ahakeyconfig-mac/Sources/AhaKeyPluginKit/PluginHost.swift)为准。
+在 Scheme 的环境变量中设置 `AHAKEY_PLUGIN_DEBUG=1`，可输出宿主请求和消息诊断。API 细节见 [SDK 源码](../../sdks/typescript/src/index.ts)和 [Swift 宿主](../../Modules/AhaKeyPluginKit/PluginHost.swift)。

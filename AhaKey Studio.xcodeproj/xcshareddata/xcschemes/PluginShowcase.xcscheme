@@ -50,6 +50,13 @@
             ReferencedContainer = "container:AhaKey Studio.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "AHAKEY_PLUGINS_DIR"
+            value = "$(SRCROOT)/sdks/typescript/examples"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
