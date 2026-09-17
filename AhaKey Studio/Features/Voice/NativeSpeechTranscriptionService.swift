@@ -13,10 +13,10 @@ final class NativeSpeechTranscriptionService: ObservableObject {
     @Published private(set) var siriEnabled = false
     @Published private(set) var dictationEnabled = false
     @Published private(set) var isRecording = false
-    @Published private(set) var statusMessage = "等待苹果原生转写就绪。"
+    @Published private(set) var statusMessage = String(localized: "text.ededce4865d8", defaultValue: "等待苹果原生转写就绪。")
     @Published private(set) var transcriptPreview = ""
     @Published private(set) var lastCommittedText = ""
-    @Published private(set) var lastPermissionCheckSummary = "尚未检查麦克风、语音转写与 Siri 权限。"
+    @Published private(set) var lastPermissionCheckSummary = String(localized: "text.38c420f147b1", defaultValue: "尚未检查麦克风、语音转写与 Siri 权限。")
 
     // MARK: 录音触发方式配置
     /// 短按（切换式）：录音结束后是否调用 AhaType 整理
@@ -63,7 +63,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
             return
         }
         if deferredTCCRequery {
-            lastPermissionCheckSummary = "正在检查麦克风与语音转写权限…"
+            lastPermissionCheckSummary = String(localized: "text.c99ff25dfb0d", defaultValue: "正在检查麦克风与语音转写权限…")
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(450) * 1_000_000)
                 self.performPermissionRead(requestIfNeeded: false)
@@ -125,12 +125,12 @@ final class NativeSpeechTranscriptionService: ObservableObject {
         siriEnabled = currentSiriEnabled
         dictationEnabled = currentDictationEnabled
         lastPermissionCheckSummary =
-            "麦克风 \(currentMicGranted ? "已开启" : "未开启") · 语音转写 \(currentSpeechGranted ? "已开启" : "未开启") · Siri \(currentSiriEnabled ? "已开启" : "未开启") · 听写 \(currentDictationEnabled ? "已开启" : "未开启") · 检查于 \(timeLabel)"
+            String(localized: "text.9664d2ba4b45", defaultValue: "麦克风 \(String(describing: currentMicGranted ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.3cffa9757b69", defaultValue: "未开启"))) · 语音转写 \(String(describing: currentSpeechGranted ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.3cffa9757b69", defaultValue: "未开启"))) · Siri \(String(describing: currentSiriEnabled ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.3cffa9757b69", defaultValue: "未开启"))) · 听写 \(String(describing: currentDictationEnabled ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.3cffa9757b69", defaultValue: "未开启"))) · 检查于 \(String(describing: timeLabel))")
 
         if !currentMicGranted || !currentSpeechGranted || !currentSiriEnabled || !currentDictationEnabled {
-            statusMessage = "还缺苹果原生语音权限，请先打开麦克风、语音转写、Siri 与听写。"
+            statusMessage = String(localized: "text.0e66edab44c0", defaultValue: "还缺苹果原生语音权限，请先打开麦克风、语音转写、Siri 与听写。")
         } else if !isRecording {
-            statusMessage = "苹果原生转写已就绪，按一次语音键开始，再按一次结束。"
+            statusMessage = String(localized: "text.ad8cdbd628fc", defaultValue: "苹果原生转写已就绪，按一次语音键开始，再按一次结束。")
         }
 
         appendDiagnostic("permissions mic=\(currentMicGranted) speech=\(currentSpeechGranted) siri=\(currentSiriEnabled) dictation=\(currentDictationEnabled)")
@@ -254,7 +254,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
     func stopRecording(bypassAhaType: Bool) {
         guard isRecording else { return }
         isRecording = false
-        statusMessage = "正在结束录音并整理文字…"
+        statusMessage = String(localized: "text.472237c3d402", defaultValue: "正在结束录音并整理文字…")
         VoiceStatusHUDController.shared.show(.recognizing)
         pendingFinalizeBypassAhaType = bypassAhaType
         appendDiagnostic("stop recording requested bypassAhaType=\(bypassAhaType)")
@@ -293,7 +293,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
         }
 
         guard let recognizer = makeSpeechRecognizer() else {
-            statusMessage = "当前系统语言暂不支持苹果原生转写。"
+            statusMessage = String(localized: "text.9c8d39500f6a", defaultValue: "当前系统语言暂不支持苹果原生转写。")
             appendDiagnostic("speech recognizer unavailable")
             return
         }
@@ -324,7 +324,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
             try engine.start()
         } catch {
             inputNode.removeTap(onBus: 0)
-            statusMessage = "无法启动麦克风录音。"
+            statusMessage = String(localized: "text.4e1895f76b0a", defaultValue: "无法启动麦克风录音。")
             appendDiagnostic("audio engine start failed: \(error.localizedDescription)")
             return
         }
@@ -332,7 +332,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
         audioEngine = engine
         recognitionRequest = request
         isRecording = true
-        statusMessage = "苹果原生转写录音中… 再按一次语音键结束。"
+        statusMessage = String(localized: "text.b96f7c708fd0", defaultValue: "苹果原生转写录音中… 再按一次语音键结束。")
         VoiceStatusHUDController.shared.show(.recording)
         appendDiagnostic("start recording locale=\(recognizer.locale.identifier)")
 
@@ -448,9 +448,9 @@ final class NativeSpeechTranscriptionService: ObservableObject {
                 finalizeCurrentTranscriptIfNeeded(reason: "error_with_text", bypassAhaType: pendingFinalizeBypassAhaType)
             } else {
                 cancelRecognitionPipeline()
-                statusMessage = "苹果原生转写失败：\(error.localizedDescription)"
+                statusMessage = String(localized: "text.28d034458b6d", defaultValue: "苹果原生转写失败：\(String(describing: error.localizedDescription))")
                 VoiceStatusHUDController.shared.show(
-                    VoiceStatusHUDState(kind: .warning, title: "识别失败", subtitle: "请重试或检查语音权限"),
+                    VoiceStatusHUDState(kind: .warning, title: String(localized: "text.10ba9d3eb67f", defaultValue: "识别失败"), subtitle: String(localized: "text.7fe82cb2e12c", defaultValue: "请重试或检查语音权限")),
                     autoHideAfter: 2.0
                 )
             }
@@ -470,7 +470,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
         cancelRecognitionPipeline()
 
         guard !text.isEmpty else {
-            statusMessage = "未识别到有效语音内容。"
+            statusMessage = String(localized: "text.3742e31cc979", defaultValue: "未识别到有效语音内容。")
             VoiceStatusHUDController.shared.show(.empty, autoHideAfter: 1.8)
             appendDiagnostic("finalize empty reason=\(reason)")
             return
@@ -478,7 +478,7 @@ final class NativeSpeechTranscriptionService: ObservableObject {
 
         hasCommittedThisRecording = true
         let willUseAhaType = !bypassAhaType && AhaTypeTextOptimizer.shared.isEnabled
-        statusMessage = willUseAhaType ? "AhaType 整理中…" : "准备粘贴…"
+        statusMessage = willUseAhaType ? String(localized: "text.c2ee5bc7cb75", defaultValue: "AhaType 整理中…") : String(localized: "text.c5ab84017358", defaultValue: "准备粘贴…")
         VoiceStatusHUDController.shared.show(willUseAhaType ? .ahaType : .pasting)
         appendDiagnostic("finalize begin reason=\(reason) bypass=\(bypassAhaType) rawText=\(text)")
 
@@ -491,11 +491,11 @@ final class NativeSpeechTranscriptionService: ObservableObject {
             }
             if self.injectText(output) {
                 self.lastCommittedText = output
-                self.statusMessage = output == text ? "已写入：\(output)" : "AhaType 已整理并写入：\(output)"
+                self.statusMessage = output == text ? String(localized: "text.f37200dc0453", defaultValue: "已写入：\(String(describing: output))") : String(localized: "text.6b9a611af736", defaultValue: "AhaType 已整理并写入：\(String(describing: output))")
                 VoiceStatusHUDController.shared.show(.done, autoHideAfter: 1.4)
                 self.appendDiagnostic("finalize success reason=\(reason) rawText=\(text) outputText=\(output)")
             } else {
-                self.statusMessage = "识别完成，但写入当前光标失败。"
+                self.statusMessage = String(localized: "text.eb4a2e4aaf7e", defaultValue: "识别完成，但写入当前光标失败。")
                 VoiceStatusHUDController.shared.show(.failed, autoHideAfter: 2.0)
                 self.appendDiagnostic("finalize inject failed reason=\(reason) text=\(output)")
             }
@@ -538,18 +538,18 @@ final class NativeSpeechTranscriptionService: ObservableObject {
     ) -> String {
         var missing: [String] = []
         if micStatus != .authorized {
-            missing.append("麦克风")
+            missing.append(String(localized: "text.714cac30e2ff", defaultValue: "麦克风"))
         }
         if speechStatus != .authorized {
-            missing.append("语音转写")
+            missing.append(String(localized: "text.dc4d60da1bcd", defaultValue: "语音转写"))
         }
         if !siriEnabled {
             missing.append("Siri")
         }
         if !dictationEnabled {
-            missing.append("听写")
+            missing.append(String(localized: "text.a44d14888ce8", defaultValue: "听写"))
         }
-        return "还缺\(missing.joined(separator: "、"))权限。请先在系统设置里打开后，再按一次语音键。"
+        return String(localized: "text.6da5b4f113f2", defaultValue: "还缺\(String(describing: missing.formatted(.list(type: .and))))权限。请先在系统设置里打开后，再按一次语音键。")
     }
 
     // MARK: - 麦克风权限辅助（macOS 14+ 用 AVAudioApplication，旧系统回退 AVCaptureDevice）

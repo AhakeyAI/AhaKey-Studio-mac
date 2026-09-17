@@ -29,14 +29,14 @@ struct FirmwareFlasherView: View {
             flasher.loadBundledFirmwareIfNeeded()
         }
         .interactiveDismissDisabled(flasher.phase.isBusy)
-        .alert("确认全量烧录", isPresented: $showsFlashConfirmation) {
-            Button("取消", role: .cancel) {}
-            Button("清空并开始烧录", role: .destructive) {
+        .alert(String(localized: "text.9a88aa3b3683", defaultValue: "确认全量烧录"), isPresented: $showsFlashConfirmation) {
+            Button(String(localized: "text.2cd0f3be8738", defaultValue: "取消"), role: .cancel) {}
+            Button(String(localized: "text.929b02b715f3", defaultValue: "清空并开始烧录"), role: .destructive) {
                 bleManager.disconnect()
                 flasher.startFlashing()
             }
         } message: {
-            Text("此操作将清空 AhaKey X1 的 CodeFlash 和全部 DataFlash 配置。确认固件文件及 SHA-256 无误，并确保烧录期间不会拔线或退出 App。")
+            Text(String(localized: "text.72eb4ff2b6f1", defaultValue: "此操作将清空 AhaKey X1 的 CodeFlash 和全部 DataFlash 配置。确认固件文件及 SHA-256 无误，并确保烧录期间不会拔线或退出 App。"))
         }
     }
 
@@ -46,14 +46,14 @@ struct FirmwareFlasherView: View {
                 .font(.system(size: 28))
                 .foregroundStyle(.orange)
             VStack(alignment: .leading, spacing: 3) {
-                Text("AhaKey X1 固件升级")
+                Text(String(localized: "text.bd78fbe2eef8", defaultValue: "AhaKey X1 固件升级"))
                     .font(.title2.weight(.semibold))
-                Text("CH582M · USB ISP 全量烧录")
+                Text(String(localized: "text.ac4526fc8309", defaultValue: "CH582M · USB ISP 全量烧录"))
                     .font(.callout)
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            Button("关闭") { dismiss() }
+            Button(String(localized: "text.3fd47edce45b", defaultValue: "关闭")) { dismiss() }
                 .disabled(flasher.phase.isBusy)
         }
         .padding(.horizontal, 24)
@@ -69,12 +69,12 @@ struct FirmwareFlasherView: View {
                             Text(firmware.fileName)
                                 .font(.system(.body, design: .monospaced).weight(.medium))
                                 .textSelection(.enabled)
-                            Text("\(firmware.formattedByteCount) · \(firmware.isBundled ? "App 内置版本" : "自定义固件")")
+                            Text(String(localized: "text.ce126c8e47cf", defaultValue: "\(String(describing: firmware.formattedByteCount)) · \(String(describing: firmware.isBundled ? String(localized: "text.b5de2782e509", defaultValue: "App 内置版本") : String(localized: "text.a43ecc719f4f", defaultValue: "自定义固件")))"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
-                        Label("校验通过", systemImage: "checkmark.seal.fill")
+                        Label(String(localized: "text.3051a776eaa5", defaultValue: "校验通过"), systemImage: "checkmark.seal.fill")
                             .font(.caption.weight(.medium))
                             .foregroundStyle(.green)
                     }
@@ -85,18 +85,18 @@ struct FirmwareFlasherView: View {
                 } else if flasher.phase == .validating {
                     HStack(spacing: 10) {
                         ProgressView().controlSize(.small)
-                        Text("正在检查 Intel HEX 结构和校验和…")
+                        Text(String(localized: "text.9c35c53613a5", defaultValue: "正在检查 Intel HEX 结构和校验和…"))
                             .foregroundStyle(.secondary)
                     }
                 } else {
-                    Text("没有可用的固件。请重新安装完整 App，或选择一个 Intel HEX 文件。")
+                    Text(String(localized: "text.32f5e9b9a4a9", defaultValue: "没有可用的固件。请重新安装完整 App，或选择一个 Intel HEX 文件。"))
                         .foregroundStyle(.orange)
                 }
 
                 HStack(spacing: 10) {
-                    Button("选择 HEX…") { chooseFirmware() }
+                    Button(String(localized: "text.a42fe11203d0", defaultValue: "选择 HEX…")) { chooseFirmware() }
                         .disabled(flasher.phase.isBusy)
-                    Button("恢复内置 1.4.6") {
+                    Button(String(localized: "text.e3355326ddcf", defaultValue: "恢复内置 1.4.6")) {
                         acknowledgesDataLoss = false
                         flasher.selectBundledFirmware()
                     }
@@ -106,34 +106,34 @@ struct FirmwareFlasherView: View {
             }
             .padding(4)
         } label: {
-            Label("固件文件", systemImage: "doc.badge.gearshape")
+            Label(String(localized: "text.08ada1935689", defaultValue: "固件文件"), systemImage: "doc.badge.gearshape")
         }
     }
 
     private var preparationSection: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 10) {
-                instructionRow(1, "拔掉键盘 USB，并关闭键盘电源。")
-                instructionRow(2, "将 CN1 的 BOOT（PB22）与 GND 短接。")
-                instructionRow(3, "点击开始后，保持短接并插入支持数据传输的 USB 线。")
-                instructionRow(4, "App 检测到 CH582 并开始擦除后，可以移除短接。")
+                instructionRow(1, String(localized: "text.b369a8c30fd3", defaultValue: "拔掉键盘 USB，并关闭键盘电源。"))
+                instructionRow(2, String(localized: "text.b4b25769af90", defaultValue: "将 CN1 的 BOOT（PB22）与 GND 短接。"))
+                instructionRow(3, String(localized: "text.1c22d0449166", defaultValue: "点击开始后，保持短接并插入支持数据传输的 USB 线。"))
+                instructionRow(4, String(localized: "text.845c0a727f57", defaultValue: "App 检测到 CH582 并开始擦除后，可以移除短接。"))
 
                 HStack(alignment: .top, spacing: 8) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.orange)
-                    Text("实体 KEY0 接在 PB0，不是 ROM BOOT 引脚；仅按 KEY0 通常无法进入烧录模式。")
+                    Text(String(localized: "text.55f578a73f6b", defaultValue: "实体 KEY0 接在 PB0，不是 ROM BOOT 引脚；仅按 KEY0 通常无法进入烧录模式。"))
                         .font(.callout)
                 }
                 .padding(.top, 4)
 
-                Toggle("我已确认目标是 AhaKey X1，并理解烧录会删除设备中的全部配置数据。", isOn: $acknowledgesDataLoss)
+                Toggle(String(localized: "text.0bd293435f6b", defaultValue: "我已确认目标是 AhaKey X1，并理解烧录会删除设备中的全部配置数据。"), isOn: $acknowledgesDataLoss)
                     .toggleStyle(.checkbox)
                     .disabled(flasher.phase.isBusy)
                     .padding(.top, 6)
             }
             .padding(4)
         } label: {
-            Label("进入 USB ISP", systemImage: "cable.connector")
+            Label(String(localized: "text.e6d97ce74413", defaultValue: "进入 USB ISP"), systemImage: "cable.connector")
         }
     }
 
@@ -151,16 +151,16 @@ struct FirmwareFlasherView: View {
                                 .foregroundStyle(.red)
                                 .textSelection(.enabled)
                             if flasher.hasStartedDestructiveOperation {
-                                Text("设备可能已被擦除；请保持 USB ISP 连接，确认固件有效后重新烧录。")
+                                Text(String(localized: "text.90eef5738329", defaultValue: "设备可能已被擦除；请保持 USB ISP 连接，确认固件有效后重新烧录。"))
                                     .font(.caption.weight(.medium))
                                     .foregroundStyle(.orange)
                             }
                         } else if flasher.phase == .waitingForDevice {
-                            Text("最长等待 60 秒；在检测和确认 CH582 之前不会擦除任何数据。")
+                            Text(String(localized: "text.c52e838f86cb", defaultValue: "最长等待 60 秒；在检测和确认 CH582 之前不会擦除任何数据。"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         } else if flasher.phase.isDestructive {
-                            Text("请勿拔线、关闭窗口或退出 App。")
+                            Text(String(localized: "text.58e9d3250073", defaultValue: "请勿拔线、关闭窗口或退出 App。"))
                                 .font(.caption.weight(.medium))
                                 .foregroundStyle(.orange)
                         }
@@ -201,21 +201,21 @@ struct FirmwareFlasherView: View {
             }
             .padding(4)
         } label: {
-            Label("烧录状态", systemImage: "waveform.path.ecg")
+            Label(String(localized: "text.76a1299e12da", defaultValue: "烧录状态"), systemImage: "waveform.path.ecg")
         }
     }
 
     private var footer: some View {
         HStack {
-            Text("烧录工具：wchisp 0.3.0 · GPL-2.0")
+            Text(String(localized: "text.1eba01018bc5", defaultValue: "烧录工具：wchisp 0.3.0 · GPL-2.0"))
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
             Spacer()
             if flasher.phase.canCancelSafely {
-                Button("取消等待", role: .cancel) { flasher.cancelSafely() }
+                Button(String(localized: "text.fdc423587f24", defaultValue: "取消等待"), role: .cancel) { flasher.cancelSafely() }
                     .buttonStyle(.bordered)
             }
-            Button("开始等待设备") {
+            Button(String(localized: "text.cdf740102687", defaultValue: "开始等待设备")) {
                 showsFlashConfirmation = true
             }
             .buttonStyle(.borderedProminent)
@@ -258,8 +258,8 @@ struct FirmwareFlasherView: View {
 
     private func chooseFirmware() {
         let panel = NSOpenPanel()
-        panel.title = "选择 AhaKey X1 Intel HEX 固件"
-        panel.message = "App 会先校验每条 Intel HEX 记录及 SHA-256；确认前不会访问设备。"
+        panel.title = String(localized: "text.f0fb598b38e4", defaultValue: "选择 AhaKey X1 Intel HEX 固件")
+        panel.message = String(localized: "text.d496441b16ac", defaultValue: "App 会先校验每条 Intel HEX 记录及 SHA-256；确认前不会访问设备。")
         panel.canChooseDirectories = false
         panel.canChooseFiles = true
         panel.allowsMultipleSelection = false

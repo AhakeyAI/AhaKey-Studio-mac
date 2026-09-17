@@ -12,7 +12,7 @@ final class CloudAccountManager: ObservableObject {
     @Published private(set) var isBusy = false
     @Published private(set) var profile: [String: Any]?
     @Published private(set) var paymentOrder: CloudPaymentOrder?
-    @Published private(set) var statusMessage = "尚未登录。"
+    @Published private(set) var statusMessage = String(localized: "text.783b3c9bcf5a", defaultValue: "尚未登录。")
     @Published var alertMessage: String?
 
     private let fallbackAPIBase = "https://956798.xyz/prod-api"
@@ -30,16 +30,16 @@ final class CloudAccountManager: ObservableObject {
         }
         isLoggedIn = !accessToken.isEmpty
         if isLoggedIn {
-            statusMessage = "已登录，等待刷新用户信息。"
+            statusMessage = String(localized: "text.29a27bf6d68a", defaultValue: "已登录，等待刷新用户信息。")
         }
     }
 
     func login() {
-        authenticate(path: "api/v1/auth/login", successMessage: "登录成功。", fallbackError: "登录失败。")
+        authenticate(path: "api/v1/auth/login", successMessage: String(localized: "text.ba9a21fb737c", defaultValue: "登录成功。"), fallbackError: String(localized: "text.1df8b73b7735", defaultValue: "登录失败。"))
     }
 
     func register() {
-        authenticate(path: "api/v1/auth/register", successMessage: "注册成功。", fallbackError: "注册失败。")
+        authenticate(path: "api/v1/auth/register", successMessage: String(localized: "text.d0d387a98206", defaultValue: "注册成功。"), fallbackError: String(localized: "text.30d3aab35fea", defaultValue: "注册失败。"))
     }
 
     func logout() {
@@ -47,14 +47,14 @@ final class CloudAccountManager: ObservableObject {
         AhaTypeTextOptimizer.shared.clearSessionKeepToggle()
         profile = nil
         isLoggedIn = false
-        statusMessage = "已退出登录。"
+        statusMessage = String(localized: "text.5a6ab4b41b81", defaultValue: "已退出登录。")
     }
 
     func prepareForRelogin() {
         UserDefaults.standard.removeObject(forKey: tokenKey)
         profile = nil
         isLoggedIn = false
-        statusMessage = "请输入账号密码重新登录。"
+        statusMessage = String(localized: "text.898dcb1f1941", defaultValue: "请输入账号密码重新登录。")
     }
 
     func refreshProfile(showAlertOnFailure: Bool = true) {
@@ -63,23 +63,23 @@ final class CloudAccountManager: ObservableObject {
             return
         }
         isBusy = true
-        statusMessage = "正在刷新用户信息…"
+        statusMessage = String(localized: "text.adb1cd54904f", defaultValue: "正在刷新用户信息…")
         Task {
             defer { Task { @MainActor in self.isBusy = false } }
             do {
                 let object = try await request(path: "api/v1/auth/users/me", method: "GET", body: nil, authorized: true)
-                let data = try payloadData(from: object, fallbackError: "获取用户信息失败")
+                let data = try payloadData(from: object, fallbackError: String(localized: "text.2339340aba36", defaultValue: "获取用户信息失败"))
                 await MainActor.run {
                     self.applyProfile(data)
-                    self.statusMessage = "用户信息已刷新。"
+                    self.statusMessage = String(localized: "text.1f58c8eb25bc", defaultValue: "用户信息已刷新。")
                 }
             } catch {
                 await MainActor.run {
                     if showAlertOnFailure {
                         self.alertMessage = error.localizedDescription
-                        self.statusMessage = "刷新失败。"
+                        self.statusMessage = String(localized: "text.682511428150", defaultValue: "刷新失败。")
                     } else {
-                        self.statusMessage = "已登录，用户信息稍后可刷新。"
+                        self.statusMessage = String(localized: "text.0cf522beec6b", defaultValue: "已登录，用户信息稍后可刷新。")
                     }
                     if showAlertOnFailure, (error as? CloudAccountError)?.statusCode == 401 {
                         self.logout()
@@ -92,26 +92,26 @@ final class CloudAccountManager: ObservableObject {
     func redeemCoupon() {
         let code = couponCode.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !code.isEmpty else {
-            alertMessage = "请输入兑换码。"
+            alertMessage = String(localized: "text.4a295dcdba3f", defaultValue: "请输入兑换码。")
             return
         }
         isBusy = true
-        statusMessage = "正在兑换免费券…"
+        statusMessage = String(localized: "text.9c2ec3b0f9de", defaultValue: "正在兑换免费券…")
         Task {
             defer { Task { @MainActor in self.isBusy = false } }
             do {
                 let object = try await request(path: "api/v1/coupon/redeem", method: "POST", body: ["code": code], authorized: true)
-                let data = try payloadData(from: object, fallbackError: "兑换失败")
+                let data = try payloadData(from: object, fallbackError: String(localized: "text.78f68d914e07", defaultValue: "兑换失败"))
                 await MainActor.run {
                     self.couponCode = ""
                     self.applyProfile(data)
-                    self.statusMessage = "兑换成功。"
-                    self.alertMessage = "免费券已生效。"
+                    self.statusMessage = String(localized: "text.71f7ea5e37d0", defaultValue: "兑换成功。")
+                    self.alertMessage = String(localized: "text.18dba4283ba8", defaultValue: "免费券已生效。")
                 }
             } catch {
                 await MainActor.run {
                     self.alertMessage = error.localizedDescription
-                    self.statusMessage = "兑换失败。"
+                    self.statusMessage = String(localized: "text.f217d5539f6d", defaultValue: "兑换失败。")
                 }
             }
         }
@@ -119,11 +119,11 @@ final class CloudAccountManager: ObservableObject {
 
     func createWechatOrder(plan: CloudRechargePlan) {
         guard isLoggedIn else {
-            alertMessage = "请先登录后再充值。"
+            alertMessage = String(localized: "text.c285e04d5f20", defaultValue: "请先登录后再充值。")
             return
         }
         isBusy = true
-        statusMessage = "正在创建微信支付订单…"
+        statusMessage = String(localized: "text.20a485b0e3ad", defaultValue: "正在创建微信支付订单…")
         Task {
             defer { Task { @MainActor in self.isBusy = false } }
             do {
@@ -133,12 +133,12 @@ final class CloudAccountManager: ObservableObject {
                     body: ["plan": plan.rawValue, "description": plan.orderDescription],
                     authorized: true
                 )
-                let data = try payloadData(from: object, fallbackError: "创建支付订单失败")
+                let data = try payloadData(from: object, fallbackError: String(localized: "text.7902df663f83", defaultValue: "创建支付订单失败"))
                 let codeURL = firstString(in: data, keys: ["code_url", "codeUrl"])
                 let h5URL = firstString(in: data, keys: ["h5_url", "h5Url", "mweb_url", "mwebUrl"])
                 let outTradeNo = firstString(in: data, keys: ["out_trade_no", "outTradeNo"])
-                guard !outTradeNo.isEmpty else { throw CloudAccountError("云端未返回订单号，无法查询支付状态。") }
-                guard !codeURL.isEmpty || !h5URL.isEmpty else { throw CloudAccountError("云端未返回可支付链接。") }
+                guard !outTradeNo.isEmpty else { throw CloudAccountError(String(localized: "text.34c2422db3ba", defaultValue: "云端未返回订单号，无法查询支付状态。")) }
+                guard !codeURL.isEmpty || !h5URL.isEmpty else { throw CloudAccountError(String(localized: "text.a5b6a849871b", defaultValue: "云端未返回可支付链接。")) }
                 let amountFen = firstInt(in: data, keys: ["amount_fen", "amountFen"])
                 await MainActor.run {
                     self.paymentOrder = CloudPaymentOrder(
@@ -149,13 +149,13 @@ final class CloudAccountManager: ObservableObject {
                         h5URL: h5URL,
                         status: "pending"
                     )
-                    self.statusMessage = "订单已创建，请使用微信扫码支付。"
+                    self.statusMessage = String(localized: "text.4131e082060c", defaultValue: "订单已创建，请使用微信扫码支付。")
                     self.pollPaymentStatus(outTradeNo: outTradeNo)
                 }
             } catch {
                 await MainActor.run {
                     self.alertMessage = error.localizedDescription
-                    self.statusMessage = "创建支付订单失败。"
+                    self.statusMessage = String(localized: "text.a356b9b9c384", defaultValue: "创建支付订单失败。")
                 }
             }
         }
@@ -163,7 +163,7 @@ final class CloudAccountManager: ObservableObject {
 
     func clearPaymentOrder() {
         paymentOrder = nil
-        statusMessage = "已关闭支付订单。"
+        statusMessage = String(localized: "text.e680b29491e0", defaultValue: "已关闭支付订单。")
     }
 
     func refreshCurrentPaymentOrder() {
@@ -172,7 +172,7 @@ final class CloudAccountManager: ObservableObject {
             return
         }
         isBusy = true
-        statusMessage = "正在查询订单状态…"
+        statusMessage = String(localized: "text.28b787d6f8f9", defaultValue: "正在查询订单状态…")
         Task {
             defer { Task { @MainActor in self.isBusy = false } }
             do {
@@ -183,28 +183,28 @@ final class CloudAccountManager: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.alertMessage = error.localizedDescription
-                    self.statusMessage = "订单状态查询失败。"
+                    self.statusMessage = String(localized: "text.e58bd97210e2", defaultValue: "订单状态查询失败。")
                 }
             }
         }
     }
 
     var profileSummary: String {
-        guard let profile else { return isLoggedIn ? "已登录，点击刷新获取用户信息。" : "登录后可启用 AhaType 云端整理。" }
+        guard let profile else { return isLoggedIn ? String(localized: "text.5a94bf18de3c", defaultValue: "已登录，点击刷新获取用户信息。") : String(localized: "text.cdcaf685cf61", defaultValue: "登录后可启用 AhaType 云端整理。") }
         let phone = stringValue(profile["phone"])
         let validUntil = stringValue(profile["token_valid_until"])
         return [
-            phone.isEmpty ? "" : "手机号：\(phone)",
-            validUntil.isEmpty ? "有效期：无" : "有效期：\(validUntil)",
+            phone.isEmpty ? "" : String(localized: "text.5f6f7d637159", defaultValue: "手机号：\(String(describing: phone))"),
+            validUntil.isEmpty ? String(localized: "text.dcc6272fd881", defaultValue: "有效期：无") : String(localized: "text.2e606ce8ff9f", defaultValue: "有效期：\(String(describing: validUntil))"),
         ].filter { !$0.isEmpty }.joined(separator: "\n")
     }
 
     func quotaText(_ period: String) -> String {
-        guard let profile else { return "暂无" }
+        guard let profile else { return String(localized: "text.b336a174cd1f", defaultValue: "暂无") }
         let used = intValue(profile["used_\(period)"])
         let limit = intValue(profile["limit_\(period)"])
         if limit <= 0 {
-            return used > 0 ? "已用 \(used) · 无上限" : "暂无"
+            return used > 0 ? String(localized: "text.f457f0fdb025", defaultValue: "已用 \(String(describing: used)) · 无上限") : String(localized: "text.b336a174cd1f", defaultValue: "暂无")
         }
         return "\(used) / \(limit)"
     }
@@ -239,7 +239,7 @@ final class CloudAccountManager: ObservableObject {
             }
             await MainActor.run {
                 if self.paymentOrder?.outTradeNo == outTradeNo {
-                    self.statusMessage = "等待支付超时，可稍后刷新用户信息确认到账。"
+                    self.statusMessage = String(localized: "text.6f58575748c1", defaultValue: "等待支付超时，可稍后刷新用户信息确认到账。")
                 }
             }
         }
@@ -249,7 +249,7 @@ final class CloudAccountManager: ObservableObject {
         let encoded = outTradeNo.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? outTradeNo
         let path = "api/v1/payment/wechat/order-status?outTradeNo=\(encoded)"
         let object = try await request(path: path, method: "GET", body: nil, authorized: true)
-        let data = try payloadData(from: object, fallbackError: "查询订单状态失败")
+        let data = try payloadData(from: object, fallbackError: String(localized: "text.b3b08061ebd6", defaultValue: "查询订单状态失败"))
         return normalizedPaymentStatus(from: data)
     }
 
@@ -261,19 +261,19 @@ final class CloudAccountManager: ObservableObject {
             paymentOrder = order
         }
         if isPaidPaymentStatus(normalized) {
-            statusMessage = "充值成功，正在刷新额度。"
+            statusMessage = String(localized: "text.65cd840103a1", defaultValue: "充值成功，正在刷新额度。")
             paymentOrder = nil
             refreshProfile()
             return true
         }
         if isFailedPaymentStatus(normalized) {
-            statusMessage = "订单支付失败。"
-            alertMessage = "订单已标记为失败，请重新发起充值。"
+            statusMessage = String(localized: "text.a2dd266089c2", defaultValue: "订单支付失败。")
+            alertMessage = String(localized: "text.681c26bed3bd", defaultValue: "订单已标记为失败，请重新发起充值。")
             return true
         }
-        statusMessage = "订单尚未到账，请稍后再刷新。"
+        statusMessage = String(localized: "text.a24ebe7252df", defaultValue: "订单尚未到账，请稍后再刷新。")
         if notifyPending {
-            alertMessage = "当前订单仍未到账，请确认微信支付已完成后再刷新。"
+            alertMessage = String(localized: "text.55d5b346614d", defaultValue: "当前订单仍未到账，请确认微信支付已完成后再刷新。")
         }
         return false
     }
@@ -281,18 +281,18 @@ final class CloudAccountManager: ObservableObject {
     private func authenticate(path: String, successMessage: String, fallbackError: String) {
         let p = phone.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !p.isEmpty, !password.isEmpty else {
-            alertMessage = "请输入手机号和密码。"
+            alertMessage = String(localized: "text.8243d8c8b81f", defaultValue: "请输入手机号和密码。")
             return
         }
         isBusy = true
-        statusMessage = "正在请求云端账号…"
+        statusMessage = String(localized: "text.c15e7ee954d5", defaultValue: "正在请求云端账号…")
         Task {
             defer { Task { @MainActor in self.isBusy = false } }
             do {
                 let object = try await request(path: path, method: "POST", body: ["phone": p, "password": password], authorized: false)
                 let data = try payloadData(from: object, fallbackError: fallbackError)
                 let token = firstString(in: data, keys: ["access_token", "token"])
-                guard !token.isEmpty else { throw CloudAccountError("云端未返回 access_token。") }
+                guard !token.isEmpty else { throw CloudAccountError(String(localized: "text.966601162379", defaultValue: "云端未返回 access_token。")) }
                 await MainActor.run {
                     self.saveLogin(token: token, authData: data)
                     self.statusMessage = successMessage
@@ -303,7 +303,7 @@ final class CloudAccountManager: ObservableObject {
             } catch {
                 await MainActor.run {
                     self.alertMessage = error.localizedDescription
-                    self.statusMessage = "账号请求失败。"
+                    self.statusMessage = String(localized: "text.1470f2e962ed", defaultValue: "账号请求失败。")
                 }
             }
         }
@@ -397,7 +397,7 @@ final class CloudAccountManager: ObservableObject {
 
     private func request(path: String, method: String, body: [String: Any]?, authorized: Bool) async throws -> [String: Any] {
         guard let url = URL(string: "\(apiBase)/\(path)") else {
-            throw CloudAccountError("云端地址无效。")
+            throw CloudAccountError(String(localized: "text.e4ba45d72eff", defaultValue: "云端地址无效。"))
         }
         var request = URLRequest(url: url, timeoutInterval: 90)
         request.httpMethod = method
@@ -417,10 +417,10 @@ final class CloudAccountManager: ObservableObject {
         }
         let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
         guard let object = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            throw CloudAccountError("服务器返回非 JSON。", statusCode: statusCode)
+            throw CloudAccountError(String(localized: "text.c6c6c8e2bf65", defaultValue: "服务器返回非 JSON。"), statusCode: statusCode)
         }
         if statusCode != 200 {
-            throw CloudAccountError(responseMessage(object).isEmpty ? "请求失败（HTTP \(statusCode)）。" : responseMessage(object), statusCode: statusCode)
+            throw CloudAccountError(responseMessage(object).isEmpty ? String(localized: "text.dbb8cff0e965", defaultValue: "请求失败（HTTP \(String(describing: statusCode))）。") : responseMessage(object), statusCode: statusCode)
         }
         return object
     }
@@ -557,20 +557,20 @@ final class CloudAccountManager: ObservableObject {
     }
 
     private func formatFen(_ fen: Int) -> String {
-        String(format: "%.2f 元", Double(max(0, fen)) / 100.0)
+        (Double(max(0, fen)) / 100.0).formatted(.currency(code: "CNY"))
     }
 
     private func networkMessage(for error: Error) -> String {
         guard let urlError = error as? URLError else {
-            return "云端连接失败：\(error.localizedDescription)"
+            return String(localized: "text.6f36f8b2e566", defaultValue: "云端连接失败：\(String(describing: error.localizedDescription))")
         }
         switch urlError.code {
         case .secureConnectionFailed, .serverCertificateHasBadDate, .serverCertificateUntrusted, .serverCertificateHasUnknownRoot, .serverCertificateNotYetValid, .clientCertificateRejected, .clientCertificateRequired:
-            return "云端连接失败：TLS/SSL 校验未通过，请检查系统时间、网络代理/证书，或确认云端 HTTPS 证书配置正常。"
+            return String(localized: "text.f333efeccbf9", defaultValue: "云端连接失败：TLS/SSL 校验未通过，请检查系统时间、网络代理/证书，或确认云端 HTTPS 证书配置正常。")
         case .cannotFindHost, .cannotConnectToHost, .dnsLookupFailed, .notConnectedToInternet, .networkConnectionLost, .timedOut:
-            return "云端连接失败：当前网络无法访问 AhaType 服务，请检查网络后重试。"
+            return String(localized: "text.1936bb895efe", defaultValue: "云端连接失败：当前网络无法访问 AhaType 服务，请检查网络后重试。")
         default:
-            return "云端连接失败：\(urlError.localizedDescription)"
+            return String(localized: "text.6f36f8b2e566", defaultValue: "云端连接失败：\(String(describing: urlError.localizedDescription))")
         }
     }
 }
@@ -596,25 +596,25 @@ enum CloudRechargePlan: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .monthly: return "按月订阅"
-        case .quarterly: return "按季订阅"
-        case .yearly: return "按年订阅"
+        case .monthly: return String(localized: "text.5a1f30797836", defaultValue: "按月订阅")
+        case .quarterly: return String(localized: "text.508ec5ca1cb5", defaultValue: "按季订阅")
+        case .yearly: return String(localized: "text.5c6379a19308", defaultValue: "按年订阅")
         }
     }
 
     var subtitle: String {
         switch self {
-        case .monthly: return "30 天"
-        case .quarterly: return "90 天"
-        case .yearly: return "365 天"
+        case .monthly: return String(localized: "text.84ad2952a308", defaultValue: "30 天")
+        case .quarterly: return String(localized: "text.cb82f419192b", defaultValue: "90 天")
+        case .yearly: return String(localized: "text.ef95232cba01", defaultValue: "365 天")
         }
     }
 
     var orderDescription: String {
         switch self {
-        case .monthly: return "包月充值"
-        case .quarterly: return "包季充值"
-        case .yearly: return "包年充值"
+        case .monthly: return String(localized: "text.00c04a0000e2", defaultValue: "包月充值")
+        case .quarterly: return String(localized: "text.b4ee0a0aeabf", defaultValue: "包季充值")
+        case .yearly: return String(localized: "text.346e45df14e8", defaultValue: "包年充值")
         }
     }
 
@@ -640,6 +640,6 @@ struct CloudPaymentOrder: Equatable {
     }
 
     var amountText: String {
-        String(format: "%.2f 元", Double(max(0, amountFen)) / 100.0)
+        (Double(max(0, amountFen)) / 100.0).formatted(.currency(code: "CNY"))
     }
 }

@@ -1,0 +1,57 @@
+{
+  "sourceLanguage": "zh-Hans",
+  "strings": {
+    "NSBluetoothAlwaysUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey 配置需要蓝牙连接你的 AhaKey 键盘。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studio uses Bluetooth to connect to your AhaKey keyboard."
+          }
+        }
+      }
+    },
+    "NSMicrophoneUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studio 需要访问麦克风，才能使用苹果原生语音转写。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studio uses the microphone to transcribe your speech with Apple speech recognition."
+          }
+        }
+      }
+    },
+    "NSSpeechRecognitionUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studio 需要语音识别权限，才能把语音键转换成苹果原生转写。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studio uses speech recognition to transcribe speech triggered by the voice key."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

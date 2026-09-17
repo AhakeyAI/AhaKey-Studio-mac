@@ -142,7 +142,7 @@ struct UnifiedAhaKeyOnboardingView: View {
             Spacer(minLength: 0)
             stepper
             Spacer(minLength: 0)
-            Button("跳过") {
+            Button(String(localized: "text.fc50a99caae0", defaultValue: "跳过")) {
                 finish()
             }
             .buttonStyle(.plain)
@@ -166,7 +166,8 @@ struct UnifiedAhaKeyOnboardingView: View {
                         Text(item.title)
                             .font(.system(size: 15, weight: step == item ? .semibold : .medium))
                             .foregroundStyle(step == item ? Color.primary : Color.secondary)
-                            .frame(width: 78, height: 34)
+                            .padding(.horizontal, 12)
+                            .frame(minWidth: 78, minHeight: 34)
                             .contentShape(Rectangle())
                             .overlay(alignment: .bottom) {
                                 Rectangle()
@@ -210,19 +211,19 @@ struct UnifiedAhaKeyOnboardingView: View {
     private var welcomePanel: some View {
         VStack(alignment: .leading, spacing: 28) {
             VStack(alignment: .leading, spacing: 12) {
-                Text("在这台 Mac 上设置 AhaKey")
+                Text(String(localized: "text.179c938117a0", defaultValue: "在这台 Mac 上设置 AhaKey"))
                     .font(.system(size: 32, weight: .semibold))
                     .foregroundStyle(.primary)
-                Text("完成键盘连接、后台语音键接管、macOS 原生语音和一次真实输入体验。")
+                Text(String(localized: "text.185088395ab8", defaultValue: "完成键盘连接、后台语音键接管、macOS 原生语音和一次真实输入体验。"))
                     .font(.system(size: 16))
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
             VStack(spacing: 14) {
-                onboardingCard(systemImage: "keyboard", title: "连接与控制", detail: "开启蓝牙后，AhaKey Studio 会接管出厂语音键并同步当前 Mode。")
-                onboardingCard(systemImage: "lock.shield", title: "分步授权", detail: "先完成蓝牙、麦克风、语音转写等弹窗授权，再依次开启 Siri、听写、辅助功能，最后处理输入监控并重启。")
-                onboardingCard(systemImage: "mic", title: "体验输入", detail: "最后可以直接口述一句话，确认识别和写入链路都已准备好。")
+                onboardingCard(systemImage: "keyboard", title: String(localized: "text.27844891aef2", defaultValue: "连接与控制"), detail: String(localized: "text.6de4799da402", defaultValue: "开启蓝牙后，AhaKey Studio 会接管出厂语音键并同步当前 Mode。"))
+                onboardingCard(systemImage: "lock.shield", title: String(localized: "text.2234cd6e3717", defaultValue: "分步授权"), detail: String(localized: "text.2f00ca52519e", defaultValue: "先完成蓝牙、麦克风、语音转写等弹窗授权，再依次开启 Siri、听写、辅助功能，最后处理输入监控并重启。"))
+                onboardingCard(systemImage: "mic", title: String(localized: "text.821aace823bc", defaultValue: "体验输入"), detail: String(localized: "text.ed0c95067488", defaultValue: "最后可以直接口述一句话，确认识别和写入链路都已准备好。"))
             }
         }
     }
@@ -230,36 +231,36 @@ struct UnifiedAhaKeyOnboardingView: View {
     private var dialogPermissionsPanel: some View {
         VStack(alignment: .leading, spacing: 24) {
             sectionHeader(
-                title: "第一步：弹窗确认授权",
-                detail: "以下权限点击「申请」后会弹出系统对话框，直接点允许即可。"
+                title: String(localized: "text.75c6b08f7653", defaultValue: "第一步：弹窗确认授权"),
+                detail: String(localized: "text.39152f390872", defaultValue: "以下权限点击「申请」后会弹出系统对话框，直接点允许即可。")
             )
 
             VStack(spacing: 12) {
                 PermissionStatusRow(
-                    title: "蓝牙",
+                    title: String(localized: "text.aa86faacd6fe", defaultValue: "蓝牙"),
                     detail: bluetoothDetail,
                     granted: permissionState.bluetoothReady,
-                    actionTitle: permissionState.bluetoothReady ? nil : "申请",
+                    actionTitle: permissionState.bluetoothReady ? nil : String(localized: "text.436a02934223", defaultValue: "申请"),
                     action: { actions.requestPermission(.bluetooth) }
                 )
                 PermissionStatusRow(
-                    title: "麦克风",
-                    detail: "允许 AhaKey Studio 使用苹果原生语音采集。",
+                    title: String(localized: "text.714cac30e2ff", defaultValue: "麦克风"),
+                    detail: String(localized: "text.7d51fe069318", defaultValue: "允许 AhaKey Studio 使用苹果原生语音采集。"),
                     granted: permissionState.microphoneGranted,
-                    actionTitle: permissionState.microphoneGranted ? nil : "申请",
+                    actionTitle: permissionState.microphoneGranted ? nil : String(localized: "text.436a02934223", defaultValue: "申请"),
                     action: { actions.requestPermission(.microphone) }
                 )
                 PermissionStatusRow(
-                    title: "语音转写",
-                    detail: "允许 AhaKey Studio 使用苹果原生语音识别。",
+                    title: String(localized: "text.dc4d60da1bcd", defaultValue: "语音转写"),
+                    detail: String(localized: "text.e3cc79f00536", defaultValue: "允许 AhaKey Studio 使用苹果原生语音识别。"),
                     granted: permissionState.speechRecognitionGranted,
-                    actionTitle: permissionState.speechRecognitionGranted ? nil : "申请",
+                    actionTitle: permissionState.speechRecognitionGranted ? nil : String(localized: "text.436a02934223", defaultValue: "申请"),
                     action: { actions.requestPermission(.speechRecognition) }
                 )
             }
 
             HStack(spacing: 10) {
-                Button("重新检查") {
+                Button(String(localized: "text.c25fb86b1e96", defaultValue: "重新检查")) {
                     actions.recheckPermissions()
                 }
                 .buttonStyle(OnboardingSecondaryButtonStyle())
@@ -271,37 +272,37 @@ struct UnifiedAhaKeyOnboardingView: View {
     private var settingsPermissionsPanel: some View {
         VStack(alignment: .leading, spacing: 24) {
             sectionHeader(
-                title: "第二步：系统设置授权",
-                detail: "以下权限需要前往系统设置手动开启，点击「打开设置」后在系统设置中操作。"
+                title: String(localized: "text.4b4978679a63", defaultValue: "第二步：系统设置授权"),
+                detail: String(localized: "text.dd17eb6a231f", defaultValue: "以下权限需要前往系统设置手动开启，点击「打开设置」后在系统设置中操作。")
             )
 
             VStack(spacing: 12) {
                 PermissionStatusRow(
                     title: "Siri",
-                    detail: "在系统设置 > Siri 与聚焦里开启 Siri。",
+                    detail: String(localized: "text.af3c5d597ff1", defaultValue: "在系统设置 > Siri 与聚焦里开启 Siri。"),
                     granted: permissionState.siriEnabled,
-                    actionTitle: permissionState.siriEnabled ? nil : "打开设置",
+                    actionTitle: permissionState.siriEnabled ? nil : String(localized: "text.37aa6ad6a36d", defaultValue: "打开设置"),
                     action: { actions.requestPermission(.siri) }
                 )
                 PermissionStatusRow(
-                    title: "听写",
-                    detail: "在系统设置 > 键盘 > 听写里开启听写。",
+                    title: String(localized: "text.a44d14888ce8", defaultValue: "听写"),
+                    detail: String(localized: "text.185a5c920534", defaultValue: "在系统设置 > 键盘 > 听写里开启听写。"),
                     granted: permissionState.dictationEnabled,
-                    actionTitle: permissionState.dictationEnabled ? nil : "打开设置",
+                    actionTitle: permissionState.dictationEnabled ? nil : String(localized: "text.37aa6ad6a36d", defaultValue: "打开设置"),
                     action: { actions.requestPermission(.dictation) }
                 )
                 PermissionStatusRow(
-                    title: "辅助功能",
-                    detail: "允许 AhaKey Studio 把语音键转换成 macOS 原生转写或 Fn/Globe。",
+                    title: String(localized: "text.b8f88aeead15", defaultValue: "辅助功能"),
+                    detail: String(localized: "text.920f964ba340", defaultValue: "允许 AhaKey Studio 把语音键转换成 macOS 原生转写或 Fn/Globe。"),
                     granted: permissionState.accessibilityGranted,
-                    actionTitle: permissionState.accessibilityGranted ? nil : "打开设置",
+                    actionTitle: permissionState.accessibilityGranted ? nil : String(localized: "text.37aa6ad6a36d", defaultValue: "打开设置"),
                     action: { actions.requestPermission(.accessibility) }
                 )
                 PermissionStatusRow(
-                    title: "输入监控",
-                    detail: "允许 AhaKey Studio 在后台监听实体语音键；设置完成后通常需要退出并重新打开。",
+                    title: String(localized: "text.fc22bc8bea45", defaultValue: "输入监控"),
+                    detail: String(localized: "text.8ecb0d8fd20c", defaultValue: "允许 AhaKey Studio 在后台监听实体语音键；设置完成后通常需要退出并重新打开。"),
                     granted: permissionState.inputMonitoringGranted,
-                    actionTitle: permissionState.inputMonitoringGranted ? nil : "打开设置",
+                    actionTitle: permissionState.inputMonitoringGranted ? nil : String(localized: "text.37aa6ad6a36d", defaultValue: "打开设置"),
                     action: {
                         UserDefaults.standard.set(AhaKeyOnboardingStep.tryInput.rawValue, forKey: UnifiedOnboardingStorage.currentStepKey)
                         actions.requestPermission(.inputMonitoring)
@@ -310,7 +311,7 @@ struct UnifiedAhaKeyOnboardingView: View {
             }
 
             HStack(spacing: 10) {
-                Button("重新检查") {
+                Button(String(localized: "text.c25fb86b1e96", defaultValue: "重新检查")) {
                     actions.recheckPermissions()
                 }
                 .buttonStyle(OnboardingSecondaryButtonStyle())
@@ -322,8 +323,8 @@ struct UnifiedAhaKeyOnboardingView: View {
     private var tryInputPanel: some View {
         VStack(alignment: .leading, spacing: 24) {
             sectionHeader(
-                title: "第三步：体验输入",
-                detail: "请蓝牙连接小键盘后，将光标放在这里，按下麦克风键开始说话。"
+                title: String(localized: "text.2579d81ef4dd", defaultValue: "第三步：体验输入"),
+                detail: String(localized: "text.5794e8df1dd1", defaultValue: "请蓝牙连接小键盘后，将光标放在这里，按下麦克风键开始说话。")
             )
 
             VStack(alignment: .leading, spacing: 14) {
@@ -331,13 +332,13 @@ struct UnifiedAhaKeyOnboardingView: View {
                     Circle()
                         .fill(permissionState.isRecording ? Color.red : (permissionState.canTrySpeechInput ? Color.green : Color.orange))
                         .frame(width: 10, height: 10)
-                    Text(permissionState.isRecording ? "录音中" : (permissionState.canTrySpeechInput ? "语音已准备" : "仍缺语音权限"))
+                    Text(permissionState.isRecording ? String(localized: "text.e35a149d9bc7", defaultValue: "录音中") : (permissionState.canTrySpeechInput ? String(localized: "text.3daa34c03e9a", defaultValue: "语音已准备") : String(localized: "text.2db3ec5094ea", defaultValue: "仍缺语音权限")))
                         .font(.system(size: 15, weight: .semibold))
                 }
 
                 ZStack(alignment: .topLeading) {
                     if tryInputFieldText.isEmpty {
-                        Text("请蓝牙连接小键盘后，将光标放在这里，按下麦克风键开始说话")
+                        Text(String(localized: "text.a05cb88460d3", defaultValue: "请蓝牙连接小键盘后，将光标放在这里，按下麦克风键开始说话"))
                             .font(.system(size: 16))
                             .foregroundStyle(.tertiary)
                             .padding(.horizontal, 4)
@@ -360,14 +361,14 @@ struct UnifiedAhaKeyOnboardingView: View {
             }
 
             HStack(spacing: 10) {
-                Button(permissionState.isRecording ? "结束并写入" : "开始试说") {
+                Button(permissionState.isRecording ? String(localized: "text.9e0ce704cc88", defaultValue: "结束并写入") : String(localized: "text.2ae28d3840f6", defaultValue: "开始试说")) {
                     didRunTryExperience = true
                     actions.toggleTryExperience()
                 }
                 .buttonStyle(OnboardingPrimaryButtonStyle())
                 .disabled(!permissionState.canTrySpeechInput)
 
-                Button("重新检查") {
+                Button(String(localized: "text.c25fb86b1e96", defaultValue: "重新检查")) {
                     actions.recheckPermissions()
                 }
                 .buttonStyle(OnboardingSecondaryButtonStyle())
@@ -390,23 +391,23 @@ struct UnifiedAhaKeyOnboardingView: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 PermissionGroupSection(
-                    groupLabel: "弹窗授权",
+                    groupLabel: String(localized: "text.027b3bae6b7f", defaultValue: "弹窗授权"),
                     isHighlighted: step == .dialogPermissions,
                     items: [
-                        ("蓝牙", permissionState.bluetoothReady),
-                        ("麦克风", permissionState.microphoneGranted),
-                        ("语音转写", permissionState.speechRecognitionGranted),
+                        (String(localized: "text.aa86faacd6fe", defaultValue: "蓝牙"), permissionState.bluetoothReady),
+                        (String(localized: "text.714cac30e2ff", defaultValue: "麦克风"), permissionState.microphoneGranted),
+                        (String(localized: "text.dc4d60da1bcd", defaultValue: "语音转写"), permissionState.speechRecognitionGranted),
                     ]
                 )
 
                 PermissionGroupSection(
-                    groupLabel: "系统设置授权",
+                    groupLabel: String(localized: "text.84954a24dd36", defaultValue: "系统设置授权"),
                     isHighlighted: step == .settingsPermissions || step == .tryInput,
                     items: [
                         ("Siri", permissionState.siriEnabled),
-                        ("听写", permissionState.dictationEnabled),
-                        ("辅助功能", permissionState.accessibilityGranted),
-                        ("输入监控", permissionState.inputMonitoringGranted),
+                        (String(localized: "text.a44d14888ce8", defaultValue: "听写"), permissionState.dictationEnabled),
+                        (String(localized: "text.b8f88aeead15", defaultValue: "辅助功能"), permissionState.accessibilityGranted),
+                        (String(localized: "text.fc22bc8bea45", defaultValue: "输入监控"), permissionState.inputMonitoringGranted),
                     ]
                 )
             }
@@ -414,7 +415,7 @@ struct UnifiedAhaKeyOnboardingView: View {
             Divider().opacity(0.45)
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("当前状态")
+                Text(String(localized: "text.82b7cf40b5e6", defaultValue: "当前状态"))
                     .font(.system(size: 15, weight: .semibold))
                 Text(permissionState.voiceSummary)
                     .font(.system(size: 13))
@@ -435,7 +436,7 @@ struct UnifiedAhaKeyOnboardingView: View {
             Spacer()
 
             if step != .welcome {
-                Button("上一步") {
+                Button(String(localized: "text.da336fdc0dbd", defaultValue: "上一步")) {
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
                         moveToStep(step.previous)
                     }
@@ -461,9 +462,9 @@ struct UnifiedAhaKeyOnboardingView: View {
 
     private var bottomNextTitle: String {
         switch step {
-        case .welcome: return "开始设置"
-        case .tryInput: return "进入工作台"
-        default: return "下一步"
+        case .welcome: return String(localized: "text.feccf6563bd7", defaultValue: "开始设置")
+        case .tryInput: return String(localized: "text.0677f30054b1", defaultValue: "进入工作台")
+        default: return String(localized: "text.acfc4e74a650", defaultValue: "下一步")
         }
     }
 
@@ -471,12 +472,12 @@ struct UnifiedAhaKeyOnboardingView: View {
 
     private var bluetoothDetail: String {
         if !permissionState.bluetoothPermissionGranted {
-            return "允许 AhaKey Studio 扫描并连接 AhaKey 键盘。"
+            return String(localized: "text.bea2949e3df2", defaultValue: "允许 AhaKey Studio 扫描并连接 AhaKey 键盘。")
         }
         if !permissionState.bluetoothPoweredOn {
-            return "已授权，但系统蓝牙当前关闭，请在控制中心或系统设置中打开。"
+            return String(localized: "text.2af8cd09a077", defaultValue: "已授权，但系统蓝牙当前关闭，请在控制中心或系统设置中打开。")
         }
-        return "蓝牙可用，可以扫描并连接键盘。"
+        return String(localized: "text.d23272306430", defaultValue: "蓝牙可用，可以扫描并连接键盘。")
     }
 
     private var manualSettingsPermissionsGranted: Bool {
@@ -493,7 +494,7 @@ struct UnifiedAhaKeyOnboardingView: View {
         if !permissionState.lastCommittedText.isEmpty {
             return permissionState.lastCommittedText
         }
-        return "这里会显示实时识别或最近写入的内容。"
+        return String(localized: "text.77ebd29e9076", defaultValue: "这里会显示实时识别或最近写入的内容。")
     }
 
     private func sectionHeader(title: String, detail: String) -> some View {
@@ -596,7 +597,7 @@ private struct PermissionGroupSection: View {
             Text(title)
                 .font(.system(size: 14, weight: .medium))
             Spacer()
-            Text(granted ? "已开启" : "待开启")
+            Text(granted ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.d00ba5c77cb5", defaultValue: "待开启"))
                 .font(.system(size: 12, weight: .medium))
                 .foregroundStyle(granted ? Color.green : Color.orange)
         }
@@ -626,7 +627,7 @@ private struct PermissionStatusRow: View {
                 HStack(spacing: 8) {
                     Text(title)
                         .font(.system(size: 16, weight: .semibold))
-                    Text(granted ? "已开启" : "待开启")
+                    Text(granted ? String(localized: "text.8a4ef3e48e4e", defaultValue: "已开启") : String(localized: "text.d00ba5c77cb5", defaultValue: "待开启"))
                         .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(granted ? Color.green : Color.orange)
                 }
@@ -675,10 +676,10 @@ private enum AhaKeyOnboardingStep: Int, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .welcome: return "欢迎"
-        case .dialogPermissions: return "弹窗授权"
-        case .settingsPermissions: return "系统设置"
-        case .tryInput: return "开始体验"
+        case .welcome: return String(localized: "text.960d96a6920e", defaultValue: "欢迎")
+        case .dialogPermissions: return String(localized: "text.027b3bae6b7f", defaultValue: "弹窗授权")
+        case .settingsPermissions: return String(localized: "text.68ea5dd4d7af", defaultValue: "系统设置")
+        case .tryInput: return String(localized: "text.e07d14e12aaf", defaultValue: "开始体验")
         }
     }
 
@@ -688,23 +689,23 @@ private enum AhaKeyOnboardingStep: Int, CaseIterable, Identifiable {
 
     var guideTitle: String {
         switch self {
-        case .welcome: return "设置路线"
-        case .dialogPermissions: return "先完成弹窗确认的权限"
-        case .settingsPermissions: return "再到系统设置中开启"
-        case .tryInput: return "最后试一次真实输入"
+        case .welcome: return String(localized: "text.a0a122caf53a", defaultValue: "设置路线")
+        case .dialogPermissions: return String(localized: "text.ba7ef61cee75", defaultValue: "先完成弹窗确认的权限")
+        case .settingsPermissions: return String(localized: "text.5ea34e0775eb", defaultValue: "再到系统设置中开启")
+        case .tryInput: return String(localized: "text.1ef356b61d16", defaultValue: "最后试一次真实输入")
         }
     }
 
     var guideDetail: String {
         switch self {
         case .welcome:
-            return "引导分两步授权：先完成系统弹窗确认的权限，再前往系统设置开启其余权限，最后体验输入。"
+            return String(localized: "text.6a50e968930c", defaultValue: "引导分两步授权：先完成系统弹窗确认的权限，再前往系统设置开启其余权限，最后体验输入。")
         case .dialogPermissions:
-            return "蓝牙、麦克风和语音转写可以直接弹窗确认，点击「申请」后在弹窗中允许即可。"
+            return String(localized: "text.ad98565cd309", defaultValue: "蓝牙、麦克风和语音转写可以直接弹窗确认，点击「申请」后在弹窗中允许即可。")
         case .settingsPermissions:
-            return "请依次开启 Siri、听写、辅助功能，最后开启输入监控。输入监控设置后通常需要退出并重新打开，本引导会记住进度。"
+            return String(localized: "text.9d2b118e8f98", defaultValue: "请依次开启 Siri、听写、辅助功能，最后开启输入监控。输入监控设置后通常需要退出并重新打开，本引导会记住进度。")
         case .tryInput:
-            return "这里使用软件内同一套语音链路测试，不再只是展示授权状态。"
+            return String(localized: "text.454434fd9386", defaultValue: "这里使用软件内同一套语音链路测试，不再只是展示授权状态。")
         }
     }
 }

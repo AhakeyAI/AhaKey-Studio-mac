@@ -55,8 +55,8 @@ struct VibeBarCompactLeverItem: View {
     }
 
     private var label: String {
-        guard state.leverKnown else { return "Lever?" }
-        return state.leverIsAuto ? "Auto" : "Ask"
+        guard state.leverKnown else { return String(localized: "vibebar.switch.unknown", defaultValue: "Switch?") }
+        return state.leverIsAuto ? String(localized: "vibebar.approval.auto", defaultValue: "Auto") : String(localized: "vibebar.approval.manual", defaultValue: "Manual")
     }
 }
 
@@ -89,27 +89,27 @@ struct VibeBarExpandedMenu: View {
 
             HStack(spacing: 8) {
                 statusTile(
-                    title: "Device",
+                    title: String(localized: "vibebar.device", defaultValue: "Device"),
                     systemName: state.keyboardConnected ? "keyboard.fill" : "keyboard",
-                    value: state.keyboardConnected ? "\(state.batteryLevel)%" : "Off",
+                    value: state.keyboardConnected ? "\(state.batteryLevel)%" : String(localized: "vibebar.disconnected", defaultValue: "Disconnected"),
                     tint: state.keyboardConnected ? .cyan : .secondary
                 )
                 statusTile(
-                    title: "Lever",
+                    title: String(localized: "vibebar.switch", defaultValue: "Switch"),
                     systemName: leverIcon,
                     value: leverValue,
                     tint: leverTint
                 )
                 statusTile(
-                    title: "Voice",
+                    title: String(localized: "vibebar.voice", defaultValue: "Voice"),
                     systemName: voiceIcon,
                     value: voiceValue,
                     tint: voiceTint
                 )
                 statusTile(
-                    title: "Window",
+                    title: String(localized: "vibebar.window", defaultValue: "Window"),
                     systemName: "macwindow",
-                    value: "Open",
+                    value: String(localized: "vibebar.open", defaultValue: "Open"),
                     tint: .indigo,
                     action: onOpenMain
                 )
@@ -117,7 +117,7 @@ struct VibeBarExpandedMenu: View {
 
             HStack(spacing: 8) {
                 Spacer()
-                Text("Move cursor away to collapse")
+                Text(String(localized: "vibebar.collapse.hint", defaultValue: "Move cursor away to collapse"))
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
             }
@@ -133,7 +133,7 @@ struct VibeBarExpandedMenu: View {
         if let name = state.deviceName, state.keyboardConnected {
             return name
         }
-        return state.keyboardConnected ? "Connected" : "Disconnected"
+        return state.keyboardConnected ? String(localized: "vibebar.connected", defaultValue: "Connected") : String(localized: "vibebar.disconnected", defaultValue: "Disconnected")
     }
 
     private var leverIcon: String {
@@ -142,8 +142,8 @@ struct VibeBarExpandedMenu: View {
     }
 
     private var leverValue: String {
-        guard state.leverKnown else { return "Unknown" }
-        return state.leverIsAuto ? "Auto" : "Ask"
+        guard state.leverKnown else { return String(localized: "vibebar.unknown", defaultValue: "Unknown") }
+        return state.leverIsAuto ? String(localized: "vibebar.approval.auto", defaultValue: "Auto") : String(localized: "vibebar.approval.manual", defaultValue: "Manual")
     }
 
     private var leverTint: Color {
@@ -158,9 +158,9 @@ struct VibeBarExpandedMenu: View {
     }
 
     private var voiceValue: String {
-        if state.voiceRecording { return "Rec" }
-        if state.voiceListening { return "On" }
-        return "Off"
+        if state.voiceRecording { return String(localized: "vibebar.recording", defaultValue: "Rec") }
+        if state.voiceListening { return String(localized: "vibebar.on", defaultValue: "On") }
+        return String(localized: "vibebar.off", defaultValue: "Off")
     }
 
     private var voiceTint: Color {

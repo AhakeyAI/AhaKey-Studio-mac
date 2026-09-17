@@ -5,8 +5,8 @@ final class AhaTypeTextOptimizer: ObservableObject {
     static let shared = AhaTypeTextOptimizer()
 
     @Published private(set) var isEnabled = false
-    @Published private(set) var statusMessage = "AhaType 未启用。"
-    @Published private(set) var lastQuotaSummary = "尚未读取 AhaType 配置。"
+    @Published private(set) var statusMessage = String(localized: "text.f2941e5a26f5", defaultValue: "AhaType 未启用。")
+    @Published private(set) var lastQuotaSummary = String(localized: "text.714fc97fbc5f", defaultValue: "尚未读取 AhaType 配置。")
 
     private let fallbackAPIBase = "https://956798.xyz/prod-api"
 
@@ -71,27 +71,27 @@ final class AhaTypeTextOptimizer: ObservableObject {
         sanitize(&config)
         isEnabled = boolValue(config["typeless_enabled"])
         guard isEnabled else {
-            statusMessage = "AhaType 未启用，直接写入原始转写。"
+            statusMessage = String(localized: "text.f0e2786ee7f7", defaultValue: "AhaType 未启用，直接写入原始转写。")
             return text
         }
 
         guard tokenIsStillValid(config["token_valid_until"]) else {
-            statusMessage = "AhaType 登录已过期，直接写入原始转写。"
+            statusMessage = String(localized: "text.620f859494dc", defaultValue: "AhaType 登录已过期，直接写入原始转写。")
             return text
         }
 
         let token = stringValue(config["access_token"]).trimmingCharacters(in: .whitespacesAndNewlines)
         guard !token.isEmpty else {
-            statusMessage = "AhaType 缺少登录令牌，直接写入原始转写。"
+            statusMessage = String(localized: "text.68e731931d2d", defaultValue: "AhaType 缺少登录令牌，直接写入原始转写。")
             return text
         }
 
         guard let url = URL(string: "\(resolveAPIBase(legacyAPIBase: stringValue(config["api_base"])))/api/v1/typeless/process") else {
-            statusMessage = "AhaType 云端地址无效，直接写入原始转写。"
+            statusMessage = String(localized: "text.807f6ca7a79e", defaultValue: "AhaType 云端地址无效，直接写入原始转写。")
             return text
         }
 
-        statusMessage = "AhaType 整理中…"
+        statusMessage = String(localized: "text.c2ee5bc7cb75", defaultValue: "AhaType 整理中…")
 
         var request = URLRequest(url: url, timeoutInterval: 120)
         request.httpMethod = "POST"
@@ -103,21 +103,21 @@ final class AhaTypeTextOptimizer: ObservableObject {
             let (data, response) = try await URLSession.shared.data(for: request)
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
             guard statusCode == 200 else {
-                statusMessage = "AhaType 请求失败（HTTP \(statusCode)），已写入原始转写。"
+                statusMessage = String(localized: "text.f80e369f9e30", defaultValue: "AhaType 请求失败（HTTP \(String(describing: statusCode))），已写入原始转写。")
                 return text
             }
             guard let object = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                statusMessage = "AhaType 返回非 JSON，已写入原始转写。"
+                statusMessage = String(localized: "text.e57264a42a63", defaultValue: "AhaType 返回非 JSON，已写入原始转写。")
                 return text
             }
             let code = intValue(object["code"])
             guard code == 0 || code == 200 else {
                 let message = responseMessage(object)
-                statusMessage = message.isEmpty ? "AhaType 处理失败，已写入原始转写。" : "AhaType 处理失败：\(message)"
+                statusMessage = message.isEmpty ? String(localized: "text.83d7c5d8a45f", defaultValue: "AhaType 处理失败，已写入原始转写。") : String(localized: "text.0275c056d543", defaultValue: "AhaType 处理失败：\(String(describing: message))")
                 return text
             }
             guard let inner = object["data"] as? [String: Any] else {
-                statusMessage = "AhaType 返回缺少 data，已写入原始转写。"
+                statusMessage = String(localized: "text.fa4e25a1cfc9", defaultValue: "AhaType 返回缺少 data，已写入原始转写。")
                 return text
             }
 
@@ -130,13 +130,13 @@ final class AhaTypeTextOptimizer: ObservableObject {
             let output = stringValue(inner["text"]).isEmpty ? stringValue(inner["result"]) : stringValue(inner["text"])
             let polished = output.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !polished.isEmpty else {
-                statusMessage = "AhaType 返回空文本，已写入原始转写。"
+                statusMessage = String(localized: "text.02943d6e79ec", defaultValue: "AhaType 返回空文本，已写入原始转写。")
                 return text
             }
-            statusMessage = "AhaType 已整理，准备粘贴。"
+            statusMessage = String(localized: "text.a6cda0e11a7a", defaultValue: "AhaType 已整理，准备粘贴。")
             return polished
         } catch {
-            statusMessage = "AhaType 网络错误，已写入原始转写。"
+            statusMessage = String(localized: "text.0948ef753a39", defaultValue: "AhaType 网络错误，已写入原始转写。")
             return text
         }
     }
@@ -147,27 +147,27 @@ final class AhaTypeTextOptimizer: ObservableObject {
         let valid = tokenIsStillValid(config["token_valid_until"])
 
         if !enabled {
-            statusMessage = "AhaType 未启用。"
+            statusMessage = String(localized: "text.f2941e5a26f5", defaultValue: "AhaType 未启用。")
         } else if token.isEmpty {
-            statusMessage = "AhaType 已开启，但尚未登录。"
+            statusMessage = String(localized: "text.60b92d8ebd80", defaultValue: "AhaType 已开启，但尚未登录。")
         } else if !valid {
-            statusMessage = "AhaType 已开启，但登录已过期。"
+            statusMessage = String(localized: "text.f7f233d24973", defaultValue: "AhaType 已开启，但登录已过期。")
         } else {
-            statusMessage = "AhaType 已开启，语音结果会先经云端整理。"
+            statusMessage = String(localized: "text.f390b7166b14", defaultValue: "AhaType 已开启，语音结果会先经云端整理。")
         }
 
-        let daily = quotaLine(title: "日", used: config["used_daily"], limit: config["limit_daily"])
-        let weekly = quotaLine(title: "周", used: config["used_weekly"], limit: config["limit_weekly"])
-        let monthly = quotaLine(title: "月", used: config["used_monthly"], limit: config["limit_monthly"])
+        let daily = quotaLine(title: String(localized: "text.85217f7aff77", defaultValue: "日"), used: config["used_daily"], limit: config["limit_daily"])
+        let weekly = quotaLine(title: String(localized: "text.5c553ec3f6db", defaultValue: "周"), used: config["used_weekly"], limit: config["limit_weekly"])
+        let monthly = quotaLine(title: String(localized: "text.1625179badc0", defaultValue: "月"), used: config["used_monthly"], limit: config["limit_monthly"])
         let validUntil = stringValue(config["token_valid_until"])
         lastQuotaSummary = [daily, weekly, monthly]
             .filter { !$0.isEmpty }
             .joined(separator: " · ")
         if !validUntil.isEmpty {
-            lastQuotaSummary += lastQuotaSummary.isEmpty ? "有效期 \(validUntil)" : " · 有效期 \(validUntil)"
+            lastQuotaSummary += lastQuotaSummary.isEmpty ? String(localized: "text.89604efc9436", defaultValue: "有效期 \(String(describing: validUntil))") : String(localized: "text.b880aa0e75f0", defaultValue: " · 有效期 \(String(describing: validUntil))")
         }
         if lastQuotaSummary.isEmpty {
-            lastQuotaSummary = "暂无配额信息。"
+            lastQuotaSummary = String(localized: "text.447773d1f80a", defaultValue: "暂无配额信息。")
         }
     }
 
@@ -258,7 +258,7 @@ final class AhaTypeTextOptimizer: ObservableObject {
             let data = try JSONSerialization.data(withJSONObject: sanitized, options: [.prettyPrinted, .sortedKeys])
             try data.write(to: configURL, options: .atomic)
         } catch {
-            statusMessage = "AhaType 配置写入失败。"
+            statusMessage = String(localized: "text.7e1f4930258d", defaultValue: "AhaType 配置写入失败。")
         }
     }
 

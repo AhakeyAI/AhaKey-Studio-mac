@@ -755,13 +755,12 @@
 				};
 			};
 			buildConfigurationList = BC7E287B75C6D3E574547D08 /* Build configuration list for PBXProject "AhaKey Studio" */;
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 				"zh-Hans",
-				ja,
 			);
 			mainGroup = 1B23E82225C952EF5999CDE4;
 			minimizedProjectReferenceProxies = 1;

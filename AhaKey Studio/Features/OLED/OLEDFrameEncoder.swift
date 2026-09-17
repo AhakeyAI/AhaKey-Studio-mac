@@ -12,20 +12,20 @@ enum OLEDFrameEncodingError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .cannotCreateImageSource:
-            return "无法读取 GIF 文件。"
+            return String(localized: "text.2ab1dc1d5b02", defaultValue: "无法读取 GIF 文件。")
         case .noFrames:
-            return "没有可编码的图片帧。"
+            return String(localized: "text.409c3b67fac6", defaultValue: "没有可编码的图片帧。")
         case .cannotCreateContext:
-            return "无法创建 LCD 编码上下文。"
+            return String(localized: "text.f44d33d8d05b", defaultValue: "无法创建 LCD 编码上下文。")
         case .sourceFileTooLarge(let fileSize, let maxBytes):
             let f = ByteCountFormatter()
             f.allowedUnits = [.useMB, .useKB, .useBytes]
             f.countStyle = .file
             let a = f.string(fromByteCount: Int64(fileSize))
             let b = f.string(fromByteCount: Int64(maxBytes))
-            return "图片源文件约 \(a)，超过单文件上限 \(b)。请压缩分辨率、减少帧数或缩短动图后再试。"
+            return String(localized: "text.1d2afc21570e", defaultValue: "图片源文件约 \(String(describing: a))，超过单文件上限 \(String(describing: b))。请压缩分辨率、减少帧数或缩短动图后再试。")
         case .tooManyFrames(let count, let max):
-            return "当前动图共有 \(count) 帧，超过单模式上限 \(max) 帧。请减少帧数或缩短动图后再试。"
+            return String(localized: "text.b54c66c478fe", defaultValue: "当前动图共有 \(count) 帧，超过单模式上限 \(max) 帧。请减少帧数或缩短动图后再试。")
         }
     }
 }

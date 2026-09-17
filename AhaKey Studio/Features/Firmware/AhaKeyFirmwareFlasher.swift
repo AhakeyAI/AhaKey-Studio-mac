@@ -32,27 +32,27 @@ enum FirmwareImageValidationError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .invalidExtension:
-            return "请选择扩展名为 .hex 的 Intel HEX 固件。"
+            return String(localized: "text.8dfe6a2f219b", defaultValue: "请选择扩展名为 .hex 的 Intel HEX 固件。")
         case .unreadable:
-            return "无法读取所选固件文件。"
+            return String(localized: "text.9dd291ded24b", defaultValue: "无法读取所选固件文件。")
         case .empty:
-            return "所选固件文件为空。"
+            return String(localized: "text.28fee77493a0", defaultValue: "所选固件文件为空。")
         case .tooLarge(let maxBytes):
-            return "固件文件超过 \(maxBytes / 1024 / 1024) MB 安全上限。"
+            return String(localized: "text.eafc15bd38a9", defaultValue: "固件文件超过 \(String(describing: maxBytes / 1024 / 1024)) MB 安全上限。")
         case .invalidText:
-            return "固件不是有效的 UTF-8 / ASCII Intel HEX 文本。"
+            return String(localized: "text.42295a5f70cc", defaultValue: "固件不是有效的 UTF-8 / ASCII Intel HEX 文本。")
         case .malformedRecord(let line):
-            return "Intel HEX 第 \(line) 行格式不完整。"
+            return String(localized: "text.2ee9a8a44a1d", defaultValue: "Intel HEX 第 \(String(describing: line)) 行格式不完整。")
         case .invalidChecksum(let line):
-            return "Intel HEX 第 \(line) 行校验和错误。"
+            return String(localized: "text.d8ee749d18f6", defaultValue: "Intel HEX 第 \(String(describing: line)) 行校验和错误。")
         case .unsupportedRecordType(let line, let type):
-            return "Intel HEX 第 \(line) 行使用了不支持的记录类型 0x\(String(format: "%02X", type))。"
+            return String(localized: "text.77e783bc51f4", defaultValue: "Intel HEX 第 \(String(describing: line)) 行使用了不支持的记录类型 0x\(String(describing: String(format: "%02X", type)))。")
         case .addressOutOfRange(let line, let maximumExclusive):
-            return "Intel HEX 第 \(line) 行超出 CH582 CodeFlash 地址范围（0x000000–0x\(String(format: "%06llX", maximumExclusive - 1))）。"
+            return String(localized: "text.c6fd0773de1b", defaultValue: "Intel HEX 第 \(String(describing: line)) 行超出 CH582 CodeFlash 地址范围（0x000000–0x\(String(describing: String(format: "%06llX", maximumExclusive - 1)))）。")
         case .missingDataRecord:
-            return "Intel HEX 中没有可写入的数据记录。"
+            return String(localized: "text.a0990d0f25df", defaultValue: "Intel HEX 中没有可写入的数据记录。")
         case .missingEOF:
-            return "Intel HEX 缺少 EOF 结束记录。"
+            return String(localized: "text.72523a95eaeb", defaultValue: "Intel HEX 缺少 EOF 结束记录。")
         }
     }
 }
@@ -231,16 +231,16 @@ enum FirmwareFlashPhase: Equatable {
 
     var title: String {
         switch self {
-        case .idle: return "准备烧录器"
-        case .validating: return "正在校验固件"
-        case .ready: return "固件已校验，可以开始"
-        case .waitingForDevice: return "等待 CH582 USB ISP"
-        case .erasingDataFlash: return "正在清空 DataFlash"
-        case .erasingCodeFlash: return "正在清空 CodeFlash"
-        case .flashing: return "正在写入、校验并复位"
-        case .success: return "烧录成功"
-        case .cancelled: return "已取消，未执行擦除"
-        case .failed: return "烧录失败"
+        case .idle: return String(localized: "text.8c4eff2b28b5", defaultValue: "准备烧录器")
+        case .validating: return String(localized: "text.3605341953a6", defaultValue: "正在校验固件")
+        case .ready: return String(localized: "text.11517555b88b", defaultValue: "固件已校验，可以开始")
+        case .waitingForDevice: return String(localized: "text.3805517f0f53", defaultValue: "等待 CH582 USB ISP")
+        case .erasingDataFlash: return String(localized: "text.b6af7dc51d50", defaultValue: "正在清空 DataFlash")
+        case .erasingCodeFlash: return String(localized: "text.960c809cd6b8", defaultValue: "正在清空 CodeFlash")
+        case .flashing: return String(localized: "text.81723d2c0963", defaultValue: "正在写入、校验并复位")
+        case .success: return String(localized: "text.0724e442d5ef", defaultValue: "烧录成功")
+        case .cancelled: return String(localized: "text.cfb58def0c58", defaultValue: "已取消，未执行擦除")
+        case .failed: return String(localized: "text.282aaad473f3", defaultValue: "烧录失败")
         }
     }
 
@@ -372,22 +372,22 @@ enum FirmwareFlasherError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .resourceMissing(let name):
-            return "应用包缺少烧录资源：\(name)。请重新安装完整版本。"
+            return String(localized: "text.378570db2562", defaultValue: "应用包缺少烧录资源：\(String(describing: name))。请重新安装完整版本。")
         case .bundledFirmwareIntegrity(let expected, let actual):
-            return "内置固件校验失败。期望 \(expected)，实际 \(actual)。"
+            return String(localized: "text.9eb76a61d198", defaultValue: "内置固件校验失败。期望 \(String(describing: expected))，实际 \(String(describing: actual))。")
         case .deviceTimeout:
-            return "60 秒内未检测到 CH582 ISP。请检查数据线，以及 BOOT（PB22）与 GND 的短接和上电顺序。"
+            return String(localized: "text.70875b3048d7", defaultValue: "60 秒内未检测到 CH582 ISP。请检查数据线，以及 BOOT（PB22）与 GND 的短接和上电顺序。")
         case .wrongChip(let output):
-            return "检测到的目标不是 CH582，已在擦除前停止。\n\(output)"
+            return String(localized: "text.e337c7d55608", defaultValue: "检测到的目标不是 CH582，已在擦除前停止。\n\(String(describing: output))")
         case .commandFailed(let step, let status, let output):
             let detail = output.trimmingCharacters(in: .whitespacesAndNewlines)
-            return "\(step)失败（退出码 \(status)）。\(detail.isEmpty ? "" : "\n\(detail)")"
+            return String(localized: "text.fc999a8cb55c", defaultValue: "\(String(describing: step))失败（退出码 \(String(describing: status))）。\(String(describing: detail.isEmpty ? "" : "\n\(detail)"))")
         case .interruptedAfterErase:
-            return "烧录在擦除开始后中断。设备可能没有可运行固件，请保持 USB ISP 连接并重新烧录。"
+            return String(localized: "text.c3c9b5febf44", defaultValue: "烧录在擦除开始后中断。设备可能没有可运行固件，请保持 USB ISP 连接并重新烧录。")
         case .firmwareChanged:
-            return "所选固件在校验后发生了变化，已在访问设备前停止。请重新选择并确认 SHA-256。"
+            return String(localized: "text.796c1d6a471c", defaultValue: "所选固件在校验后发生了变化，已在访问设备前停止。请重新选择并确认 SHA-256。")
         case .stagingFailed(let detail):
-            return "无法准备安全的固件临时副本：\(detail)"
+            return String(localized: "text.79806a9f0810", defaultValue: "无法准备安全的固件临时副本：\(String(describing: detail))")
         }
     }
 }
@@ -447,9 +447,9 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
         chipInfo = ""
         hasStartedDestructiveOperation = false
         logLines.removeAll(keepingCapacity: true)
-        appendLog("固件：\(firmware.fileName)")
+        appendLog(String(localized: "text.ee19c72a988e", defaultValue: "固件：\(String(describing: firmware.fileName))"))
         appendLog("SHA-256：\(firmware.sha256)")
-        appendLog("目标芯片：CH582M")
+        appendLog(String(localized: "text.adc3ff22cc9d", defaultValue: "目标芯片：CH582M"))
 
         flashTask = Task { [weak self] in
             await self?.performFlash(firmware: firmware)
@@ -462,7 +462,7 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
         flashTask?.cancel()
         Task { await processRunner.cancel() }
         transition(to: .cancelled)
-        appendLog("用户已取消；尚未执行擦除。")
+        appendLog(String(localized: "text.3fb2ea872446", defaultValue: "用户已取消；尚未执行擦除。"))
     }
 
     private func validateFirmware(at url: URL, isBundled: Bool) {
@@ -491,7 +491,7 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
                 _ = try self.resolveToolURL()
                 self.selectedFirmware = descriptor
                 self.transition(to: .ready)
-                self.logLines = ["固件校验通过：\(descriptor.fileName)"]
+                self.logLines = [String(localized: "text.f7d0cbe651f7", defaultValue: "固件校验通过：\(String(describing: descriptor.fileName))")]
             } catch is CancellationError {
                 guard let self else { return }
                 self.transition(to: .cancelled)
@@ -523,50 +523,50 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
                 try FirmwareImageStager.stage(firmware)
             }.value
             stagedFirmwareURL = flashImageURL
-            appendLog("已创建并锁定校验后的固件临时副本。")
+            appendLog(String(localized: "text.6731eef80581", defaultValue: "已创建并锁定校验后的固件临时副本。"))
 
             let toolURL = try resolveToolURL()
             transition(to: .waitingForDevice)
-            appendLog("等待 USB ISP：关闭键盘电源，短接 BOOT（PB22）与 GND 后插入 USB。")
+            appendLog(String(localized: "text.7493bd67fa81", defaultValue: "等待 USB ISP：关闭键盘电源，短接 BOOT（PB22）与 GND 后插入 USB。"))
 
             let info = try await waitForCH582(toolURL: toolURL)
             chipInfo = info.trimmingCharacters(in: .whitespacesAndNewlines)
-            appendLog("已检测到 CH582。")
+            appendLog(String(localized: "text.2efb301c25f5", defaultValue: "已检测到 CH582。"))
             appendProcessOutput(info)
 
             hasStartedDestructiveOperation = true
             transition(to: .erasingDataFlash)
-            appendLog("开始清空 DataFlash；从现在起请勿拔线或退出 App。")
+            appendLog(String(localized: "text.12e2077acf60", defaultValue: "开始清空 DataFlash；从现在起请勿拔线或退出 App。"))
             try await runRequired(
                 toolURL: toolURL,
                 arguments: ["--usb", "eeprom", "erase"],
-                step: "清空 DataFlash"
+                step: String(localized: "text.67e2a7527deb", defaultValue: "清空 DataFlash")
             )
 
             transition(to: .erasingCodeFlash)
-            appendLog("开始清空全部 CodeFlash。")
+            appendLog(String(localized: "text.bcd0a129f0f3", defaultValue: "开始清空全部 CodeFlash。"))
             try await runRequired(
                 toolURL: toolURL,
                 arguments: ["--usb", "erase"],
-                step: "清空 CodeFlash"
+                step: String(localized: "text.82331f47e54d", defaultValue: "清空 CodeFlash")
             )
 
             transition(to: .flashing)
-            appendLog("开始写入、校验并复位运行。")
+            appendLog(String(localized: "text.102fd98aaada", defaultValue: "开始写入、校验并复位运行。"))
             try await runRequired(
                 toolURL: toolURL,
                 arguments: ["--usb", "flash", "--no-erase", flashImageURL.path],
-                step: "写入与校验"
+                step: String(localized: "text.1f487ac29714", defaultValue: "写入与校验")
             )
 
             transition(to: .success)
-            appendLog("烧录成功。请拔掉 USB、移除 BOOT—GND 短接，再正常开机。")
+            appendLog(String(localized: "text.13c811c81526", defaultValue: "烧录成功。请拔掉 USB、移除 BOOT—GND 短接，再正常开机。"))
         } catch is CancellationError {
             if hasStartedDestructiveOperation {
                 fail(FirmwareFlasherError.interruptedAfterErase)
             } else {
                 transition(to: .cancelled)
-                appendLog("用户已取消；尚未执行擦除。")
+                appendLog(String(localized: "text.3fb2ea872446", defaultValue: "用户已取消；尚未执行擦除。"))
             }
         } catch {
             fail(error)
@@ -614,7 +614,7 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
         #elseif arch(x86_64)
         let architecture = "x86_64"
         #else
-        throw FirmwareFlasherError.resourceMissing("当前 Mac 架构对应的 wchisp")
+        throw FirmwareFlasherError.resourceMissing(String(localized: "text.915d8d6c2d93", defaultValue: "当前 Mac 架构对应的 wchisp"))
         #endif
 
         guard let resourceURL = bundle.resourceURL else {
@@ -638,9 +638,9 @@ final class AhaKeyFirmwareFlasher: ObservableObject {
     private func fail(_ error: Error) {
         let message = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         transition(to: .failed(message))
-        appendLog("错误：\(message)")
+        appendLog(String(localized: "text.06ceb53e2d5c", defaultValue: "错误：\(String(describing: message))"))
         if hasStartedDestructiveOperation {
-            appendLog("恢复建议：保持 USB ISP 连接，确认固件有效后重新执行全量烧录。")
+            appendLog(String(localized: "text.0a77c031eaf3", defaultValue: "恢复建议：保持 USB ISP 连接，确认固件有效后重新执行全量烧录。"))
         }
     }
 

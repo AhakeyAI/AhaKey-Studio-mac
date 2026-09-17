@@ -93,13 +93,13 @@ struct VoiceStatusHUDState: Equatable {
     let title: String
     let subtitle: String
 
-    static let recording = VoiceStatusHUDState(kind: .recording, title: "录音中", subtitle: "再次按语音键结束")
-    static let recognizing = VoiceStatusHUDState(kind: .processing, title: "本地识别中", subtitle: "正在整理语音文本")
-    static let ahaType = VoiceStatusHUDState(kind: .processing, title: "AhaType 整理中", subtitle: "云端正在优化文本")
-    static let pasting = VoiceStatusHUDState(kind: .processing, title: "准备粘贴", subtitle: "正在写入当前光标")
-    static let done = VoiceStatusHUDState(kind: .success, title: "已写入", subtitle: "语音文本已完成")
-    static let empty = VoiceStatusHUDState(kind: .warning, title: "未识别到内容", subtitle: "请靠近麦克风重试")
-    static let failed = VoiceStatusHUDState(kind: .warning, title: "写入失败", subtitle: "请检查输入权限")
+    static let recording = VoiceStatusHUDState(kind: .recording, title: String(localized: "text.e35a149d9bc7", defaultValue: "录音中"), subtitle: String(localized: "text.8f5c595fd03c", defaultValue: "再次按语音键结束"))
+    static let recognizing = VoiceStatusHUDState(kind: .processing, title: String(localized: "text.367b43146760", defaultValue: "本地识别中"), subtitle: String(localized: "text.e39af834f934", defaultValue: "正在整理语音文本"))
+    static let ahaType = VoiceStatusHUDState(kind: .processing, title: String(localized: "text.0df7e54b1096", defaultValue: "AhaType 整理中"), subtitle: String(localized: "text.f7e2b74c5aa0", defaultValue: "云端正在优化文本"))
+    static let pasting = VoiceStatusHUDState(kind: .processing, title: String(localized: "text.2811ad5756ae", defaultValue: "准备粘贴"), subtitle: String(localized: "text.ef9d56db3a05", defaultValue: "正在写入当前光标"))
+    static let done = VoiceStatusHUDState(kind: .success, title: String(localized: "text.fe406e82596b", defaultValue: "已写入"), subtitle: String(localized: "text.3e63ca330197", defaultValue: "语音文本已完成"))
+    static let empty = VoiceStatusHUDState(kind: .warning, title: String(localized: "text.4a62b04d2f44", defaultValue: "未识别到内容"), subtitle: String(localized: "text.44db3e0d24e3", defaultValue: "请靠近麦克风重试"))
+    static let failed = VoiceStatusHUDState(kind: .warning, title: String(localized: "text.f11e4f82a1eb", defaultValue: "写入失败"), subtitle: String(localized: "text.a364a5840a1c", defaultValue: "请检查输入权限"))
 }
 
 private struct VoiceStatusHUDView: View {

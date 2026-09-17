@@ -19,13 +19,13 @@ struct AhaKeyStudioApp: App {
 
         if #available(macOS 13.0, *) {
             MenuBarExtra("AhaKey", systemImage: "keyboard") {
-                Button("打开主窗口") {
+                Button(String(localized: "text.f6b64b637ba7", defaultValue: "打开主窗口")) {
                     appDelegate.reopenMainWindow()
                 }
 
                 Divider()
 
-                Button("退出 AhaKey Studio") {
+                Button(String(localized: "text.f8995dd390ed", defaultValue: "退出 AhaKey Studio")) {
                     NSApp.terminate(nil)
                 }
             }

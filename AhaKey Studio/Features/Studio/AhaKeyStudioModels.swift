@@ -9,7 +9,7 @@ enum AhaKeyModeSlot: Int, CaseIterable, Codable, Identifiable {
     var id: Int { rawValue }
 
     var title: String {
-        "Mode \(rawValue + 1)"
+        String(localized: "studio.mode.title", defaultValue: "模式 \(rawValue + 1)")
     }
 
     var shortTitle: String {
@@ -32,33 +32,33 @@ enum AhaKeyModeSlot: Int, CaseIterable, Codable, Identifiable {
     var subtitle: String {
         switch self {
         case .mode0:
-            "Claude Code · 终端权限 Y/N"
+            String(localized: "text.9b9d741b59d4", defaultValue: "Claude Code · 终端权限 Y/N")
         case .mode1:
-            "Cursor · Composer Accept/Reject"
+            String(localized: "studio.mode.cursor.subtitle", defaultValue: "Cursor · Composer 接受 / 拒绝")
         case .mode2:
             "Codex · ↵ / Esc"
         case .mode3:
-            "custom · 自定义模式"
+            String(localized: "text.3e4201068df3", defaultValue: "custom · 自定义模式")
         }
     }
 
     var guidance: String {
         switch self {
         case .mode0:
-            "针对 Claude Code 终端权限菜单：Key2 直接输入 Y（同意），Key3 直接输入 N（拒绝）。"
+            String(localized: "text.c2e0598c905e", defaultValue: "针对 Claude Code 终端权限菜单：Key2 直接输入 Y（同意），Key3 直接输入 N（拒绝）。")
         case .mode1:
-            "针对 Cursor Composer / Agent：Key2 发 ↵、Key3 发 ⌫（与裸键一致）。"
+            String(localized: "text.ec187e57ee49", defaultValue: "针对 Cursor Composer / Agent：Key2 发 ↵、Key3 发 ⌫（与裸键一致）。")
         case .mode2:
-            "针对 Codex 终端审批：Key2 发送 ↵ 确认，Key3 发送 Esc 取消。"
+            String(localized: "text.74d2db5216d0", defaultValue: "针对 Codex 终端审批：Key2 发送 ↵ 确认，Key3 发送 Esc 取消。")
         case .mode3:
-            "自定义模式：可自由配置所有按键和灯效。"
+            String(localized: "text.d80b14560879", defaultValue: "自定义模式：可自由配置所有按键和灯效。")
         }
     }
 
     var guidanceHoverDetail: String? {
         switch self {
         case .mode1:
-            return "若需与「⌘↵ 接受 / ⌘⌫ 拒绝」等组合键一致，请在编辑器里为对应键加修饰，并在 Cursor 设置 → Keyboard Shortcuts 中绑成相同组合。"
+            return String(localized: "text.670773423831", defaultValue: "若需与「⌘↵ 接受 / ⌘⌫ 拒绝」等组合键一致，请在编辑器里为对应键加修饰，并在 Cursor 设置 → Keyboard Shortcuts 中绑成相同组合。")
         case .mode0, .mode2, .mode3:
             return nil
         }
@@ -96,38 +96,38 @@ enum AhaKeyStudioPart: String, CaseIterable, Codable, Identifiable {
     var title: String {
         switch self {
         case .lightBar:
-            "灯条"
+            String(localized: "text.23acd5a1da34", defaultValue: "灯条")
         case .oledDisplay:
-            "LCD 屏幕"
+            String(localized: "text.7ad42c1f2fc0", defaultValue: "LCD 屏幕")
         case .key1:
-            "Key 1"
+            String(localized: "studio.key.title", defaultValue: "按键 \(1)")
         case .key2:
-            "Key 2"
+            String(localized: "studio.key.title", defaultValue: "按键 \(2)")
         case .key3:
-            "Key 3"
+            String(localized: "studio.key.title", defaultValue: "按键 \(3)")
         case .key4:
-            "Key 4"
+            String(localized: "studio.key.title", defaultValue: "按键 \(4)")
         case .toggleSwitch:
-            "拨杆"
+            String(localized: "text.ad80c32c571a", defaultValue: "拨杆")
         }
     }
 
     var subtitle: String {
         switch self {
         case .lightBar:
-            "AI 状态反馈"
+            String(localized: "text.c60cf7bc22f5", defaultValue: "AI 状态反馈")
         case .oledDisplay:
-            "动图显示"
+            String(localized: "text.bcd34d10cc4d", defaultValue: "动图显示")
         case .key1:
-            "语音键"
+            String(localized: "text.239bfda84c55", defaultValue: "语音键")
         case .key2:
-            "确认键"
+            String(localized: "text.16040edea4d1", defaultValue: "确认键")
         case .key3:
-            "取消键"
+            String(localized: "text.957b29e405c8", defaultValue: "取消键")
         case .key4:
-            "删除键"
+            String(localized: "text.1649bcc40e46", defaultValue: "删除键")
         case .toggleSwitch:
-            "批准方式"
+            String(localized: "text.f9c70441b76f", defaultValue: "批准方式")
         }
     }
 
@@ -193,13 +193,13 @@ enum AhaKeyKeyRole: Int, CaseIterable, Codable, Identifiable {
     var title: String {
         switch self {
         case .voice:
-            "语音键"
+            String(localized: "text.239bfda84c55", defaultValue: "语音键")
         case .approve:
-            "确认键"
+            String(localized: "text.16040edea4d1", defaultValue: "确认键")
         case .reject:
-            "取消键"
+            String(localized: "text.957b29e405c8", defaultValue: "取消键")
         case .submit:
-            "删除键"
+            String(localized: "text.1649bcc40e46", defaultValue: "删除键")
         }
     }
 
@@ -232,13 +232,13 @@ enum AhaKeyKeyRole: Int, CaseIterable, Codable, Identifiable {
     var manualText: String {
         switch self {
         case .voice:
-            "优先用来触发语音输入，用户在软件里看到的是语音软件名，底层仍写成快捷键。"
+            String(localized: "text.2938453b0860", defaultValue: "优先用来触发语音输入，用户在软件里看到的是语音软件名，底层仍写成快捷键。")
         case .approve:
-            "适合批准、确认、继续执行这类高频动作。"
+            String(localized: "text.559eefee5ccd", defaultValue: "适合批准、确认、继续执行这类高频动作。")
         case .reject:
-            "适合拒绝、取消、停止这类相反动作。"
+            String(localized: "text.b50b438d3930", defaultValue: "适合拒绝、取消、停止这类相反动作。")
         case .submit:
-            "出厂默认 Backspace，适合删除、撤销输入或清理当前内容。"
+            String(localized: "text.d3ef7702e997", defaultValue: "出厂默认 Backspace，适合删除、撤销输入或清理当前内容。")
         }
     }
 }
@@ -317,7 +317,7 @@ struct ShortcutBinding: Codable, Equatable {
         let modifierLabel = orderedModifiers.map(\.symbol).joined()
         let keyLabel = keyCode == 0 ? "" : HIDUsage.name(for: keyCode)
         let combined = modifierLabel + keyLabel
-        return combined.isEmpty ? "未设置" : combined
+        return combined.isEmpty ? String(localized: "text.2f5f1d6fbfb0", defaultValue: "未设置") : combined
     }
 
     var isConfigured: Bool {
@@ -372,34 +372,34 @@ enum VoicePreset: String, CaseIterable, Codable, Identifiable {
     var title: String {
         switch self {
         case .macOSNative, .claudeCode, .kimiCode:
-            "macOS 原生转写"
+            String(localized: "text.e03aaae19a47", defaultValue: "macOS 原生转写")
         case .typeless:
             "Fn/Globe"
         case .wechat:
-            "微信语音"
+            String(localized: "text.d38c9363e037", defaultValue: "微信语音")
         case .codex:
             "Codex"
         case .doubao:
-            "豆包输入法"
+            String(localized: "text.0044dd6e69d6", defaultValue: "豆包输入法")
         case .custom:
-            "自定义快捷键"
+            String(localized: "text.264d80d3ee85", defaultValue: "自定义快捷键")
         }
     }
 
     var detail: String {
         switch self {
         case .macOSNative, .claudeCode, .kimiCode:
-            "调用苹果原生语音转写，识别完成后以 ⌘V 写回当前光标位置。适合 Claude Code、Kimi Code、Codex 等 CLI 终端及任意输入框。按一次开始，再按一次结束。"
+            String(localized: "text.9485f0a680d2", defaultValue: "调用苹果原生语音转写，识别完成后以 ⌘V 写回当前光标位置。适合 Claude Code、Kimi Code、Codex 等 CLI 终端及任意输入框。按一次开始，再按一次结束。")
         case .typeless:
-            "预设对应快捷键：Typeless/微信语音/豆包输入法内仍选 Fn/Globe。本 Studio 使用 F19 作为 Fn 触发键；按下后向系统注入「按住 Fn」。旧版 F18 仍会兼容监听。请授予输入监控与辅助功能。"
+            String(localized: "text.dd3715d5e3df", defaultValue: "预设对应快捷键：Typeless/微信语音/豆包输入法内仍选 Fn/Globe。本 Studio 使用 F19 作为 Fn 触发键；按下后向系统注入「按住 Fn」。旧版 F18 仍会兼容监听。请授予输入监控与辅助功能。")
         case .wechat:
-            "AhaKey Studio 使用 F19 作为 Fn 触发键，并在后台把语音键的按下/松开转换成 Fn/Globe，便于接入微信语音。"
+            String(localized: "text.dfb283304e6d", defaultValue: "AhaKey Studio 使用 F19 作为 Fn 触发键，并在后台把语音键的按下/松开转换成 Fn/Globe，便于接入微信语音。")
         case .doubao:
-            "豆包输入法 Mac 版需要直接接收真实语音键事件。AhaKey Studio 会切到豆包输入源，并把 F18 配置为豆包长按语音快捷键；按住语音键说话，松开后由豆包提交文字。"
+            String(localized: "text.5185010e7b1f", defaultValue: "豆包输入法 Mac 版需要直接接收真实语音键事件。AhaKey Studio 会切到豆包输入源，并把 F18 配置为豆包长按语音快捷键；按住语音键说话，松开后由豆包提交文字。")
         case .codex:
-            "规划中，保留入口。"
+            String(localized: "text.c4df67fbf173", defaultValue: "规划中，保留入口。")
         case .custom:
-            "直接自己指定底层快捷键。"
+            String(localized: "text.8d7daff62f52", defaultValue: "直接自己指定底层快捷键。")
         }
     }
 
@@ -446,26 +446,26 @@ enum LightBarPreviewState: String, CaseIterable, Codable, Identifiable {
     var title: String {
         switch self {
         case .aiRunning:
-            "AI 运行中"
+            String(localized: "text.c8ffc94f0615", defaultValue: "AI 运行中")
         case .waitingApproval:
-            "等待批准"
+            String(localized: "text.1e047f37e14f", defaultValue: "等待批准")
         case .stopped:
-            "已停止"
+            String(localized: "text.f006455e3baf", defaultValue: "已停止")
         case .taskCompleted:
-            "任务完成"
+            String(localized: "text.324225eef1d7", defaultValue: "任务完成")
         }
     }
 
     var detail: String {
         switch self {
         case .aiRunning:
-            "默认效果是来回流水灯。"
+            String(localized: "text.b9ccd35b1ecb", defaultValue: "默认效果是来回流水灯。")
         case .waitingApproval:
-            "提醒用户当前需要确认。"
+            String(localized: "text.3920361a5395", defaultValue: "提醒用户当前需要确认。")
         case .stopped:
-            "默认用红色常亮停住。"
+            String(localized: "text.7faf68ce4089", defaultValue: "默认用红色常亮停住。")
         case .taskCompleted:
-            "表示本轮执行已经完成。"
+            String(localized: "text.da94606f9e7d", defaultValue: "表示本轮执行已经完成。")
         }
     }
 
@@ -535,45 +535,45 @@ enum LightEffectStyle: String, CaseIterable, Codable, Identifiable {
 
     var title: String {
         switch self {
-        case .off: "熄灭"
-        case .middleLight: "中间停住"
-        case .singleMove: "来回流水"
-        case .breathing: "整条呼吸"
-        case .rainbowMove: "彩虹流水"
-        case .rainbowWave: "彩虹波浪"
-        case .rainbowWaveSlow: "彩虹慢波浪"
-        case .typingRipple: "打字涟漪"
-        case .comet: "彗星拖尾"
-        case .scanBar: "扫描条"
-        case .pulseCenter: "中心脉冲"
-        case .warningBlink: "警告闪烁"
-        case .successSweep: "成功扫过"
-        case .blueThinking: "蓝色思考"
-        case .lowBattery: "低电量"
-        case .chargingFlow: "充电流动"
-        case .approvalWait: "等待审批"
+        case .off: String(localized: "text.c997b4efd204", defaultValue: "熄灭")
+        case .middleLight: String(localized: "text.e4a790d09a01", defaultValue: "中间停住")
+        case .singleMove: String(localized: "text.8d85590869e6", defaultValue: "来回流水")
+        case .breathing: String(localized: "text.366a53dead79", defaultValue: "整条呼吸")
+        case .rainbowMove: String(localized: "text.777c215147bd", defaultValue: "彩虹流水")
+        case .rainbowWave: String(localized: "text.4943154e250d", defaultValue: "彩虹波浪")
+        case .rainbowWaveSlow: String(localized: "text.ced6b3cc1e62", defaultValue: "彩虹慢波浪")
+        case .typingRipple: String(localized: "text.432cdd602d3a", defaultValue: "打字涟漪")
+        case .comet: String(localized: "text.d8697e85f76c", defaultValue: "彗星拖尾")
+        case .scanBar: String(localized: "text.537b8e77c4c2", defaultValue: "扫描条")
+        case .pulseCenter: String(localized: "text.9c3a7d26ecf9", defaultValue: "中心脉冲")
+        case .warningBlink: String(localized: "text.c3fe676e2ed4", defaultValue: "警告闪烁")
+        case .successSweep: String(localized: "text.e1e6090229ff", defaultValue: "成功扫过")
+        case .blueThinking: String(localized: "text.80c68f3af043", defaultValue: "蓝色思考")
+        case .lowBattery: String(localized: "text.c0f920a25f63", defaultValue: "低电量")
+        case .chargingFlow: String(localized: "text.972405f26e7e", defaultValue: "充电流动")
+        case .approvalWait: String(localized: "text.150fec9297f2", defaultValue: "等待审批")
         }
     }
 
     var detail: String {
         switch self {
-        case .off: "不点亮灯条。"
-        case .middleLight: "中间最亮，两侧渐弱，适合停住提示。"
-        case .singleMove: "单点来回移动，适合运行中。"
-        case .breathing: "整条均匀起伏，适合等待确认。"
-        case .rainbowMove: "彩色单点流水，更活跃。"
-        case .rainbowWave: "整条彩色流动，更显眼。"
-        case .rainbowWaveSlow: "比普通彩虹波浪更慢，适合做氛围效果。"
-        case .typingRipple: "从中心向两侧扩散的涟漪效果。"
-        case .comet: "带拖尾的单向扫过，像彗星。"
-        case .scanBar: "3 灯一组左右扫描。"
-        case .pulseCenter: "中心快速脉冲扩散。"
-        case .warningBlink: "橙色快速闪烁，适合警告。"
-        case .successSweep: "绿色从左到右逐渐点亮。"
-        case .blueThinking: "蓝色呼吸波浪，适合思考中。"
-        case .lowBattery: "红色慢闪，表示低电量。"
-        case .chargingFlow: "绿色填充流动，表示充电中。"
-        case .approvalWait: "琥珀色呼吸 + 中心闪烁，等待用户操作。"
+        case .off: String(localized: "text.91c93a25c37d", defaultValue: "不点亮灯条。")
+        case .middleLight: String(localized: "text.f40ad8d37c6b", defaultValue: "中间最亮，两侧渐弱，适合停住提示。")
+        case .singleMove: String(localized: "text.6dd7f2b159d7", defaultValue: "单点来回移动，适合运行中。")
+        case .breathing: String(localized: "text.817eb456e09a", defaultValue: "整条均匀起伏，适合等待确认。")
+        case .rainbowMove: String(localized: "text.729714f01e6c", defaultValue: "彩色单点流水，更活跃。")
+        case .rainbowWave: String(localized: "text.b0769cfff907", defaultValue: "整条彩色流动，更显眼。")
+        case .rainbowWaveSlow: String(localized: "text.6bafe06336ff", defaultValue: "比普通彩虹波浪更慢，适合做氛围效果。")
+        case .typingRipple: String(localized: "text.4fa431131051", defaultValue: "从中心向两侧扩散的涟漪效果。")
+        case .comet: String(localized: "text.0cec48e9e1d7", defaultValue: "带拖尾的单向扫过，像彗星。")
+        case .scanBar: String(localized: "text.8995ae1beedf", defaultValue: "3 灯一组左右扫描。")
+        case .pulseCenter: String(localized: "text.18c26f97e6ae", defaultValue: "中心快速脉冲扩散。")
+        case .warningBlink: String(localized: "text.a24c729f7fa1", defaultValue: "橙色快速闪烁，适合警告。")
+        case .successSweep: String(localized: "text.d2d8b9a9e1e8", defaultValue: "绿色从左到右逐渐点亮。")
+        case .blueThinking: String(localized: "text.5db8237e4c2f", defaultValue: "蓝色呼吸波浪，适合思考中。")
+        case .lowBattery: String(localized: "text.596ffba295ae", defaultValue: "红色慢闪，表示低电量。")
+        case .chargingFlow: String(localized: "text.a5ab66115157", defaultValue: "绿色填充流动，表示充电中。")
+        case .approvalWait: String(localized: "text.9e7a91de12d7", defaultValue: "琥珀色呼吸 + 中心闪烁，等待用户操作。")
         }
     }
 }
@@ -681,11 +681,11 @@ enum MacroAction: UInt8, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .noOp: return "空操作"
-        case .downKey: return "按下"
-        case .upKey: return "松开"
-        case .delay: return "延时"
-        case .upAllKeys: return "全部松开"
+        case .noOp: return String(localized: "text.6eca6e8cc239", defaultValue: "空操作")
+        case .downKey: return String(localized: "text.be965bd58120", defaultValue: "按下")
+        case .upKey: return String(localized: "text.c05ec4c7664b", defaultValue: "松开")
+        case .delay: return String(localized: "text.ee3b1e6332b5", defaultValue: "延时")
+        case .upAllKeys: return String(localized: "text.f15247937574", defaultValue: "全部松开")
         }
     }
 
@@ -844,7 +844,7 @@ struct AhaKeyKeyDraft: Codable, Equatable, Identifiable {
             return voicePreset.title
         }
         if usesMacro {
-            return "宏：\(macro.displaySummary)"
+            return String(localized: "text.95a8711bbb28", defaultValue: "宏：\(String(describing: macro.displaySummary))")
         }
         return shortcut.displayLabel
     }
@@ -852,12 +852,12 @@ struct AhaKeyKeyDraft: Codable, Equatable, Identifiable {
 
 struct AhaKeyOLEDDraft: Codable, Equatable {
     var localAssetPath: String?
+    // Display-only status is rebuilt in the current language when its mode is decoded.
     var statusLine: String
     var framesPerSecond: Int
 
     private enum CodingKeys: String, CodingKey {
         case localAssetPath
-        case statusLine
         case framesPerSecond
     }
 
@@ -870,7 +870,7 @@ struct AhaKeyOLEDDraft: Codable, Equatable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         localAssetPath = try container.decodeIfPresent(String.self, forKey: .localAssetPath)
-        statusLine = try container.decode(String.self, forKey: .statusLine)
+        statusLine = ""
         let storedFPS = try container.decodeIfPresent(Int.self, forKey: .framesPerSecond) ?? 12
         framesPerSecond = min(30, max(1, storedFPS))
     }
@@ -878,25 +878,31 @@ struct AhaKeyOLEDDraft: Codable, Equatable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(localAssetPath, forKey: .localAssetPath)
-        try container.encode(statusLine, forKey: .statusLine)
         try container.encode(framesPerSecond, forKey: .framesPerSecond)
     }
 
-    static func `default`(for mode: AhaKeyModeSlot) -> AhaKeyOLEDDraft {
-        let statusLine: String
+    // Keep full Equatable semantics for SwiftUI updates; hardware sync ignores display-only status.
+    func hasSameDeviceConfiguration(as other: Self) -> Bool {
+        localAssetPath == other.localAssetPath && framesPerSecond == other.framesPerSecond
+    }
+
+    static func defaultStatusLine(for mode: AhaKeyModeSlot) -> String {
         switch mode {
         case .mode0:
-            statusLine = "Claude Code · 终端权限菜单 Y/N。"
+            String(localized: "text.e05204fbc4ee", defaultValue: "Claude Code · 终端权限菜单 Y/N。")
         case .mode1:
-            statusLine = "Cursor · ↵ 接受改动 / ⌫ 拒绝改动。"
+            String(localized: "text.6da1d9fc1288", defaultValue: "Cursor · ↵ 接受改动 / ⌫ 拒绝改动。")
         case .mode2:
-            statusLine = "Codex · 审批 ↵ / Esc。"
+            String(localized: "text.99106182083a", defaultValue: "Codex · 审批 ↵ / Esc。")
         case .mode3:
-            statusLine = "自定义模式。"
+            String(localized: "text.0602a18a7405", defaultValue: "自定义模式。")
         }
-        return AhaKeyOLEDDraft(
+    }
+
+    static func `default`(for mode: AhaKeyModeSlot) -> AhaKeyOLEDDraft {
+        AhaKeyOLEDDraft(
             localAssetPath: DefaultOLEDAssets.bundledAssetPath(for: mode),
-            statusLine: statusLine,
+            statusLine: defaultStatusLine(for: mode),
             framesPerSecond: 12
         )
     }
@@ -929,6 +935,7 @@ struct AhaKeyModeDraft: Codable, Equatable, Identifiable {
         mode = try container.decode(AhaKeyModeSlot.self, forKey: .mode)
         keys = try container.decode([AhaKeyKeyDraft].self, forKey: .keys)
         oled = try container.decodeIfPresent(AhaKeyOLEDDraft.self, forKey: .oled) ?? .default(for: mode)
+        oled.statusLine = AhaKeyOLEDDraft.defaultStatusLine(for: mode)
         lightBar = try container.decodeIfPresent(AhaKeyLightBarDraft.self, forKey: .lightBar) ?? .default(for: mode)
     }
 
@@ -1153,14 +1160,6 @@ enum AhaKeyStudioStore {
             next.updateMode(newMode1)
         }
 
-        let legacyOLEDStatusLines: Set<String> = [
-            "当前仅支持动图",
-            "切换模式时会先显示按键描述，再回到 Mode 1 默认动图。",
-            "当前模式还未上传动图，后续可替换成你的自定义 GIF。",
-            "Cursor · ⌘↵ 接受改动 / ⌘⌫ 拒绝改动。",
-            "Claude Code · 终端权限菜单 Y/N。",
-            "Codex · 审批 ↵ / Esc。",
-        ]
         let legacyApproveBinding = ShortcutBinding(keyCode: HIDUsage.enter)
         let legacyRejectBinding = ShortcutBinding(keyCode: HIDUsage.escape)
         let legacyApproveDescriptions: Set<String> = ["Accept", "批准", ""]
@@ -1169,10 +1168,6 @@ enum AhaKeyStudioStore {
         for mode in AhaKeyModeSlot.allCases {
             var modeDraft = next.draft(for: mode)
             let target = AhaKeyModeDraft.default(for: mode)
-
-            if legacyOLEDStatusLines.contains(modeDraft.oled.statusLine) {
-                modeDraft.oled.statusLine = AhaKeyOLEDDraft.default(for: mode).statusLine
-            }
 
             // LCD 素材路径自愈：用户没选过自定义 GIF（为 nil）或引用的是旧 bundle 路径时，
             // 刷成当前构建下内置 GIF 的绝对路径；用户自选的外部路径原样保留。
