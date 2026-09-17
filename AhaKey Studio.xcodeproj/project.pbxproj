@@ -1171,6 +1171,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xinyangzhang.AhaKey-Studio$(APP_BUNDLE_ID_SUFFIX)";
 				PRODUCT_MODULE_NAME = AhaKeyConfig;
 				PRODUCT_NAME = "$(APP_BUNDLE_NAME)";
@@ -1226,6 +1227,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xinyangzhang.AhaKey-Studio$(APP_BUNDLE_ID_SUFFIX)";
 				PRODUCT_MODULE_NAME = AhaKeyConfig;
 				PRODUCT_NAME = "$(APP_BUNDLE_NAME)";
