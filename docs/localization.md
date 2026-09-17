@@ -1,6 +1,6 @@
 # 本地化（i18n）
 
-Studio 支持简体中文（`zh-Hans`）和英文（`en`），使用 Apple String Catalog，最低系统版本仍为 macOS 13。日语尚未发布；实现和验证支持后续增加 `ja`。
+Studio 支持简体中文（`zh-Hans`）、英文（`en`）和日语（`ja`），使用 Apple String Catalog，最低系统版本仍为 macOS 13。
 
 ## 切换语言
 
@@ -30,13 +30,12 @@ Studio 支持简体中文（`zh-Hans`）和英文（`en`），使用 Apple Strin
 
 开发诊断原始日志、外部工具输出、服务器返回的错误文字、第三方 CLI 补丁及插件自带文案保留原内容；不会自动翻译用户数据或服务器消息。
 
-## 增加日语
+## 日语维护
 
-1. 在 Xcode 项目的 Info → Localizations 添加 Japanese (`ja`)，并在两个 String Catalog 中补齐日语。完成前不要把空的日语资源作为正式支持语言发布。
-2. 翻译全部正文、错误、帮助和三项系统权限用途说明；保留品牌名与用户数据。根据 Catalog 注释核对每个参数、按钮动作和设备状态的语义。
-3. 日语可按自然词序调整位置参数；复数采用该语言需要的分类。无需增加 `if language == "ja"` 之类业务分支，也无需修改 CI 语言列表。
-4. 运行下述验证，再以日语启动检查引导、Studio 编辑器、帮助、错误和 VibeBar。检查固定宽度、换行、截断以及数字/货币/日期；以日本地区再检查一次格式。
-5. 由熟悉产品的日语使用者校对术语和自然度。自动测试验证资源完整性与运行行为，不能代替语言质量审核。
+1. 两个 String Catalog 都必须有完整日语；翻译正文、错误、帮助和三项系统权限用途说明时保留品牌名与用户数据。根据 Catalog 注释核对每个参数、按钮动作和设备状态的语义。
+2. 日语可按自然词序调整位置参数；复数采用该语言需要的分类。无需增加 `if language == "ja"` 之类业务分支，也无需修改 CI 语言列表。
+3. 运行下述验证，再以日语启动检查引导、Studio 编辑器、帮助、错误和 VibeBar。检查固定宽度、换行、截断以及数字/货币/日期；以日本地区再检查一次格式。
+4. 由熟悉产品的日语使用者校对术语和自然度。自动测试验证资源完整性与运行行为，不能代替语言质量审核。
 
 建议术语约定（正式日译前仍需校对）：
 
@@ -63,12 +62,16 @@ xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "AhaKey Studio" \
 xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "AhaKey Studio" \
   -destination 'platform=macOS' -testLanguage zh-Hans \
   CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual test
+
+xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "AhaKey Studio" \
+  -destination 'platform=macOS' -testLanguage ja \
+  CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual test
 ```
 
 `check-localizations.py` 从工程发现已发布语言，检查两个 Catalog 的语言覆盖、翻译完成状态、非空文本、插值参数位置/类型，以及 Swift 显式本地化键是否存在。支持参数换序、重复参数和复数 substitutions，不要求译文保持中文词序。
 
 `LocalizationTests` 从实际 App 包发现全部语言，验证 `.strings` 与 `.stringsdict` 的键集合、权限说明、数量 0/1/2/70 的输出和插值。独立的临时日语测试资源验证“other-only 复数 + 参数换序”，不会随 App 发布。`OLEDLocalizationTests` 验证旧配置跨语言读取、用户数据保真及状态变化不会触发硬件配置变更。
 
-GitHub CI 先验证资源，再运行英文完整测试和其余已发布语言的本地化测试。未来添加完整的 `ja` 后会自动纳入检查；不需要额外 shell 脚本。新增界面仍需检查文字较长时的布局，让说明自然换行，避免按单一语言的长度设置截断。
+GitHub CI 先验证资源，再运行英文完整测试和其余已发布语言的本地化测试。日语已自动纳入检查；不需要额外 shell 脚本。新增界面仍需检查文字较长时的布局，让说明自然换行，避免按单一语言的长度设置截断。
 
 Apple 参考：[String Catalog 与复数](https://developer.apple.com/documentation/xcode/localizing-and-varying-text-with-a-string-catalog)、[复数规则](https://developer.apple.com/documentation/xcode/localizing-strings-that-contain-plurals)。
