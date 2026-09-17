@@ -51,7 +51,7 @@ jobs:
           done
       - name: Build examples
         run: |
-          for scheme in Plugin PluginShowcase VibeBarSmoke SocketServer Client; do
+          for scheme in Plugin PluginShowcase VibeBarSmoke; do
             xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "$scheme" \
               -configuration Debug -destination "platform=macOS,arch=$(uname -m)" \
               -derivedDataPath DerivedData CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual build

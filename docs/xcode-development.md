@@ -1,6 +1,6 @@
 # Xcode 开发方式
 
-打开根目录 `AhaKey Studio.xcodeproj`，选择 **AhaKey Studio → My Mac**。`⌘R` 运行主应用，`⌘U` 运行应用与 VibeBar 的 16 个单元测试。完整 Xcode 16+ 可打开本工程；所有本地 Target（含两个测试 Target）均继承公共配置的 macOS 13.0 部署目标。当前 Xcode 26.4 自带 XCTest 的最低版本为 macOS 14，因此构建测试时会出现测试库版本不匹配的链接警告；设置为 13.0 不代表这套测试库可以在 macOS 13 上运行。在 macOS 13 实机运行测试时，需要使用支持该系统的 Xcode 与测试库。
+打开根目录 `AhaKey Studio.xcodeproj`，选择 **AhaKey Studio → My Mac**。`⌘R` 运行主应用，`⌘U` 运行应用与 VibeBar 的单元测试。完整 Xcode 16+ 可打开本工程；所有本地 Target（含两个测试 Target）均继承公共配置的 macOS 13.0 部署目标。当前 Xcode 26.4 自带 XCTest 的最低版本为 macOS 14，因此构建测试时会出现测试库版本不匹配的链接警告；设置为 13.0 不代表这套测试库可以在 macOS 13 上运行。在 macOS 13 实机运行测试时，需要使用支持该系统的 Xcode 与测试库。
 
 ## 文件组织
 
@@ -26,7 +26,7 @@ docs/                    协议、开发与发布说明
 
 往对应的源码文件夹添加 Swift 文件后，Xcode 自动将它纳入关联 Target。主 App 只链接实际使用的 VibeBar；AhaKeyPluginKit 由插件示例链接。DynamicNotchKit 保留在 Xcode Package Dependencies 中，由已提交的锁文件固定依赖解析结果。
 
-示例有独立 Scheme，不加入正式 App 包。SocketServer 是 Foundation 命令行程序；SocketClient 保持原有 Client Target 名称。两个 Socket 示例共用 `/tmp/ahakey.sock`，使用前应停止占用该路径的后台 Agent。
+`Plugin`、`PluginShowcase`、`VibeBarSmoke` 示例有独立 Scheme，不加入正式 App 包。`SocketServer` 和 `Client` 的 Xcode Target 已移除；`Examples/SocketServer`、`Examples/SocketClient` 保留为源码参考，供独立的 Python Socket 诊断脚本编译使用。
 
 ## 构建设置
 

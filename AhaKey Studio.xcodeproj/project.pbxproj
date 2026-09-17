@@ -115,15 +115,6 @@
 			name = "Copy FirmwareFlasher/tools/arm64";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC1DF445304AEA6200B14811 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		DF290F7F41A7B8192B4EA0DF /* Embed Agent */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,10 +155,8 @@
 		CFC625128D34B8744C677DD7 /* sdks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sdks; sourceTree = "<group>"; };
 		D6E7129C60F91D6807F7A809 /* AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp"; sourceTree = SOURCE_ROOT; };
 		D7C36B709C6FFF8BDC61047B /* VibeBarSmoke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeBarSmoke.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC1DF447304AEA6200B14811 /* Client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Client; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB4E85F304846C400E702EE /* AhaKey Studio（调试）.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AhaKey Studio（调试）.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB4E86C304846C600E702EE /* AhaKey StudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AhaKey StudioTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E72952C844D7842E1519BE3B /* SocketServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SocketServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7ED5BC0A87C5456DE10832 /* AhaKey Studio/Resources/FirmwareFlasher/tools/arm64/wchisp */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "AhaKey Studio/Resources/FirmwareFlasher/tools/arm64/wchisp"; sourceTree = SOURCE_ROOT; };
 		F0B917863F93CC136C6092B4 /* VibeBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF74A464C155DA8AA738AF98 /* AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt"; sourceTree = SOURCE_ROOT; };
@@ -258,13 +247,6 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		10391FB51488EBE14C911662 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1654AB58EADAB0541A6AADEA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -302,13 +284,6 @@
 			files = (
 				39C8BFD024E4D48898EC13B0 /* libVibeBar.a in Frameworks */,
 				5F12E573214FA5FBB78562D7 /* DynamicNotchKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC1DF444304AEA6200B14811 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,7 +383,6 @@
 			children = (
 				DCB4E85F304846C400E702EE /* AhaKey Studio（调试）.app */,
 				DCB4E86C304846C600E702EE /* AhaKey StudioTests.xctest */,
-				DC1DF447304AEA6200B14811 /* Client */,
 				117963F9C088F92069A35FC1 /* libAhaKeyPluginKit.a */,
 				73B263C26A918ECA2930C0E2 /* libVibeBar.a */,
 				8650A3AD7BC9AC6DDD3C361C /* ahakeyconfig-agent */,
@@ -416,7 +390,6 @@
 				741FDD7C3C66014F456317B1 /* PluginShowcase.app */,
 				D7C36B709C6FFF8BDC61047B /* VibeBarSmoke.app */,
 				F0B917863F93CC136C6092B4 /* VibeBarTests.xctest */,
-				E72952C844D7842E1519BE3B /* SocketServer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -572,28 +545,6 @@
 			productReference = F0B917863F93CC136C6092B4 /* VibeBarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DC1DF446304AEA6200B14811 /* Client */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0D2F80D14CB7C287F1955CF2 /* Build configuration list for PBXNativeTarget "Client" */;
-			buildPhases = (
-				DC1DF443304AEA6200B14811 /* Sources */,
-				DC1DF444304AEA6200B14811 /* Frameworks */,
-				DC1DF445304AEA6200B14811 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				6B8CD00C3E3B813F302F3F09 /* SocketClient */,
-			);
-			name = Client;
-			packageProductDependencies = (
-			);
-			productName = Client;
-			productReference = DC1DF447304AEA6200B14811 /* Client */;
-			productType = "com.apple.product-type.tool";
-		};
 		DCB4E85E304846C400E702EE /* AhaKey Studio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97A8FC6656379F9CDAE953FD /* Build configuration list for PBXNativeTarget "AhaKey Studio" */;
@@ -646,25 +597,6 @@
 			productName = "AhaKey StudioTests";
 			productReference = DCB4E86C304846C600E702EE /* AhaKey StudioTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		DEEF7554445E1E91ED207C4A /* SocketServer */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4E5FCD9C5232D5652E9A3C84 /* Build configuration list for PBXNativeTarget "SocketServer" */;
-			buildPhases = (
-				8FFED0406F728BE77E2A354F /* Sources */,
-				10391FB51488EBE14C911662 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				90A4E00A395C5F4643DADD0B /* SocketServer */,
-			);
-			name = SocketServer;
-			productName = SocketServer;
-			productReference = E72952C844D7842E1519BE3B /* SocketServer */;
-			productType = "com.apple.product-type.tool";
 		};
 		E76FCF256600799AB427735B /* AhaKeyPluginKit */ = {
 			isa = PBXNativeTarget;
@@ -725,14 +657,6 @@
 							};
 						};
 					};
-					DC1DF446304AEA6200B14811 = {
-						CreatedOnToolsVersion = 26.4.1;
-						SystemCapabilities = {
-							com.apple.HardenedRuntime = {
-								enabled = 1;
-							};
-						};
-					};
 					DCB4E85E304846C400E702EE = {
 						CreatedOnToolsVersion = 26.4.1;
 						SystemCapabilities = {
@@ -744,13 +668,6 @@
 					DCB4E86B304846C600E702EE = {
 						CreatedOnToolsVersion = 26.4.1;
 						TestTargetID = DCB4E85E304846C400E702EE;
-					};
-					DEEF7554445E1E91ED207C4A = {
-						SystemCapabilities = {
-							com.apple.HardenedRuntime = {
-								enabled = 1;
-							};
-						};
 					};
 				};
 			};
@@ -774,7 +691,6 @@
 			targets = (
 				DCB4E85E304846C400E702EE /* AhaKey Studio */,
 				DCB4E86B304846C600E702EE /* AhaKey StudioTests */,
-				DC1DF446304AEA6200B14811 /* Client */,
 				E76FCF256600799AB427735B /* AhaKeyPluginKit */,
 				4C42FDDCDE6E0220910323B2 /* VibeBar */,
 				AB3D67C20D3982E6529EA518 /* AhaKeyConfigAgent */,
@@ -782,7 +698,6 @@
 				3F9ABF9FD0BF172BE4A7C7A6 /* PluginShowcase */,
 				9A2C842B33667E7F06852D53 /* VibeBarSmoke */,
 				AD7B0C1F006EDC32DC3A800A /* VibeBarTests */,
-				DEEF7554445E1E91ED207C4A /* SocketServer */,
 			);
 		};
 /* End PBXProject section */
@@ -870,13 +785,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8FFED0406F728BE77E2A354F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CC877125ACD8DFB6A75E9ABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -885,13 +793,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D49CCE551E9492DFCC7519F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC1DF443304AEA6200B14811 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -957,70 +858,59 @@
 			buildSettings = {
 				APP_BUNDLE_ID_SUFFIX = "";
 				APP_NAME_SUFFIX = "";
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = "YES";
-				CLANG_ENABLE_MODULES = "YES";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = "YES";
-				CLANG_WARN_BOOL_CONVERSION = "YES";
-				CLANG_WARN_COMMA = "YES";
-				CLANG_WARN_CONSTANT_CONVERSION = "YES";
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = "YES";
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = "YES_ERROR";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = "YES";
-				CLANG_WARN_EMPTY_BODY = "YES";
-				CLANG_WARN_ENUM_CONVERSION = "YES";
-				CLANG_WARN_INFINITE_RECURSION = "YES";
-				CLANG_WARN_INT_CONVERSION = "YES";
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = "YES";
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = "YES";
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = "YES";
-				CLANG_WARN_OBJC_ROOT_CLASS = "YES_ERROR";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "YES";
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = "YES";
-				CLANG_WARN_STRICT_PROTOTYPES = "YES";
-				CLANG_WARN_SUSPICIOUS_MOVE = "YES";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = "YES_AGGRESSIVE";
-				CLANG_WARN_UNREACHABLE_CODE = "YES";
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = "YES";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = "Automatic";
-				COPY_PHASE_STRIP = "NO";
-				CURRENT_PROJECT_VERSION = "1";
-				DEAD_CODE_STRIPPING = "YES";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "P2VFVRZK7P";
-				ENABLE_NS_ASSERTIONS = "NO";
-				ENABLE_STRICT_OBJC_MSGSEND = "YES";
-				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
-				GCC_NO_COMMON_BLOCKS = "YES";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = "YES";
-				GCC_WARN_ABOUT_RETURN_TYPE = "YES_ERROR";
-				GCC_WARN_UNDECLARED_SELECTOR = "YES";
-				GCC_WARN_UNINITIALIZED_AUTOS = "YES_AGGRESSIVE";
-				GCC_WARN_UNUSED_FUNCTION = "YES";
-				GCC_WARN_UNUSED_VARIABLE = "YES";
-				MACOSX_DEPLOYMENT_TARGET = "13.0";
-				MARKETING_VERSION = "0.2.1";
-				ONLY_ACTIVE_ARCH = "NO";
+				DEVELOPMENT_TEAM = P2VFVRZK7P;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.2.1;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "$(inherited) --options runtime";
-				SDKROOT = "macosx";
-				STRING_CATALOG_GENERATE_SYMBOLS = "YES";
-				SUPPORTED_PLATFORMS = "macosx";
-				SWIFT_COMPILATION_MODE = "wholemodule";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
-		};
-		14A1B56B1AA2E23327044424 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
 		};
 		1BF8BE4DE59C2E90358D1FFC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1065,59 +955,62 @@
 		62F853339D0D10F1A61A1EFA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_BUNDLE_ID_SUFFIX = ".debug";
+				APP_BUNDLE_ID_SUFFIX = .debug;
 				APP_NAME_SUFFIX = "（调试）";
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = "YES";
-				CLANG_ENABLE_MODULES = "YES";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = "YES";
-				CLANG_WARN_BOOL_CONVERSION = "YES";
-				CLANG_WARN_COMMA = "YES";
-				CLANG_WARN_CONSTANT_CONVERSION = "YES";
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = "YES";
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = "YES_ERROR";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = "YES";
-				CLANG_WARN_EMPTY_BODY = "YES";
-				CLANG_WARN_ENUM_CONVERSION = "YES";
-				CLANG_WARN_INFINITE_RECURSION = "YES";
-				CLANG_WARN_INT_CONVERSION = "YES";
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = "YES";
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = "YES";
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = "YES";
-				CLANG_WARN_OBJC_ROOT_CLASS = "YES_ERROR";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = "YES";
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = "YES";
-				CLANG_WARN_STRICT_PROTOTYPES = "YES";
-				CLANG_WARN_SUSPICIOUS_MOVE = "YES";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = "YES_AGGRESSIVE";
-				CLANG_WARN_UNREACHABLE_CODE = "YES";
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = "YES";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = "Automatic";
-				COPY_PHASE_STRIP = "NO";
-				CURRENT_PROJECT_VERSION = "1";
-				DEAD_CODE_STRIPPING = "YES";
-				DEBUG_INFORMATION_FORMAT = "dwarf";
-				DEVELOPMENT_TEAM = "P2VFVRZK7P";
-				ENABLE_STRICT_OBJC_MSGSEND = "YES";
-				ENABLE_TESTABILITY = "YES";
-				ENABLE_USER_SCRIPT_SANDBOXING = "YES";
-				GCC_NO_COMMON_BLOCKS = "YES";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited) DEBUG=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = "YES";
-				GCC_WARN_ABOUT_RETURN_TYPE = "YES_ERROR";
-				GCC_WARN_UNDECLARED_SELECTOR = "YES";
-				GCC_WARN_UNINITIALIZED_AUTOS = "YES_AGGRESSIVE";
-				GCC_WARN_UNUSED_FUNCTION = "YES";
-				GCC_WARN_UNUSED_VARIABLE = "YES";
-				MACOSX_DEPLOYMENT_TARGET = "13.0";
-				MARKETING_VERSION = "0.2.1";
-				ONLY_ACTIVE_ARCH = "YES";
-				SDKROOT = "macosx";
-				STRING_CATALOG_GENERATE_SYMBOLS = "YES";
-				SUPPORTED_PLATFORMS = "macosx";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P2VFVRZK7P;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.2.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1233,17 +1126,6 @@
 			};
 			name = Debug;
 		};
-		B9E74A1DD6013CF66B52A21C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		BCE384E6C7314CE8BFBBFA2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1274,22 +1156,25 @@
 			buildSettings = {
 				APP_BUNDLE_NAME = "AhaKey Studio$(APP_NAME_SUFFIX)";
 				APP_DISPLAY_NAME = "$(APP_BUNDLE_NAME)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "AccentColor";
-				CLANG_ENABLE_OBJC_WEAK = "YES";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(PROJECT_FILE_PATH)/AhaKeyStudio.entitlements";
-				DEAD_CODE_STRIPPING = "YES";
-				ENABLE_APP_SANDBOX = "NO";
-				ENABLE_HARDENED_RUNTIME = "YES";
-				ENABLE_PREVIEWS = "YES";
-				EXECUTABLE_NAME = "AhaKeyConfig";
-				GENERATE_INFOPLIST_FILE = "YES";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				EXECUTABLE_NAME = AhaKeyConfig;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(PROJECT_FILE_PATH)/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xinyangzhang.AhaKey-Studio$(APP_BUNDLE_ID_SUFFIX)";
-				PRODUCT_MODULE_NAME = "AhaKeyConfig";
+				PRODUCT_MODULE_NAME = AhaKeyConfig;
 				PRODUCT_NAME = "$(APP_BUNDLE_NAME)";
-				SKIP_INSTALL = "NO";
+				SKIP_INSTALL = NO;
 			};
 			name = Debug;
 		};
@@ -1305,28 +1190,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
-		};
-		F9B5524EFCB64B482F6AFD94 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		FA18FA64ECD7DF5C9D6CD166 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
 		};
 		FA21914E24C679A286423F5E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1348,37 +1211,31 @@
 			buildSettings = {
 				APP_BUNDLE_NAME = "AhaKey Studio$(APP_NAME_SUFFIX)";
 				APP_DISPLAY_NAME = "$(APP_BUNDLE_NAME)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "AccentColor";
-				CLANG_ENABLE_OBJC_WEAK = "YES";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(PROJECT_FILE_PATH)/AhaKeyStudio.entitlements";
-				DEAD_CODE_STRIPPING = "YES";
-				ENABLE_APP_SANDBOX = "NO";
-				ENABLE_HARDENED_RUNTIME = "YES";
-				ENABLE_PREVIEWS = "YES";
-				EXECUTABLE_NAME = "AhaKeyConfig";
-				GENERATE_INFOPLIST_FILE = "YES";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				EXECUTABLE_NAME = AhaKeyConfig;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(PROJECT_FILE_PATH)/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xinyangzhang.AhaKey-Studio$(APP_BUNDLE_ID_SUFFIX)";
-				PRODUCT_MODULE_NAME = "AhaKeyConfig";
+				PRODUCT_MODULE_NAME = AhaKeyConfig;
 				PRODUCT_NAME = "$(APP_BUNDLE_NAME)";
-				SKIP_INSTALL = "NO";
+				SKIP_INSTALL = NO;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0D2F80D14CB7C287F1955CF2 /* Build configuration list for PBXNativeTarget "Client" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				14A1B56B1AA2E23327044424 /* Debug */,
-				FA18FA64ECD7DF5C9D6CD166 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1981F26E060195DCB175BCB6 /* Build configuration list for PBXNativeTarget "VibeBarTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1420,15 +1277,6 @@
 			buildConfigurations = (
 				9542B0140745F9B9E04B86B1 /* Debug */,
 				FA21914E24C679A286423F5E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4E5FCD9C5232D5652E9A3C84 /* Build configuration list for PBXNativeTarget "SocketServer" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F9B5524EFCB64B482F6AFD94 /* Debug */,
-				B9E74A1DD6013CF66B52A21C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

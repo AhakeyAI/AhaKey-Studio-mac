@@ -14,7 +14,7 @@ GitHub Actions 的开发 ZIP 用于构建验证，未经公证，不作为正式
 2. 打开根目录的 `AhaKey Studio.xcodeproj`。
 3. 在 Signing & Capabilities 中选择自己的开发 Team。
 4. 选择 **AhaKey Studio → My Mac**，按 `⌘R` 运行，按 `⌘U` 测试。
-5. 示例通过 `Plugin`、`PluginShowcase`、`VibeBarSmoke`、`SocketServer` 或 `Client` Scheme 运行。主应用已内嵌后台 Agent。
+5. 示例通过 `Plugin`、`PluginShowcase` 或 `VibeBarSmoke` Scheme 运行。主应用已内嵌后台 Agent。
 
 测试部署目标为 macOS 13；较新的 Xcode 若自带最低版本为 macOS 14 的 XCTest，可能产生测试库版本警告。在 macOS 13 实机测试需要兼容的 Xcode 和测试库。
 
