@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "AhaKey Studio uses Bluetooth to connect to your AhaKey keyboard."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studioは、AhaKeyキーボードに接続するためにBluetoothを使用します。"
+          }
         }
       }
     },
@@ -32,6 +38,12 @@
             "state": "translated",
             "value": "AhaKey Studio uses the microphone to transcribe your speech with Apple speech recognition."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studioは、Appleの音声認識で音声を文字起こしするためにマイクを使用します。"
+          }
         }
       }
     },
@@ -48,6 +60,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "AhaKey Studio uses speech recognition to transcribe speech triggered by the voice key."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AhaKey Studioは、音声キーで開始した音声を文字起こしするために音声認識を使用します。"
           }
         }
       }
