@@ -78,7 +78,10 @@ def validate():
     errors = []
     app_keys = set()
     total = 0
-    for path in sorted((ROOT / 'AhaKey Studio/Localization').glob('*.xcstrings')):
+    catalogs = list((ROOT / 'AhaKey Studio/Localization').glob('*.xcstrings'))
+    catalogs += list((ROOT / 'StudioFrontend/Localization').glob('*.xcstrings'))
+    frontend_keys = set()
+    for path in sorted(catalogs):
         catalog = json.loads(path.read_text())
         source = catalog['sourceLanguage']
         for key, entry in catalog['strings'].items():
@@ -99,6 +102,8 @@ def validate():
                 errors.append(f'{location}: {error}')
         if path.stem == 'Localizable':
             app_keys = set(catalog['strings'])
+        if path.stem == 'Frontend':
+            frontend_keys = set(catalog['strings'])
     # Explicit keys are used by both the app and the statically linked VibeBar.
     for directory in ['AhaKey Studio', 'Modules/VibeBar']:
         for path in (ROOT / directory).rglob('*.swift'):
@@ -107,6 +112,10 @@ def validate():
                     errors.append(f'{path.relative_to(ROOT)}: missing catalog key {key}')
     if not app_keys:
         errors.append('Localizable.xcstrings is missing or empty')
+    for path in (ROOT / 'StudioFrontend').rglob('*.swift'):
+        for key in re.findall(r'frontendText\("([^"\\]+)"\)', path.read_text()):
+            if key not in frontend_keys:
+                errors.append(f'{path.relative_to(ROOT)}: missing frontend catalog key {key}')
     return languages, total, errors
 
 

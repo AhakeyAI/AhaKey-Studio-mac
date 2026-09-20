@@ -25,6 +25,66 @@
 		BD5971C267BFB6698011D09C /* DynamicNotchKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6894BCCFA107828BABF44F /* DynamicNotchKit */; };
 		E6A53B3827E92519F7598E30 /* libVibeBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B263C26A918ECA2930C0E2 /* libVibeBar.a */; };
 		F115AC9FDBDFF948A386962D /* AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp in Copy FirmwareFlasher/tools/x86_64 */ = {isa = PBXBuildFile; fileRef = D6E7129C60F91D6807F7A809 /* AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1E0F44825A05D42D7885E7BD /* AhaKey Studio/SharedPresentation/CloudAccountView.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "59C486EE7AD22A9D378F04AD";
+		};
+		0BC412A625E4398F59FE4942 /* AhaKey Studio/SharedPresentation/HIDUsage.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "A07222F665C26BA9F42A6004";
+		};
+		D1B029D90A19ACE0E8B43256 /* AhaKey Studio/SharedPresentation/IDEState.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "BBED5D010C9FA73B1B062F16";
+		};
+		3B2226F7F7A3687991B61EA9 /* AhaKey Studio/SharedPresentation/KeyboardCanvas.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "D4622D86CDF1BC4FEB646FC3";
+		};
+		DFBE25A8EB98908A1A9DFCFC /* AhaKey Studio/SharedPresentation/OLEDPreview.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "B0D9DC10C84D607C94D5E716";
+		};
+		9C3145C0FC8F1578A6403F77 /* AhaKey Studio/SharedPresentation/ShortcutEditor.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "5C8EEC3FB0BEE413D2A42A22";
+		};
+		67C386EF09EE6ECBF7435914 /* AhaKey Studio/Features/Studio/AhaKeyStudioModels.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "FE0AB806F918B5B3E7E09104";
+		};
+		3B3E0A45C6CFA112179260FA /* AhaKey Studio/Features/OLED/DefaultOLEDAssets.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "8F3F6E0153F0A0EE22A73C78";
+		};
+		47C683AABF5DF5197EC1F8EE /* AhaKey Studio/Features/Account/CloudAccountManager.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "5D5692C01DF8AAF344D3298B";
+		};
+		75108BA6B77B1D2DB180271B /* AhaKey Studio/Features/Voice/AhaTypeTextOptimizer.swift build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "2035BA6404B6E0F87F43BDB9";
+		};
+		61112B824EF5CE549B765549 /* AhaKey Studio/Localization/Localizable.xcstrings build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "03486D9C7849E85412D99B52";
+		};
+		3960205C5E62936977DE7E0C /* AhaKey Studio/Assets.xcassets build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "FA175EDF6A81F4F70973C70F";
+		};
+		15128DE45190AB4535B7AFCB /* AhaKey Studio/Resources/DefaultOLED build */ = {
+			isa = "PBXBuildFile";
+			fileRef = "00FDFC5C096A5568F859BDA0";
+		};
+		53E151718B52CAB1D69984D1 /* Frontend VibeBar */ = {
+			isa = "PBXBuildFile";
+			fileRef = "73B263C26A918ECA2930C0E2";
+		};
+		F004750EDE9A4AEE50B2574E /* Frontend DynamicNotchKit */ = {
+			isa = "PBXBuildFile";
+			productRef = "816943818FC024E1898AD328";
+		};
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +136,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = DCB4E85E304846C400E702EE;
 			remoteInfo = AhaKeyConfig;
+		};
+		AAAD752C8EB76F2F01AAE9D3 /* Frontend VibeBar Proxy */ = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "DCB4E857304846C400E702EE";
+			proxyType = "1";
+			remoteGlobalIDString = "4C42FDDCDE6E0220910323B2";
+			remoteInfo = "VibeBar";
+		};
+		CFBB6179A60A0A4CC46A906E /* Frontend Test Proxy */ = {
+			isa = "PBXContainerItemProxy";
+			containerPortal = "DCB4E857304846C400E702EE";
+			proxyType = "1";
+			remoteGlobalIDString = "84EE06508A325F2615B0E683";
+			remoteInfo = "Studio Frontend";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -160,6 +234,98 @@
 		EB7ED5BC0A87C5456DE10832 /* AhaKey Studio/Resources/FirmwareFlasher/tools/arm64/wchisp */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "AhaKey Studio/Resources/FirmwareFlasher/tools/arm64/wchisp"; sourceTree = SOURCE_ROOT; };
 		F0B917863F93CC136C6092B4 /* VibeBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF74A464C155DA8AA738AF98 /* AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "AhaKey Studio/Resources/FirmwareFlasher/LICENSE-wchisp.txt"; sourceTree = SOURCE_ROOT; };
+		59C486EE7AD22A9D378F04AD /* AhaKey Studio/SharedPresentation/CloudAccountView.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/CloudAccountView.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		A07222F665C26BA9F42A6004 /* AhaKey Studio/SharedPresentation/HIDUsage.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/HIDUsage.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		BBED5D010C9FA73B1B062F16 /* AhaKey Studio/SharedPresentation/IDEState.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/IDEState.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		D4622D86CDF1BC4FEB646FC3 /* AhaKey Studio/SharedPresentation/KeyboardCanvas.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/KeyboardCanvas.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		B0D9DC10C84D607C94D5E716 /* AhaKey Studio/SharedPresentation/OLEDPreview.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/OLEDPreview.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		5C8EEC3FB0BEE413D2A42A22 /* AhaKey Studio/SharedPresentation/ShortcutEditor.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/SharedPresentation/ShortcutEditor.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		FE0AB806F918B5B3E7E09104 /* AhaKey Studio/Features/Studio/AhaKeyStudioModels.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/Features/Studio/AhaKeyStudioModels.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		8F3F6E0153F0A0EE22A73C78 /* AhaKey Studio/Features/OLED/DefaultOLEDAssets.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/Features/OLED/DefaultOLEDAssets.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		5D5692C01DF8AAF344D3298B /* AhaKey Studio/Features/Account/CloudAccountManager.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/Features/Account/CloudAccountManager.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		2035BA6404B6E0F87F43BDB9 /* AhaKey Studio/Features/Voice/AhaTypeTextOptimizer.swift reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "sourcecode.swift";
+			path = "AhaKey Studio/Features/Voice/AhaTypeTextOptimizer.swift";
+			sourceTree = "SOURCE_ROOT";
+		};
+		03486D9C7849E85412D99B52 /* AhaKey Studio/Localization/Localizable.xcstrings reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "text.json.xcstrings";
+			path = "AhaKey Studio/Localization/Localizable.xcstrings";
+			sourceTree = "SOURCE_ROOT";
+		};
+		FA175EDF6A81F4F70973C70F /* AhaKey Studio/Assets.xcassets reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "folder.assetcatalog";
+			path = "AhaKey Studio/Assets.xcassets";
+			sourceTree = "SOURCE_ROOT";
+		};
+		00FDFC5C096A5568F859BDA0 /* AhaKey Studio/Resources/DefaultOLED reference */ = {
+			isa = "PBXFileReference";
+			lastKnownFileType = "folder";
+			path = "AhaKey Studio/Resources/DefaultOLED";
+			sourceTree = "SOURCE_ROOT";
+		};
+		F7A1E523C6369580330954E2 /* Studio Frontend.app */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.application";
+			includeInIndex = "0";
+			path = "Studio Frontend.app";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		83EA6AD7ADB5A243BCDBF343 /* StudioFrontendTests.xctest */ = {
+			isa = "PBXFileReference";
+			explicitFileType = "wrapper.cfbundle";
+			includeInIndex = "0";
+			path = "StudioFrontendTests.xctest";
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -244,6 +410,16 @@
 			path = VibeBarSmoke;
 			sourceTree = "<group>";
 		};
+		822A56D575C87171FA3AFB5C /* StudioFrontend */ = {
+			isa = "PBXFileSystemSynchronizedRootGroup";
+			path = "StudioFrontend";
+			sourceTree = "SOURCE_ROOT";
+		};
+		CD4E315C1CE107C84F8686F5 /* StudioFrontendTests */ = {
+			isa = "PBXFileSystemSynchronizedRootGroup";
+			path = "Tests/StudioFrontendTests";
+			sourceTree = "SOURCE_ROOT";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +495,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA054AA1800D404DC152955F /* Frontend Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+				"53E151718B52CAB1D69984D1",
+				"F004750EDE9A4AEE50B2574E",
+			);
+			runOnlyForDeploymentPostprocessing = "0";
+		};
+		AD5097F8FB8C651661CCB1AA /* Frontend Test Frameworks */ = {
+			isa = "PBXFrameworksBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = "0";
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -334,6 +526,9 @@
 		1B23E82225C952EF5999CDE4 = {
 			isa = PBXGroup;
 			children = (
+				822A56D575C87171FA3AFB5C,
+				C6A57042B0CFE85730EB1E91,
+				CD4E315C1CE107C84F8686F5,
 				6F1B46EDDCC3F5A6560952A8 /* AhaKey Studio */,
 				06B18B11C53E96EA62754374 /* Modules */,
 				25AE9A465D1B9698A30D1003 /* Tools */,
@@ -352,6 +547,8 @@
 		2271CDC347F1A700D1B53EF7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F7A1E523C6369580330954E2,
+				83EA6AD7ADB5A243BCDBF343,
 				5C6AD736907BC86AA1F9CBB8 /* AhaKeyStudioTests */,
 				847672432229AE0493DF0780 /* VibeBarTests */,
 			);
@@ -407,6 +604,26 @@
 				D6E7129C60F91D6807F7A809 /* AhaKey Studio/Resources/FirmwareFlasher/tools/x86_64/wchisp */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		C6A57042B0CFE85730EB1E91 /* Frontend Shared Sources */ = {
+			isa = "PBXGroup";
+			children = (
+				"59C486EE7AD22A9D378F04AD",
+				"A07222F665C26BA9F42A6004",
+				"BBED5D010C9FA73B1B062F16",
+				"D4622D86CDF1BC4FEB646FC3",
+				"B0D9DC10C84D607C94D5E716",
+				"5C8EEC3FB0BEE413D2A42A22",
+				"FE0AB806F918B5B3E7E09104",
+				"8F3F6E0153F0A0EE22A73C78",
+				"5D5692C01DF8AAF344D3298B",
+				"2035BA6404B6E0F87F43BDB9",
+				"03486D9C7849E85412D99B52",
+				"FA175EDF6A81F4F70973C70F",
+				"00FDFC5C096A5568F859BDA0",
+			);
+			name = "Frontend Shared Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -619,6 +836,51 @@
 			productReference = 117963F9C088F92069A35FC1 /* libAhaKeyPluginKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		84EE06508A325F2615B0E683 /* Studio Frontend */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "B81A871B25F311A567BA1F1E";
+			buildPhases = (
+				"CD974EC853AEBA9CA96FBE0F",
+				"C592A127E8FE2752CE428C86",
+				"FA054AA1800D404DC152955F",
+			);
+			buildRules = (
+			);
+			dependencies = (
+				"6E6BD7855EE181973A4768AE",
+			);
+			fileSystemSynchronizedGroups = (
+				"822A56D575C87171FA3AFB5C",
+			);
+			name = "Studio Frontend";
+			packageProductDependencies = (
+				"816943818FC024E1898AD328",
+			);
+			productName = "Studio Frontend";
+			productReference = "F7A1E523C6369580330954E2";
+			productType = "com.apple.product-type.application";
+		};
+		DEC945EABCE951EDDCBBE724 /* StudioFrontendTests Target */ = {
+			isa = "PBXNativeTarget";
+			buildConfigurationList = "EE8CBCAD594255D0DE07D041";
+			buildPhases = (
+				"1B04852B9AF9A1F5A83300F8",
+				"C5627D036CCD75B7E9287B2D",
+				"AD5097F8FB8C651661CCB1AA",
+			);
+			buildRules = (
+			);
+			dependencies = (
+				"EF6826BC3BFB960074FDB8C1",
+			);
+			fileSystemSynchronizedGroups = (
+				"CD4E315C1CE107C84F8686F5",
+			);
+			name = "StudioFrontendTests";
+			productName = "StudioFrontendTests";
+			productReference = "83EA6AD7ADB5A243BCDBF343";
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -690,6 +952,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				84EE06508A325F2615B0E683,
+				DEC945EABCE951EDDCBBE724,
 				DCB4E85E304846C400E702EE /* AhaKey Studio */,
 				DCB4E86B304846C600E702EE /* AhaKey StudioTests */,
 				E76FCF256600799AB427735B /* AhaKeyPluginKit */,
@@ -712,6 +976,23 @@
 				847418BBF8F2CEC4867D6230 /* AhaKey Studio/Resources/DefaultOLED in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C592A127E8FE2752CE428C86 /* Frontend Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+				"61112B824EF5CE549B765549",
+				"3960205C5E62936977DE7E0C",
+				"15128DE45190AB4535B7AFCB",
+			);
+			runOnlyForDeploymentPostprocessing = "0";
+		};
+		C5627D036CCD75B7E9287B2D /* Frontend Test Resources */ = {
+			isa = "PBXResourcesBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = "0";
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -800,6 +1081,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD974EC853AEBA9CA96FBE0F /* Frontend Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+				"1E0F44825A05D42D7885E7BD",
+				"0BC412A625E4398F59FE4942",
+				"D1B029D90A19ACE0E8B43256",
+				"3B2226F7F7A3687991B61EA9",
+				"DFBE25A8EB98908A1A9DFCFC",
+				"9C3145C0FC8F1578A6403F77",
+				"67C386EF09EE6ECBF7435914",
+				"3B3E0A45C6CFA112179260FA",
+				"47C683AABF5DF5197EC1F8EE",
+				"75108BA6B77B1D2DB180271B",
+			);
+			runOnlyForDeploymentPostprocessing = "0";
+		};
+		1B04852B9AF9A1F5A83300F8 /* Frontend Test Sources */ = {
+			isa = "PBXSourcesBuildPhase";
+			buildActionMask = "2147483647";
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = "0";
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -837,6 +1142,16 @@
 			isa = PBXTargetDependency;
 			target = AB3D67C20D3982E6529EA518 /* AhaKeyConfigAgent */;
 			targetProxy = EA111335240CAB038748E8DC /* PBXContainerItemProxy */;
+		};
+		6E6BD7855EE181973A4768AE /* Frontend VibeBar Dependency */ = {
+			isa = "PBXTargetDependency";
+			target = "4C42FDDCDE6E0220910323B2";
+			targetProxy = "AAAD752C8EB76F2F01AAE9D3";
+		};
+		EF6826BC3BFB960074FDB8C1 /* Frontend Test Dependency */ = {
+			isa = "PBXTargetDependency";
+			target = "84EE06508A325F2615B0E683";
+			targetProxy = "CFBB6179A60A0A4CC46A906E";
 		};
 /* End PBXTargetDependency section */
 
@@ -1236,6 +1551,86 @@
 			};
 			name = Release;
 		};
+		FD0F341F1AB2478108552AAB /* Frontend Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "Studio Frontend";
+				PRODUCT_MODULE_NAME = "StudioFrontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.ahakey.studio.frontend.app";
+				GENERATE_INFOPLIST_FILE = "YES";
+				INFOPLIST_KEY_CFBundleDisplayName = "AhaKey Studio Frontend";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				ENABLE_APP_SANDBOX = "NO";
+				ENABLE_HARDENED_RUNTIME = "YES";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				SWIFT_VERSION = "5.0";
+				MACOSX_DEPLOYMENT_TARGET = "13.0";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+			};
+			name = "Debug";
+		};
+		B997332D8639B149B69F75C7 /* Frontend Tests Debug */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "StudioFrontendTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.ahakey.studio.frontend.tests";
+				GENERATE_INFOPLIST_FILE = "YES";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studio Frontend.app/Contents/MacOS/Studio Frontend";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_VERSION = "5.0";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+			};
+			name = "Debug";
+		};
+		AF9B2E2CD254D088A0F661B6 /* Frontend Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "Studio Frontend";
+				PRODUCT_MODULE_NAME = "StudioFrontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.ahakey.studio.frontend.app";
+				GENERATE_INFOPLIST_FILE = "YES";
+				INFOPLIST_KEY_CFBundleDisplayName = "AhaKey Studio Frontend";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				ENABLE_APP_SANDBOX = "NO";
+				ENABLE_HARDENED_RUNTIME = "YES";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				SWIFT_VERSION = "5.0";
+				MACOSX_DEPLOYMENT_TARGET = "13.0";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+			};
+			name = "Release";
+		};
+		9B3880D27034DB0164B46E52 /* Frontend Tests Release */ = {
+			isa = "XCBuildConfiguration";
+			buildSettings = {
+				PRODUCT_NAME = "StudioFrontendTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.ahakey.studio.frontend.tests";
+				GENERATE_INFOPLIST_FILE = "YES";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studio Frontend.app/Contents/MacOS/Studio Frontend";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				SWIFT_VERSION = "5.0";
+				SWIFT_EMIT_LOC_STRINGS = "NO";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+			};
+			name = "Release";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1328,6 +1723,24 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		B81A871B25F311A567BA1F1E /* Frontend Configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				"FD0F341F1AB2478108552AAB",
+				"AF9B2E2CD254D088A0F661B6",
+			);
+			defaultConfigurationIsVisible = "0";
+			defaultConfigurationName = "Release";
+		};
+		EE8CBCAD594255D0DE07D041 /* Frontend Test Configurations */ = {
+			isa = "XCConfigurationList";
+			buildConfigurations = (
+				"B997332D8639B149B69F75C7",
+				"9B3880D27034DB0164B46E52",
+			);
+			defaultConfigurationIsVisible = "0";
+			defaultConfigurationName = "Release";
 		};
 /* End XCConfigurationList section */
 

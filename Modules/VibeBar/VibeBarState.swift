@@ -5,6 +5,7 @@ import SwiftUI
 public final class VibeBarState: ObservableObject {
     @Published public var keyboardConnected: Bool = false
     @Published public var batteryLevel: Int = 0
+    @Published public var batteryKnown: Bool = true
     @Published public var deviceName: String? = nil
 
     /// `true` 表示拨杆在 auto 位（switchState == 0），AI 工具调用自动放行

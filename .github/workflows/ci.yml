@@ -38,6 +38,13 @@ jobs:
           -configuration Debug -destination "platform=macOS,arch=$(uname -m)"
           -derivedDataPath DerivedData -resultBundlePath TestResults.xcresult -testLanguage en
           CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual test
+      - name: Standalone frontend boundary and tests
+        run: |
+          python3 scripts/check-frontend-boundary.py
+          xcodebuild -project "AhaKey Studio.xcodeproj" -scheme "Studio Frontend" \
+            -configuration Debug -destination "platform=macOS,arch=$(uname -m)" \
+            -derivedDataPath DerivedData -resultBundlePath FrontendTests.xcresult \
+            CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual test
       - name: Localization tests in other shipping languages
         run: |
           for language in $(python3 scripts/check-localizations.py --languages); do
@@ -80,7 +87,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macOS-test-results
-          path: 'TestResults*.xcresult'
+          path: |
+            TestResults*.xcresult
+            FrontendTests.xcresult
           if-no-files-found: ignore
 
   typescript-sdk:

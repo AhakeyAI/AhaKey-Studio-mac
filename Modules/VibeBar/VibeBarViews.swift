@@ -20,7 +20,7 @@ struct VibeBarCompactKeyboardItem: View {
     }
 
     private var label: String {
-        if !state.keyboardConnected { return "—" }
+        if !state.keyboardConnected || !state.batteryKnown { return "—" }
         return "\(state.batteryLevel)%"
     }
 }
@@ -91,7 +91,7 @@ struct VibeBarExpandedMenu: View {
                 statusTile(
                     title: String(localized: "vibebar.device", defaultValue: "Device"),
                     systemName: state.keyboardConnected ? "keyboard.fill" : "keyboard",
-                    value: state.keyboardConnected ? "\(state.batteryLevel)%" : String(localized: "vibebar.disconnected", defaultValue: "Disconnected"),
+                    value: state.keyboardConnected ? (state.batteryKnown ? "\(state.batteryLevel)%" : "—") : String(localized: "vibebar.disconnected", defaultValue: "Disconnected"),
                     tint: state.keyboardConnected ? .cyan : .secondary
                 )
                 statusTile(

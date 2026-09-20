@@ -504,35 +504,6 @@ enum LightEffectStyle: String, CaseIterable, Codable, Identifiable {
 
     var id: String { rawValue }
 
-    var firmwareIndex: UInt8 {
-        switch self {
-        case .off: 0
-        case .singleMove: 1
-        case .rainbowMove: 2
-        case .rainbowWave: 3
-        case .rainbowWaveSlow: 4
-        case .breathing: 5
-        case .middleLight: 6
-        case .typingRipple: 7
-        case .comet: 8
-        case .scanBar: 9
-        case .pulseCenter: 10
-        case .warningBlink: 11
-        case .successSweep: 12
-        case .blueThinking: 13
-        case .lowBattery: 14
-        case .chargingFlow: 15
-        case .approvalWait: 16
-        }
-    }
-
-    init?(firmwareIndex: UInt8) {
-        guard let match = Self.allCases.first(where: { $0.firmwareIndex == firmwareIndex }) else {
-            return nil
-        }
-        self = match
-    }
-
     var title: String {
         switch self {
         case .off: String(localized: "text.c997b4efd204", defaultValue: "熄灭")
@@ -752,12 +723,6 @@ struct MacroStep: Codable, Equatable, Identifiable {
 }
 
 extension Array where Element == MacroStep {
-    /// 展平成 (action, param, action, param, ...) 字节流，长度 = 2 × 步数。
-    /// 固件上限 98 字节 ≈ 49 步；这里不做截断，由调用方检查/提示。
-    var flattenedBytes: [UInt8] {
-        flatMap { [$0.action.rawValue, $0.param] }
-    }
-
     /// 浓缩描述：把连续的 down/up 对合并成 `X` 方便展示。
     /// 不能完整还原所有细节，只用于 UI summary。
     var displaySummary: String {
