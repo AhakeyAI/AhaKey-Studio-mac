@@ -1,40 +1,42 @@
 # Architecture
 
-## 组织原则
+本仓库是 macOS Studio 的 Xcode 工程。旧文档中的 Windows、Linux、BLE TCP bridge 和根目录 `Package.swift` 属于此前的 Desktop monorepo，不在当前仓库。
 
-- `desktop` 是 AhaKey-X1 的多平台 monorepo,按**客户端 / 组件**组织源码,而不是把不同技术栈混在同一目录。
-- 各桌面客户端(macOS / Windows / Linux)保留各自的运行时、UI 结构、系统集成方式与构建链路。
-- 设备侧的桌面通信组件(BLE ↔ TCP 桥接)独立成顶层目录。
+## 两个应用入口
 
-## 客户端与组件
+`AhaKey Studio` 是迁移前的完整 Swift 客户端，包含设备配置、语音、账号、刷机，以及 `Tools/Agent` 中的后台 daemon 和 Hook CLI。它仍通过 Swift CoreBluetooth 管理硬件，Studio 与 daemon 之间保留旧的连接 owner 切换。
 
-### macOS — `ahakeyconfig-mac/`(主力)
+`Studio Frontend` 是面向独立 Rust Runtime 的新 SwiftUI 客户端。它的 source target 不包含 BLE、旧 Agent、固件命令编码或刷机执行器。开发者可通过 `Studio Frontend Mock` scheme 无设备运行；真实模式使用本机 WebSocket + JSON-RPC，协议见 [当前接口子集](../contracts/runtime-v1/README.md)。Rust 实现在独立仓库，尚未完成联调。
 
-- Swift / SwiftUI 原生客户端,由仓库根 `Package.swift` 构建(target `AhaKeyConfig`)。
-- `Sources/Agent/` — 后台守护进程 `ahakeyconfig-agent`:维持 BLE 连接,并按键盘物理拨杆状态回应各 IDE 的审批 hook(`ClaudeHookHandler` / `CursorHookHandler` / `CodexHookHandler` / `KimiHookHandler`,共享 `HookSupport`)。
-- `Sources/` — 设备配置、BLE 通信、OLED 资源、voice agent、工作台 UI。
-- `Resources/` — 运行所需资源。
-- `.github/workflows/` — CI、签名、公证与 DMG 发布；`scripts/` 只保留 Python Socket 回归工具。
+```text
+Studio Frontend → StudioModel → RuntimeClient → 本机 IPC → Rust Runtime → 键盘
+                      ├─ StudioDraftStore：用户草稿
+                      └─ RuntimeStore：后台状态与操作结果
+                                   └─ RuntimeVibeBarBridge → VibeBar
+```
 
-### Windows
+Rust Runtime 的目标职责是唯一持有设备连接，执行配置、资源上传、Hook 和刷机。Studio 退出只关闭自己的连接，不终止 Runtime。当前 Mock/fixture 不代表这些后台能力已实现。
 
-- `ahakeyconfig-win-java/` — Java · JavaFX(Maven),入口 `com.example.ahakey.Main`。
-- `ahakeyconfig-win-python/` — Python · PyInstaller(Capswriter 基线),入口 `main.py`;`hook/` 下含 IDE hook 安装。
+## 代码目录
 
-### Linux — `ahakeyconfig-ubuntu-java/`
+| 目录 | 作用 |
+|---|---|
+| `StudioFrontend/` | 新应用入口、页面、草稿与后台状态、IPC 和 Mock |
+| `AhaKey Studio/App`、`Features`、`Services` | 旧应用入口与完整功能实现；少量纯模型和账号实现被新 target 显式复用 |
+| `AhaKey Studio/SharedPresentation` | 共用键盘画布、快捷键编辑器、GIF 预览、账号页面与显示模型 |
+| `Modules/VibeBar` | 共用的 macOS 浮层 UI |
+| `Modules/AhaKeyPluginKit`、`sdks/typescript` | 现有插件宿主与 stdio JSON-RPC SDK，尚不是 Runtime SDK |
+| `Tools/Agent` | 旧 Swift daemon 与工具 Hook CLI |
+| `contracts/runtime-v1` | 当前新前端的协议 Schema 和 fixtures |
+| `Tests/StudioFrontendTests` | 前端状态、操作恢复、真实 WebSocket fixture 联调 |
 
-- Java · JavaFX(Maven),入口 `com.example.ahakey.Main`;含 Linux 语音输入(`LinuxVoiceConfig`)等。
+## 状态与执行约束
 
-### 共享设备组件
+- Studio 草稿与 Runtime 权威状态分开保存；选中编辑模式不自动切换设备实际模式。
+- 前端提交配置意图，不组装 BLE 字节、Flash 地址或设备写入序列。
+- 快照与事件用于恢复状态；请求 id 只配对当前连接的响应，operationId 用于跨连接查询操作。
+- 配置基线过期时阻止保存；未知状态不以默认电量或自动批准状态代替。
+- Rust 接管真机前必须停止旧 BLE owner。新前端不会在 IPC 失败时自动启用旧蓝牙实现。
+- macOS 语音、输入注入及权限属于执行它们的进程；新前端当前未启动这些能力。
 
-- `BLE_tcp_bridge/` — BLE ↔ TCP 桥接(C#),供非原生客户端通过本地 TCP 与设备交互。
-
-## 拨杆审批闸门
-
-各平台客户端都把键盘的物理**拨杆**当作 AI coding agent 的硬件审批闸门:拨到「自动」时 Claude / Cursor / Codex / Kimi 的工具调用自动放行,拨回时交回人工确认。守护进程通过 BLE 读拨杆状态并回应每个 IDE hook —— **fail-safe:读不到拨杆时一律默认「交人确认」,绝不误放行。**
-
-## 当前边界
-
-- 云端后端不在本仓库。
-- 各客户端不共享目录结构。
-- 构建产物不应入库,发布走 GitHub Releases。
+具体运行方式、数据迁移和当前限制见 [独立前端开发说明](studio-frontend.md)，完整迁移路线见 [拆分方案](studio-frontend-extraction.md)。云端账号服务和 Rust 后台均不在本仓库实现。

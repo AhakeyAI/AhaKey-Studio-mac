@@ -41,6 +41,7 @@ AhaKey Desktop is the companion suite for the **AhaKey-X1 (Vibecoding Keyboard)*
 | [Installation](docs/installation.md) · [Downloads](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) | Build instructions and published installers |
 | [SDK overview](sdks/README.md) · [TypeScript guide](sdks/typescript/README.md) | Plugin development, API reference, and runnable examples |
 | [Architecture](docs/architecture.md) · [BLE protocol](docs/ble-protocol.md) | System design and keyboard communication |
+| [Standalone Studio frontend](docs/studio-frontend.md) · [Rust backend integration](docs/rust-backend-integration.md) · [Runtime contract](contracts/runtime-v1/README.md) | Independent SwiftUI target, Mock development, and Rust IPC integration |
 | [Localization](docs/localization.md) | Chinese and English, language selection, translation checks, and adding Japanese |
 | [Contributing](CONTRIBUTING.md) | Bug reports, pull requests, and validation |
 
