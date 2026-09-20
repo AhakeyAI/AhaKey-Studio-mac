@@ -1,0 +1,18 @@
+{
+  "subscriptionId": "fixture-subscription",
+  "snapshot": {
+    "instanceId": "fixture-runtime",
+    "sequence": "9007199254740993",
+    "devices": [
+      {
+        "deviceId": "fixture-x1",
+        "name": "AhaKey X1 · IPC Fixture",
+        "connectionState": "ready",
+        "batteryPercent": 82,
+        "workMode": 0,
+        "lever": "manual"
+      }
+    ],
+    "operations": []
+  }
+}

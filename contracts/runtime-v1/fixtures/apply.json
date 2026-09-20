@@ -1,0 +1,99 @@
+{
+  "operationId": "example-operation",
+  "deviceId": "fixture-x1",
+  "baseToken": "1",
+  "scope": {
+    "deviceFields": [
+      "brightnessPercent"
+    ],
+    "modes": [
+      0
+    ]
+  },
+  "changes": {
+    "device": {
+      "brightnessPercent": 60
+    },
+    "modes": [
+      {
+        "mode": 0,
+        "keys": [
+          {
+            "role": "voice",
+            "action": {
+              "type": "shortcut",
+              "modifiers": [],
+              "keyCode": 109
+            },
+            "description": "Record"
+          },
+          {
+            "role": "approve",
+            "action": {
+              "type": "shortcut",
+              "modifiers": [],
+              "keyCode": 40
+            },
+            "description": "Accept"
+          },
+          {
+            "role": "reject",
+            "action": {
+              "type": "shortcut",
+              "modifiers": [],
+              "keyCode": 41
+            },
+            "description": "Reject"
+          },
+          {
+            "role": "submit",
+            "action": {
+              "type": "shortcut",
+              "modifiers": [],
+              "keyCode": 42
+            },
+            "description": "Backspace"
+          }
+        ],
+        "lights": [
+          {
+            "state": "notification",
+            "effect": "pulseCenter"
+          },
+          {
+            "state": "permissionRequest",
+            "effect": "approvalWait"
+          },
+          {
+            "state": "postToolUse",
+            "effect": "successSweep"
+          },
+          {
+            "state": "preToolUse",
+            "effect": "singleMove"
+          },
+          {
+            "state": "sessionStart",
+            "effect": "rainbowWave"
+          },
+          {
+            "state": "stop",
+            "effect": "middleLight"
+          },
+          {
+            "state": "taskCompleted",
+            "effect": "successSweep"
+          },
+          {
+            "state": "userPromptSubmit",
+            "effect": "breathing"
+          },
+          {
+            "state": "sessionEnd",
+            "effect": "off"
+          }
+        ]
+      }
+    ]
+  }
+}

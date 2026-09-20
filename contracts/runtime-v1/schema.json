@@ -1,0 +1,536 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AhaKey Studio frontend phase-one wire types",
+  "$defs": {
+    "Version": {
+      "type": "object",
+      "properties": {
+        "major": {
+          "type": "integer"
+        },
+        "minor": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "major",
+        "minor"
+      ],
+      "additionalProperties": true
+    },
+    "Hello": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "$ref": "#/$defs/Version"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "runtimeVersion": {
+          "type": "string"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "protocol",
+        "instanceId",
+        "runtimeVersion",
+        "methods"
+      ],
+      "additionalProperties": true
+    },
+    "Device": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "connectionState": {
+          "type": "string"
+        },
+        "batteryPercent": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workMode": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lever": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "deviceId",
+        "name",
+        "connectionState"
+      ],
+      "additionalProperties": true
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "operationId": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "progress": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "errorCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effect": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "operationId",
+        "deviceId",
+        "status"
+      ],
+      "additionalProperties": true
+    },
+    "Snapshot": {
+      "type": "object",
+      "properties": {
+        "instanceId": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        },
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Device"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Operation"
+          }
+        }
+      },
+      "required": [
+        "instanceId",
+        "sequence",
+        "devices",
+        "operations"
+      ],
+      "additionalProperties": true
+    },
+    "Subscription": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/Snapshot"
+        }
+      },
+      "required": [
+        "subscriptionId",
+        "snapshot"
+      ],
+      "additionalProperties": true
+    },
+    "MacroStep": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "keyDown",
+                "keyUp"
+              ]
+            },
+            "keyCode": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "required": [
+            "type",
+            "keyCode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "delay"
+            },
+            "delayMs": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 765,
+              "multipleOf": 3
+            }
+          },
+          "required": [
+            "type",
+            "delayMs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "releaseAll",
+                "noOp"
+              ]
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Action": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "disabled"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "shortcut"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "control",
+                  "shift",
+                  "alt",
+                  "gui"
+                ]
+              }
+            },
+            "keyCode": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          },
+          "required": [
+            "type",
+            "modifiers",
+            "keyCode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "macro"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/MacroStep"
+              },
+              "minItems": 1,
+              "maxItems": 49
+            }
+          },
+          "required": [
+            "type",
+            "steps"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Key": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "voice",
+            "approve",
+            "reject",
+            "submit"
+          ]
+        },
+        "action": {
+          "$ref": "#/$defs/Action"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 20,
+          "pattern": "^[\\x00-\\x7f]*$"
+        }
+      },
+      "required": [
+        "role",
+        "action",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "LightMapping": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "notification",
+            "permissionRequest",
+            "postToolUse",
+            "preToolUse",
+            "sessionStart",
+            "stop",
+            "taskCompleted",
+            "userPromptSubmit",
+            "sessionEnd"
+          ]
+        },
+        "effect": {
+          "enum": [
+            "off",
+            "middleLight",
+            "singleMove",
+            "breathing",
+            "rainbowMove",
+            "rainbowWave",
+            "rainbowWaveSlow",
+            "typingRipple",
+            "comet",
+            "scanBar",
+            "pulseCenter",
+            "warningBlink",
+            "successSweep",
+            "blueThinking",
+            "lowBattery",
+            "chargingFlow",
+            "approvalWait"
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "effect"
+      ],
+      "additionalProperties": false
+    },
+    "Mode": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Key"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LightMapping"
+          },
+          "minItems": 9,
+          "maxItems": 9
+        }
+      },
+      "required": [
+        "mode",
+        "keys",
+        "lights"
+      ],
+      "additionalProperties": false
+    },
+    "Configuration": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "object",
+          "properties": {
+            "brightnessPercent": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "brightnessPercent"
+          ],
+          "additionalProperties": false
+        },
+        "modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mode"
+          },
+          "minItems": 1,
+          "maxItems": 4
+        }
+      },
+      "required": [
+        "device",
+        "modes"
+      ],
+      "additionalProperties": false
+    },
+    "ConfigurationDocument": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "baseToken": {
+          "type": "string"
+        },
+        "configuration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Configuration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "deviceId",
+        "baseToken"
+      ],
+      "additionalProperties": true
+    },
+    "Apply": {
+      "type": "object",
+      "properties": {
+        "operationId": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "baseToken": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "deviceFields": {
+              "type": "array",
+              "items": {
+                "const": "brightnessPercent"
+              }
+            },
+            "modes": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              }
+            }
+          },
+          "required": [
+            "deviceFields",
+            "modes"
+          ],
+          "additionalProperties": false
+        },
+        "changes": {
+          "$ref": "#/$defs/Configuration"
+        }
+      },
+      "required": [
+        "operationId",
+        "deviceId",
+        "baseToken",
+        "scope",
+        "changes"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

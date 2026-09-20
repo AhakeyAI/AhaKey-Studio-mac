@@ -1,0 +1,16 @@
+{
+  "protocol": {
+    "major": 1,
+    "minor": 0
+  },
+  "instanceId": "fixture-runtime",
+  "runtimeVersion": "fixture-0.1",
+  "methods": [
+    "runtime.subscribe",
+    "configuration.get",
+    "configuration.apply",
+    "operation.get",
+    "device.connect",
+    "device.disconnect"
+  ]
+}
