@@ -4,7 +4,7 @@
 
 **The macOS companion app for the AhaKey-X1 — the Vibecoding Keyboard.**
 
-[**English**](README.md) &nbsp;·&nbsp; [**简体中文**](docs/zh/README.md)
+[**English**](README.md) &nbsp;·&nbsp; [**简体中文**](docs/zh/README.md) &nbsp;·&nbsp; [**日本語**](docs/ja/README.md)
 
 [**Documentation**](#documentation) &nbsp;·&nbsp; [**SDK**](sdks/README.md) &nbsp;·&nbsp; [**⭐ Star History**](#star-history) &nbsp;·&nbsp; [**🤝 Contributing**](#contributing)
 
@@ -37,11 +37,13 @@ AhaKey Desktop is the companion suite for the **AhaKey-X1 (Vibecoding Keyboard)*
 
 | Resource | What you'll find |
 |---|---|
+| [Documentation by language](docs/README.md) | English, Chinese, and Japanese Studio/Rust guides and translation maintenance |
 | [Project overview](docs/overview.md) | Features, clients, macOS highlights, build commands, and repository layout |
 | [Installation](docs/installation.md) · [Downloads](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) | Build instructions and published installers |
 | [SDK overview](sdks/README.md) · [TypeScript guide](sdks/typescript/README.md) | Plugin development, API reference, and runnable examples |
 | [Architecture](docs/architecture.md) · [BLE protocol](docs/ble-protocol.md) | System design and keyboard communication |
-| [Localization](docs/localization.md) | Chinese and English, language selection, translation checks, and adding Japanese |
+| [Standalone Studio frontend](docs/studio-frontend.md) · [Rust backend integration](docs/rust-backend-integration.md) · [Runtime contract](contracts/runtime-v1/README.md) | Independent SwiftUI target, Mock development, and Rust IPC integration |
+| [Localization](docs/localization.md) | Chinese, English, and Japanese app resources, language selection, and translation checks |
 | [Contributing](CONTRIBUTING.md) | Bug reports, pull requests, and validation |
 
 <a id="star-history"></a>
