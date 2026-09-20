@@ -4,7 +4,7 @@
 
 **AhaKey-X1（Vibecoding Keyboard）macOS 桌面端 · 键盘控制 + 拨杆审批 + 本机语音 Agent**
 
-[**English**](../../README.md) &nbsp;·&nbsp; [**简体中文**](README.md)
+[**English**](../../README.md) &nbsp;·&nbsp; [**简体中文**](README.md) &nbsp;·&nbsp; [**日本語**](../ja/README.md)
 
 [**文档**](#documentation) &nbsp;·&nbsp; [**SDK**](sdk.md) &nbsp;·&nbsp; [**⭐ Star 趋势**](#star-history) &nbsp;·&nbsp; [**🤝 参与贡献**](#contributing)
 
@@ -37,11 +37,13 @@ AhaKey Desktop 是 **AhaKey-X1（Vibecoding Keyboard）** 的配套桌面套件�
 
 | 文档 | 内容 |
 |---|---|
+| [多语言文档索引](../README.md) | 中英日 Studio/Rust 开发文档与翻译维护约定 |
 | [项目概览](overview.md) | 功能介绍、各平台客户端、macOS 主要能力、构建命令和仓库结构 |
 | [安装说明](../installation.md) · [下载安装包](https://github.com/ZephyrKeXiner/AhaKey-Studio/releases) | 源码构建步骤与已发布安装包 |
 | [SDK 总览](sdk.md) · [TypeScript 指南](typescript-sdk.md) | 插件开发、API 参考和可运行示例 |
-| [架构说明](../architecture.md) · [BLE 协议](../ble-protocol.md) | 系统设计与键盘通信 |
-| [本地化](../localization.md) | 中英翻译、语言切换、日语扩展与验证 |
+| [架构说明](architecture.md) · [BLE 协议](../ble-protocol.md) | 系统设计与键盘通信 |
+| [独立 Studio 前端](studio-frontend.md) · [Rust 后端开发文档](rust-backend-integration.md) · [Runtime 协议](../../contracts/runtime-v1/README.zh-CN.md) | 独立 SwiftUI target、Mock 开发与 Rust IPC 接入 |
+| [本地化](../localization.md) | 中英日应用资源、语言切换与翻译验证 |
 | [参与贡献](CONTRIBUTING.md) | 问题反馈、Pull Request 和验证方式 |
 
 <a id="star-history"></a>

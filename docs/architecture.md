@@ -1,40 +1,46 @@
 # Architecture
 
-## 组织原则
+**English** · [简体中文](zh/architecture.md) · [日本語](ja/architecture.md)
 
-- `desktop` 是 AhaKey-X1 的多平台 monorepo,按**客户端 / 组件**组织源码,而不是把不同技术栈混在同一目录。
-- 各桌面客户端(macOS / Windows / Linux)保留各自的运行时、UI 结构、系统集成方式与构建链路。
-- 设备侧的桌面通信组件(BLE ↔ TCP 桥接)独立成顶层目录。
+> Branch scope: this guide describes the Studio/Rust implementation on [`dev`](https://github.com/AhakeyAI/AhaKey-Studio-mac/tree/5eb399c93c838c6047e3975f3dfdaf4d346c4b7c). The `main` branch receives documentation only in this change. Run frontend commands from a checkout of that implementation; its source, fixtures, and build targets are not included in this documentation branch.
 
-## 客户端与组件
+This repository contains the Xcode project for macOS Studio. References in older documents to Windows, Linux, a BLE TCP bridge, or a root `Package.swift` describe the former Desktop monorepo, not this repository.
 
-### macOS — `ahakeyconfig-mac/`(主力)
+## Two application entry points
 
-- Swift / SwiftUI 原生客户端,由仓库根 `Package.swift` 构建(target `AhaKeyConfig`)。
-- `Sources/Agent/` — 后台守护进程 `ahakeyconfig-agent`:维持 BLE 连接,并按键盘物理拨杆状态回应各 IDE 的审批 hook(`ClaudeHookHandler` / `CursorHookHandler` / `CodexHookHandler` / `KimiHookHandler`,共享 `HookSupport`)。
-- `Sources/` — 设备配置、BLE 通信、OLED 资源、voice agent、工作台 UI。
-- `Resources/` — 运行所需资源。
-- `.github/workflows/` — CI、签名、公证与 DMG 发布；`scripts/` 只保留 Python Socket 回归工具。
+`AhaKey Studio` is the full Swift application from before the migration. It includes device configuration, voice, accounts, firmware flashing, and the background daemon and Hook CLI under `Tools/Agent`. It still manages hardware through Swift CoreBluetooth and retains the legacy device connection ownership handoff between Studio and the daemon.
 
-### Windows
+`Studio Frontend` is the new SwiftUI client for a separate Rust Runtime. Its source target excludes BLE, the old Agent, firmware command encoding, and the flashing executor. Developers can run it without hardware through the `Studio Frontend Mock` scheme. Real mode uses a local WebSocket connection with JSON-RPC; see the [current contract](../contracts/runtime-v1/README.md). The Rust implementation lives in a separate repository and has not yet completed integration testing.
 
-- `ahakeyconfig-win-java/` — Java · JavaFX(Maven),入口 `com.example.ahakey.Main`。
-- `ahakeyconfig-win-python/` — Python · PyInstaller(Capswriter 基线),入口 `main.py`;`hook/` 下含 IDE hook 安装。
+```text
+Studio Frontend → StudioModel → RuntimeClient → Local IPC → Rust Runtime → Keyboard
+                      ├─ StudioDraftStore: user drafts
+                      └─ RuntimeStore: backend state and operation results
+                                   └─ RuntimeVibeBarBridge → VibeBar
+```
 
-### Linux — `ahakeyconfig-ubuntu-java/`
+Rust Runtime is intended to own the device connection and execute configuration, asset uploads, Hooks, and firmware flashing. Closing Studio only closes its client connection; it does not terminate Runtime. The current Mock and fixture do not establish that these backend capabilities have been implemented.
 
-- Java · JavaFX(Maven),入口 `com.example.ahakey.Main`;含 Linux 语音输入(`LinuxVoiceConfig`)等。
+## Source layout
 
-### 共享设备组件
+| Directory | Purpose |
+|---|---|
+| `StudioFrontend/` | New application entry point, views, drafts, backend state, IPC, and Mock |
+| `AhaKey Studio/App`, `Features`, `Services` | Legacy entry point and full implementation; the new target explicitly reuses a small set of pure models and account code |
+| `AhaKey Studio/SharedPresentation` | Shared keyboard canvas, shortcut editor, GIF preview, account page, and display models |
+| `Modules/VibeBar` | Shared macOS overlay UI |
+| `Modules/AhaKeyPluginKit`, `sdks/typescript` | Existing plugin host and stdio JSON-RPC SDK; these are not yet a Runtime SDK |
+| `Tools/Agent` | Legacy Swift daemon and tool Hook CLIs |
+| `contracts/runtime-v1` | Protocol schema and fixtures consumed by the new frontend |
+| `Tests/StudioFrontendTests` | Frontend state, operation recovery, and integration with a real WebSocket fixture |
 
-- `BLE_tcp_bridge/` — BLE ↔ TCP 桥接(C#),供非原生客户端通过本地 TCP 与设备交互。
+## State and execution constraints
 
-## 拨杆审批闸门
+- Studio drafts and Runtime authoritative state are stored separately. Selecting an editing mode does not switch the device's actual mode.
+- The frontend submits configuration intent; it does not assemble BLE bytes, Flash addresses, or device write sequences.
+- Snapshots and events restore state. A request id pairs responses within a connection; operationId supports operation queries across connections.
+- An expired configuration baseline blocks saving. Unknown state is not replaced with a default battery level or automatic approval state.
+- Stop the legacy BLE owner before Rust takes over real hardware. The new frontend never automatically enables the old Bluetooth implementation when IPC fails.
+- macOS voice, input injection, and permissions belong to the process executing them. The new frontend does not currently start these capabilities.
 
-各平台客户端都把键盘的物理**拨杆**当作 AI coding agent 的硬件审批闸门:拨到「自动」时 Claude / Cursor / Codex / Kimi 的工具调用自动放行,拨回时交回人工确认。守护进程通过 BLE 读拨杆状态并回应每个 IDE hook —— **fail-safe:读不到拨杆时一律默认「交人确认」,绝不误放行。**
-
-## 当前边界
-
-- 云端后端不在本仓库。
-- 各客户端不共享目录结构。
-- 构建产物不应入库,发布走 GitHub Releases。
+See [standalone frontend development](studio-frontend.md) for running the app, data migration, and current limitations, and the [extraction plan](studio-frontend-extraction.md) for the full migration roadmap. Neither the cloud account service nor the Rust backend is implemented in this repository.
